@@ -1,122 +1,187 @@
-# My Stake Project
+# 游戏站 (My Stake)
 
-A modern Next.js project built with TypeScript, Tailwind CSS, Heroicons, and Zustand.
+一个现代化的在线游戏平台，基于 Next.js 构建，提供丰富的游戏浏览、搜索和试玩功能。
 
-## 🚀 Tech Stack
+## ✨ 主要功能
 
-- **Next.js 16** - React framework with App Router
-- **TypeScript** - Type-safe JavaScript
-- **Tailwind CSS 4** - Utility-first CSS framework
-- **Heroicons** - Beautiful hand-crafted SVG icons
-- **Zustand** - Lightweight state management
-- **pnpm** - Fast, disk space efficient package manager
-- **ESLint** - Code linting and quality
+- 🎮 **游戏浏览** - 首页展示热门游戏、分类和统计数据
+- 🔍 **搜索与筛选** - 支持按游戏名称、描述、分类进行搜索和筛选
+- 📱 **游戏详情** - 查看游戏详细信息、评分和游玩次数
+- 🎯 **游戏试玩** - 登录后可以试玩游戏（包含倒计时和游戏界面）
+- 👤 **用户认证** - 支持登录和注册功能，使用手机号或邮箱
+- 🌓 **主题切换** - 支持明暗主题切换，自动跟随系统设置
+- 💾 **状态管理** - 使用 Zustand 进行状态管理，支持持久化存储
 
-## 📁 Project Structure
+## 🚀 技术栈
+
+- **Next.js 16** - React 框架，使用 App Router
+- **TypeScript** - 类型安全的 JavaScript
+- **Tailwind CSS 4** - 实用优先的 CSS 框架
+- **Heroicons** - 精美的 SVG 图标库
+- **Zustand** - 轻量级状态管理库
+- **next-themes** - 主题切换库
+- **pnpm** - 快速、高效的包管理器
+- **ESLint** - 代码检查和质量保证
+
+## 📁 项目结构
 
 ```
 my-stake/
-├── app/                    # Next.js App Router
-│   ├── layout.tsx         # Root layout
-│   ├── page.tsx           # Home page
-│   └── globals.css        # Global styles with Tailwind
-├── components/            # React components
-│   ├── Counter.tsx        # Counter component with Zustand
-│   └── IconShowcase.tsx   # Heroicons showcase
-├── stores/                # Zustand stores
-│   └── useCounterStore.ts # Example counter store
-├── public/                # Static assets
-└── package.json           # Dependencies and scripts
+├── app/                      # Next.js App Router
+│   ├── layout.tsx            # 根布局（包含 Header 和 Footer）
+│   ├── page.tsx              # 首页
+│   ├── globals.css           # 全局样式（Tailwind CSS）
+│   ├── auth/
+│   │   └── page.tsx          # 登录/注册页面
+│   ├── games/
+│   │   ├── page.tsx          # 游戏列表页
+│   │   └── [id]/
+│   │       └── page.tsx      # 游戏详情页
+│   └── play/
+│       └── [id]/
+│           └── page.tsx      # 游戏试玩页
+├── components/               # React 组件
+│   ├── Header.tsx            # 导航头部组件
+│   ├── Footer.tsx            # 页脚组件
+│   ├── GameCard.tsx          # 游戏卡片组件
+│   ├── ThemeToggle.tsx       # 主题切换组件
+│   ├── Counter.tsx           # 计数器组件（示例）
+│   └── IconShowcase.tsx      # 图标展示组件（示例）
+├── stores/                   # Zustand 状态管理
+│   ├── useAuthStore.ts       # 认证状态管理
+│   └── useCounterStore.ts    # 计数器状态管理（示例）
+├── data/                     # 数据文件
+│   └── mockGames.ts          # 模拟游戏数据
+├── types/                    # TypeScript 类型定义
+│   └── game.ts               # 游戏类型定义
+└── public/                   # 静态资源
 ```
 
-## 🛠️ Getting Started
+## 🛠️ 快速开始
 
-### Prerequisites
+### 环境要求
 
 - Node.js 18+ 
-- pnpm (recommended) or npm
+- pnpm（推荐）或 npm
 
-### Installation
+### 安装依赖
 
 ```bash
-# Install dependencies
+# 安装依赖
 pnpm install
 ```
 
-### Development
+### 开发模式
 
 ```bash
-# Start development server
+# 启动开发服务器
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+在浏览器中打开 [http://localhost:3000](http://localhost:3000)
 
-### Build
+### 生产构建
 
 ```bash
-# Build for production
+# 构建生产版本
 pnpm build
 
-# Start production server
+# 启动生产服务器
 pnpm start
 ```
 
-### Lint
+### 代码检查
 
 ```bash
-# Run ESLint
+# 运行 ESLint
 pnpm lint
 ```
 
-## 📚 Key Features
+## 📚 核心功能说明
 
-### Zustand State Management
+### 用户认证系统
 
-Example store located in `stores/useCounterStore.ts`:
+使用 Zustand 实现认证状态管理，支持登录和注册功能：
+
+- **登录**：支持手机号或邮箱登录
+- **注册**：自动验证账号格式（手机号或邮箱）和密码长度
+- **持久化**：使用 localStorage 持久化用户信息
+- **路由保护**：未登录用户访问试玩页面会自动跳转到登录页
+
+```typescript
+// stores/useAuthStore.ts
+import { useAuthStore } from '@/stores/useAuthStore';
+
+const { login, register, logout, isAuthenticated, userInfo } = useAuthStore();
+```
+
+### 游戏数据管理
+
+游戏数据存储在 `data/mockGames.ts` 中，包含：
+- 游戏基本信息（标题、封面、描述）
+- 分类标签
+- 评分和游玩次数
+- 游戏详情描述
+
+### 主题切换
+
+使用 `next-themes` 实现主题切换：
+- 支持明暗主题
+- 自动跟随系统设置
+- 主题状态持久化
+
+### 路由结构
+
+- `/` - 首页（热门游戏、分类、统计数据）
+- `/games` - 游戏列表页（支持搜索和分类筛选）
+- `/games/[id]` - 游戏详情页
+- `/play/[id]` - 游戏试玩页（需要登录）
+- `/auth` - 登录/注册页面
+
+## 🎨 自定义配置
+
+- **Tailwind 配置**：编辑 `app/globals.css` 进行主题自定义
+- **组件**：在 `components/` 目录下添加新组件
+- **状态管理**：在 `stores/` 目录下创建新的 Zustand store
+- **路由**：在 `app/` 目录下按照 Next.js App Router 约定添加新页面
+- **游戏数据**：在 `data/mockGames.ts` 中添加或修改游戏数据
+
+## 📝 开发说明
+
+### 添加新游戏
+
+在 `data/mockGames.ts` 中添加新的游戏对象：
+
+```typescript
+{
+  id: 'unique-id',
+  title: '游戏名称',
+  cover: '封面图片URL',
+  category: ['分类1', '分类2'],
+  rating: 4.5,
+  playCount: 10000,
+  description: '简短描述',
+  demoUrl: '/play/game-id',
+  detailedDescription: '详细描述（可选）',
+}
+```
+
+### 状态管理示例
+
+创建新的 Zustand store：
 
 ```typescript
 import { create } from 'zustand';
 
-interface CounterState {
-  count: number;
-  increment: () => void;
-  decrement: () => void;
-  reset: () => void;
+interface MyState {
+  // 状态定义
 }
 
-export const useCounterStore = create<CounterState>((set) => ({
-  count: 0,
-  increment: () => set((state) => ({ count: state.count + 1 })),
-  decrement: () => set((state) => ({ count: state.count - 1 })),
-  reset: () => set({ count: 0 }),
+export const useMyStore = create<MyState>((set) => ({
+  // 状态和操作
 }));
 ```
 
-### Heroicons Usage
-
-```typescript
-import { HomeIcon, UserIcon } from '@heroicons/react/24/outline';
-import { HomeIcon as HomeIconSolid } from '@heroicons/react/24/solid';
-
-// Outline icons
-<HomeIcon className="w-6 h-6" />
-
-// Solid icons
-<HomeIconSolid className="w-6 h-6" />
-```
-
-### Tailwind CSS
-
-The project uses Tailwind CSS v4 with CSS-based configuration. Styles are defined in `app/globals.css`.
-
-## 🎨 Customization
-
-- **Tailwind Config**: Edit `app/globals.css` for theme customization
-- **Components**: Add new components in the `components/` directory
-- **Stores**: Create new Zustand stores in the `stores/` directory
-- **Routes**: Add new pages in the `app/` directory following Next.js App Router conventions
-
-## 📝 License
+## 📄 License
 
 MIT
