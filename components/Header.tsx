@@ -1,9 +1,10 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { useAuthStore } from '@/stores/useAuthStore';
 import ThemeToggle from '@/components/ThemeToggle';
+import LocaleToggle from '@/components/LocaleToggle';
+import { Link, usePathname, useRouter } from '@/i18n/navigation';
 import {
   HomeIcon,
   Squares2X2Icon,
@@ -15,6 +16,7 @@ export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const { userInfo, isAuthenticated, logout } = useAuthStore();
+  const t = useTranslations();
 
   const handleLogout = () => {
     logout();
@@ -22,7 +24,7 @@ export default function Header() {
   };
 
   const isActive = (path: string) => {
-    return pathname === path;
+    return pathname === path || pathname.startsWith(path + '/');
   };
 
   return (
@@ -33,7 +35,7 @@ export default function Header() {
           <Link href="/" className="flex items-center gap-2">
             <Squares2X2Icon className="w-8 h-8 text-blue-600 dark:text-blue-400" />
             <span className="text-xl font-bold text-gray-900 dark:text-white">
-              游戏站
+              {t('common.siteName')}
             </span>
           </Link>
 
@@ -48,7 +50,7 @@ export default function Header() {
               }`}
             >
               <HomeIcon className="w-5 h-5" />
-              <span>首页</span>
+              <span>{t('common.home')}</span>
             </Link>
             <Link
               href="/games"
@@ -59,13 +61,14 @@ export default function Header() {
               }`}
             >
               <Squares2X2Icon className="w-5 h-5" />
-              <span>游戏列表</span>
+              <span>{t('common.games')}</span>
             </Link>
           </nav>
 
-          {/* Right Section: Theme + Auth */}
+          {/* Right Section: Theme + Locale + Auth */}
           <div className="flex items-center gap-3">
             <ThemeToggle />
+            <LocaleToggle />
             {isAuthenticated && userInfo ? (
               <>
                 <div className="hidden sm:flex items-center gap-2 text-gray-700 dark:text-gray-300">
@@ -77,16 +80,16 @@ export default function Header() {
                   className="flex items-center gap-2 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-sm"
                 >
                   <ArrowRightOnRectangleIcon className="w-4 h-4" />
-                  <span className="hidden sm:inline">退出登录</span>
+                  <span className="hidden sm:inline">{t('common.logout')}</span>
                 </button>
               </>
             ) : (
               <Link
-                href="/auth"
+                href="?modal=auth&tab=login"
                 className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm"
               >
                 <UserIcon className="w-4 h-4" />
-                <span>登录 / 注册</span>
+                <span>{t('common.loginOrRegister')}</span>
               </Link>
             )}
           </div>

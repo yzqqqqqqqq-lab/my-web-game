@@ -1,0 +1,50 @@
+import type { Metadata } from "next";
+import { hasLocale, NextIntlClientProvider } from 'next-intl';
+import { notFound } from "next/navigation";
+import "./globals.css";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import AuthModal from "@/components/AuthModal";
+import { ThemeProvider } from "next-themes";
+import { locales} from "@/i18n/routing";
+import { routing } from "@/i18n/routing";
+
+export const metadata: Metadata = {
+  title: "游戏站 - 在线游戏平台",
+  description: "专业的在线游戏平台，提供丰富的游戏体验",
+};
+
+export default async function LocaleLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}) {
+  // 在 Next.js 15+ 中，params 是 Promise，在 async 函数中直接 await
+  const resolvedParams = await params;
+  const locale = resolvedParams.locale as (typeof locales)[number];
+
+  // 验证 locale 是否有效
+
+
+  if(!hasLocale(routing.locales, locale)){
+    notFound();
+  }
+
+  return (
+    <html lang={locale === 'zh' ? 'zh-CN' : 'en'} suppressHydrationWarning>
+      <body className="antialiased flex flex-col min-h-screen">
+        <NextIntlClientProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <AuthModal />
+          </ThemeProvider>
+        </NextIntlClientProvider>
+      </body>
+    </html>
+  );
+}
+

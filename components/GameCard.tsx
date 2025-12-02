@@ -1,8 +1,9 @@
 'use client';
 
-import Link from 'next/link';
 import Image from 'next/image';
 import { Game } from '@/types/game';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 import { StarIcon } from '@heroicons/react/24/solid';
 import { StarIcon as StarOutlineIcon } from '@heroicons/react/24/outline';
 import { PlayIcon } from '@heroicons/react/24/outline';
@@ -12,6 +13,7 @@ interface GameCardProps {
 }
 
 export default function GameCard({ game }: GameCardProps) {
+  const t = useTranslations();
   const renderStars = (rating: number) => {
     const stars = [];
     const fullStars = Math.floor(rating);
@@ -50,7 +52,7 @@ export default function GameCard({ game }: GameCardProps) {
           <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <div className="flex items-center gap-1 bg-white/90 dark:bg-zinc-900/90 px-2 py-1 rounded-full">
               <PlayIcon className="w-4 h-4 text-blue-600" />
-              <span className="text-xs font-medium text-gray-900 dark:text-white">试玩</span>
+              <span className="text-xs font-medium text-gray-900 dark:text-white">{t('gameDetail.startGame')}</span>
             </div>
           </div>
         </div>
@@ -82,7 +84,7 @@ export default function GameCard({ game }: GameCardProps) {
             </span>
           </div>
           <span className="text-sm text-gray-500 dark:text-gray-500">
-            {game.playCount.toLocaleString()} 次游玩
+            {game.playCount.toLocaleString()} {t('common.playCount')}
           </span>
         </div>
         

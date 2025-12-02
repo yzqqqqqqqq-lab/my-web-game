@@ -1,0 +1,92 @@
+{
+  "common": {
+    "siteName": "游戏站",
+    "home": "首页",
+    "games": "游戏列表",
+    "login": "登录",
+    "register": "注册",
+    "logout": "退出登录",
+    "loginOrRegister": "登录 / 注册",
+    "back": "返回",
+    "close": "关闭",
+    "loading": "处理中...",
+    "search": "搜索",
+    "clear": "清除",
+    "clearFilters": "清除筛选",
+    "clearAllFilters": "清除所有筛选",
+    "filter": "筛选",
+    "currentFilter": "当前筛选：",
+    "category": "分类",
+    "gamesCount": "款游戏",
+    "totalPlayCount": "总游玩次数",
+    "averageRating": "平均评分",
+    "playCount": "次游玩"
+  },
+  "home": {
+    "title": "游戏站",
+    "subtitle": "发现精彩游戏，开启你的游戏之旅",
+    "browseAllGames": "浏览所有游戏",
+    "hotGames": "热门游戏",
+    "gameCategories": "游戏分类",
+    "foundGames": "共找到 {count} 款游戏",
+    "totalGames": "共 {count} 款"
+  },
+  "games": {
+    "title": "游戏列表",
+    "subtitle": "发现更多精彩游戏，开始你的游戏之旅",
+    "searchPlaceholder": "搜索游戏名称、描述或分类...",
+    "categories": "游戏分类",
+    "noGamesFound": "未找到匹配的游戏",
+    "noGamesDescription": "尝试调整搜索条件或选择其他分类",
+    "foundGames": "共找到 {count} 款游戏"
+  },
+  "gameDetail": {
+    "gameNotFound": "游戏未找到",
+    "backToGames": "返回游戏列表",
+    "description": "游戏简介",
+    "startGame": "开始游戏",
+    "loginRequired": "（需要登录后试玩）"
+  },
+  "play": {
+    "gameNotFound": "游戏未找到",
+    "backToGames": "返回游戏列表",
+    "gameStart": "游戏开始！",
+    "currentScore": "当前分数",
+    "spin": "Spin",
+    "spinning": "旋转中...",
+    "resetScore": "重置分数",
+    "instruction": "点击 <strong>Spin</strong> 按钮随机生成分数（0-100）"
+  },
+  "auth": {
+    "welcomeBack": "欢迎回来",
+    "createAccount": "创建账号",
+    "loginSubtitle": "登录您的账号以继续",
+    "registerSubtitle": "注册新账号开始游戏之旅",
+    "username": "账号（手机号/邮箱）",
+    "usernamePlaceholder": "请输入手机号或邮箱",
+    "password": "密码",
+    "passwordPlaceholder": "请输入密码",
+    "passwordPlaceholderRegister": "至少6位字符",
+    "noAccount": "还没有账号？",
+    "hasAccount": "已有账号？",
+    "registerNow": "立即注册",
+    "loginNow": "立即登录",
+    "errors": {
+      "emptyFields": "请输入账号和密码",
+      "passwordTooShort": "密码长度至少6位",
+      "invalidFormat": "账号格式不正确（请输入手机号或邮箱）",
+      "operationFailed": "操作失败，请重试",
+      "unknownError": "发生错误，请重试"
+    }
+  },
+  "footer": {
+    "about": "关于我们",
+    "aboutDescription": "游戏站是一个专业的在线游戏平台，为您提供丰富的游戏体验。",
+    "quickLinks": "快速链接",
+    "legal": "法律信息",
+    "privacyPolicy": "隐私政策",
+    "termsOfService": "服务条款",
+    "copyright": "© 2025 游戏站 Demo. All rights reserved."
+  }
+}
+

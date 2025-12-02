@@ -1,14 +1,17 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { mockGames } from '@/data/mockGames';
 import GameCard from '@/components/GameCard';
+import { useRouter } from '@/i18n/navigation';
 import { Squares2X2Icon, MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
 export default function GamesPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const t = useTranslations();
   const initialCategory = searchParams.get('category') || '';
   const initialSearch = searchParams.get('search') || '';
 
@@ -83,11 +86,11 @@ export default function GamesPage() {
           <div className="flex items-center gap-3 mb-4">
             <Squares2X2Icon className="w-8 h-8 text-blue-600 dark:text-blue-400" />
             <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
-              游戏列表
+              {t('games.title')}
             </h1>
           </div>
           <p className="text-lg text-gray-600 dark:text-gray-400">
-            发现更多精彩游戏，开始你的游戏之旅
+            {t('games.subtitle')}
           </p>
         </div>
 
@@ -99,7 +102,7 @@ export default function GamesPage() {
               type="text"
               value={searchQuery}
               onChange={(e) => handleSearchChange(e.target.value)}
-              placeholder="搜索游戏名称、描述或分类..."
+              placeholder={t('games.searchPlaceholder')}
               className="w-full pl-12 pr-12 py-3 bg-white dark:bg-zinc-900 border border-gray-300 dark:border-zinc-700 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
             {searchQuery && (
@@ -117,7 +120,7 @@ export default function GamesPage() {
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-              游戏分类
+              {t('games.categories')}
             </h2>
             {hasActiveFilters && (
               <button
@@ -125,7 +128,7 @@ export default function GamesPage() {
                 className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 <XMarkIcon className="w-4 h-4" />
-                清除筛选
+                {t('common.clearFilters')}
               </button>
             )}
           </div>
@@ -156,15 +159,15 @@ export default function GamesPage() {
         {/* Active Filters Display */}
         {hasActiveFilters && (
           <div className="mb-6 flex items-center gap-2 flex-wrap">
-            <span className="text-sm text-gray-600 dark:text-gray-400">当前筛选：</span>
+            <span className="text-sm text-gray-600 dark:text-gray-400">{t('common.currentFilter')}</span>
             {selectedCategory && (
               <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full text-sm">
-                分类: {selectedCategory}
+                {t('common.category')}: {selectedCategory}
               </span>
             )}
             {searchQuery.trim() && (
               <span className="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded-full text-sm">
-                搜索: {searchQuery}
+                {t('common.search')}: {searchQuery}
               </span>
             )}
           </div>
@@ -182,10 +185,10 @@ export default function GamesPage() {
             {/* Stats */}
             <div className="mt-12 text-center">
               <p className="text-gray-600 dark:text-gray-400">
-                共找到 <span className="font-semibold text-blue-600 dark:text-blue-400">{filteredGames.length}</span> 款游戏
+                {t('games.foundGames', { count: filteredGames.length })}
                 {hasActiveFilters && (
                   <span className="ml-2 text-sm">
-                    （共 {mockGames.length} 款）
+                    （{t('home.totalGames', { count: mockGames.length })}）
                   </span>
                 )}
               </p>
@@ -197,17 +200,17 @@ export default function GamesPage() {
               <MagnifyingGlassIcon className="w-16 h-16 mx-auto mb-4" />
             </div>
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-              未找到匹配的游戏
+              {t('games.noGamesFound')}
             </h3>
             <p className="text-gray-600 dark:text-gray-400 mb-6">
-              尝试调整搜索条件或选择其他分类
+              {t('games.noGamesDescription')}
             </p>
             {hasActiveFilters && (
               <button
                 onClick={clearFilters}
                 className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
               >
-                清除所有筛选
+                {t('common.clearAllFilters')}
               </button>
             )}
           </div>

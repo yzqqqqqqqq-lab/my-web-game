@@ -1,23 +1,24 @@
 'use client';
 
 import { use } from 'react';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { mockGames } from '@/data/mockGames';
 import { useAuthStore } from '@/stores/useAuthStore';
+import { Link, useRouter } from '@/i18n/navigation';
 import { StarIcon } from '@heroicons/react/24/solid';
 import { StarIcon as StarOutlineIcon } from '@heroicons/react/24/outline';
 import { PlayIcon, ArrowLeftIcon } from '@heroicons/react/24/outline';
 
 interface GameDetailPageProps {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string; locale: string }>;
 }
 
 export default function GameDetailPage({ params }: GameDetailPageProps) {
   const resolvedParams = use(params);
   const router = useRouter();
   const { isAuthenticated } = useAuthStore();
+  const t = useTranslations();
   
   const game = mockGames.find((g) => g.id === resolvedParams.id);
 
@@ -26,13 +27,13 @@ export default function GameDetailPage({ params }: GameDetailPageProps) {
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 dark:from-zinc-900 dark:to-zinc-800">
         <div className="text-center">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            游戏未找到
+            {t('gameDetail.gameNotFound')}
           </h1>
           <Link
             href="/games"
             className="text-blue-600 dark:text-blue-400 hover:underline"
           >
-            返回游戏列表
+            {t('gameDetail.backToGames')}
           </Link>
         </div>
       </div>
@@ -64,7 +65,7 @@ export default function GameDetailPage({ params }: GameDetailPageProps) {
 
   const handlePlay = () => {
     if (!isAuthenticated) {
-      router.push(`/auth?type=login&redirect=${encodeURIComponent(game.demoUrl)}`);
+      router.push(`/games/${resolvedParams.id}?modal=auth&tab=login`);
     } else {
       router.push(game.demoUrl);
     }
@@ -79,7 +80,7 @@ export default function GameDetailPage({ params }: GameDetailPageProps) {
           className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 mb-6 transition-colors"
         >
           <ArrowLeftIcon className="w-5 h-5" />
-          <span>返回</span>
+          <span>{t('common.back')}</span>
         </button>
 
         <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-xl overflow-hidden">
@@ -106,7 +107,7 @@ export default function GameDetailPage({ params }: GameDetailPageProps) {
                   </span>
                 </div>
                 <span className="text-white/80">
-                  {game.playCount.toLocaleString()} 次游玩
+                  {game.playCount.toLocaleString()} {t('common.playCount')}
                 </span>
               </div>
             </div>
@@ -129,7 +130,7 @@ export default function GameDetailPage({ params }: GameDetailPageProps) {
             {/* Description */}
             <div className="mb-8">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                游戏简介
+                {t('gameDetail.description')}
               </h2>
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg">
                 {game.detailedDescription || game.description}
@@ -143,11 +144,11 @@ export default function GameDetailPage({ params }: GameDetailPageProps) {
                 className="flex items-center gap-3 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors shadow-lg hover:shadow-xl"
               >
                 <PlayIcon className="w-6 h-6" />
-                <span className="text-lg">开始游戏</span>
+                <span className="text-lg">{t('gameDetail.startGame')}</span>
               </button>
               {!isAuthenticated && (
                 <p className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                  （需要登录后试玩）
+                  {t('gameDetail.loginRequired')}
                 </p>
               )}
             </div>

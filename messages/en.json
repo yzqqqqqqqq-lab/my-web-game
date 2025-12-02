@@ -1,0 +1,92 @@
+{
+  "common": {
+    "siteName": "Game Station",
+    "home": "Home",
+    "games": "Games",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "loginOrRegister": "Login / Register",
+    "back": "Back",
+    "close": "Close",
+    "loading": "Processing...",
+    "search": "Search",
+    "clear": "Clear",
+    "clearFilters": "Clear Filters",
+    "clearAllFilters": "Clear All Filters",
+    "filter": "Filter",
+    "currentFilter": "Current filters:",
+    "category": "Category",
+    "gamesCount": "games",
+    "totalPlayCount": "Total Plays",
+    "averageRating": "Average Rating",
+    "playCount": "plays"
+  },
+  "home": {
+    "title": "Game Station",
+    "subtitle": "Discover amazing games and start your gaming journey",
+    "browseAllGames": "Browse All Games",
+    "hotGames": "Hot Games",
+    "gameCategories": "Game Categories",
+    "foundGames": "Found {count} games",
+    "totalGames": "Total {count} games"
+  },
+  "games": {
+    "title": "Games",
+    "subtitle": "Discover more amazing games and start your gaming journey",
+    "searchPlaceholder": "Search game name, description or category...",
+    "categories": "Categories",
+    "noGamesFound": "No games found",
+    "noGamesDescription": "Try adjusting your search criteria or select other categories",
+    "foundGames": "Found {count} games"
+  },
+  "gameDetail": {
+    "gameNotFound": "Game not found",
+    "backToGames": "Back to Games",
+    "description": "Description",
+    "startGame": "Start Game",
+    "loginRequired": "(Login required to play)"
+  },
+  "play": {
+    "gameNotFound": "Game not found",
+    "backToGames": "Back to Games",
+    "gameStart": "Game Start!",
+    "currentScore": "Current Score",
+    "spin": "Spin",
+    "spinning": "Spinning...",
+    "resetScore": "Reset Score",
+    "instruction": "Click the <strong>Spin</strong> button to randomly generate a score (0-100)"
+  },
+  "auth": {
+    "welcomeBack": "Welcome Back",
+    "createAccount": "Create Account",
+    "loginSubtitle": "Login to your account to continue",
+    "registerSubtitle": "Register a new account to start your gaming journey",
+    "username": "Account (Phone/Email)",
+    "usernamePlaceholder": "Enter phone number or email",
+    "password": "Password",
+    "passwordPlaceholder": "Enter password",
+    "passwordPlaceholderRegister": "At least 6 characters",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "registerNow": "Register Now",
+    "loginNow": "Login Now",
+    "errors": {
+      "emptyFields": "Please enter account and password",
+      "passwordTooShort": "Password must be at least 6 characters",
+      "invalidFormat": "Invalid account format (please enter phone number or email)",
+      "operationFailed": "Operation failed, please try again",
+      "unknownError": "An error occurred, please try again"
+    }
+  },
+  "footer": {
+    "about": "About Us",
+    "aboutDescription": "Game Station is a professional online gaming platform that provides you with rich gaming experiences.",
+    "quickLinks": "Quick Links",
+    "legal": "Legal",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "copyright": "© 2025 Game Station Demo. All rights reserved."
+  }
+}
+

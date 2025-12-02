@@ -1,11 +1,13 @@
 'use client';
 
-import Link from 'next/link';
 import { mockGames } from '@/data/mockGames';
 import GameCard from '@/components/GameCard';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 import { Squares2X2Icon, StarIcon } from '@heroicons/react/24/outline';
 
 export default function Home() {
+  const t = useTranslations();
   // 获取热门游戏（按评分和播放量排序，取前6个）
   const hotGames = [...mockGames]
     .sort((a, b) => {
@@ -23,24 +25,24 @@ export default function Home() {
           <div className="flex items-center justify-center gap-3 mb-6">
             <Squares2X2Icon className="w-12 h-12 text-blue-600 dark:text-blue-400" />
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white">
-              游戏站
+              {t('home.title')}
             </h1>
           </div>
           <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-8">
-            发现精彩游戏，开启你的游戏之旅
+            {t('home.subtitle')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/games"
               className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors shadow-lg hover:shadow-xl"
             >
-              浏览所有游戏
+              {t('home.browseAllGames')}
             </Link>
             <Link
-              href="/auth"
+              href="?modal=auth&tab=login"
               className="px-8 py-4 bg-white dark:bg-zinc-800 hover:bg-gray-100 dark:hover:bg-zinc-700 text-gray-900 dark:text-white font-semibold rounded-lg transition-colors shadow-lg border border-gray-200 dark:border-zinc-700"
             >
-              登录 / 注册
+              {t('common.loginOrRegister')}
             </Link>
           </div>
         </div>
@@ -50,7 +52,7 @@ export default function Home() {
           <div className="flex items-center gap-3 mb-8">
             <StarIcon className="w-8 h-8 text-yellow-500" />
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-              热门游戏
+              {t('home.hotGames')}
             </h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -63,7 +65,7 @@ export default function Home() {
         {/* Categories Section */}
         <div className="mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-8 text-center">
-            游戏分类
+            {t('home.gameCategories')}
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {(() => {
@@ -88,7 +90,7 @@ export default function Home() {
                   {category}
                 </div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">
-                  {mockGames.filter((g) => g.category.includes(category)).length} 款游戏
+                  {mockGames.filter((g) => g.category.includes(category)).length} {t('common.gamesCount')}
                 </div>
               </Link>
             ))}
@@ -103,7 +105,7 @@ export default function Home() {
                 {mockGames.length}
               </div>
               <div className="text-lg text-gray-600 dark:text-gray-400">
-                款游戏
+                {t('common.gamesCount')}
               </div>
             </div>
             <div>
@@ -111,7 +113,7 @@ export default function Home() {
                 {mockGames.reduce((sum, g) => sum + g.playCount, 0).toLocaleString()}
               </div>
               <div className="text-lg text-gray-600 dark:text-gray-400">
-                总游玩次数
+                {t('common.totalPlayCount')}
               </div>
             </div>
             <div>
@@ -119,7 +121,7 @@ export default function Home() {
                 {(mockGames.reduce((sum, g) => sum + g.rating, 0) / mockGames.length).toFixed(1)}
               </div>
               <div className="text-lg text-gray-600 dark:text-gray-400">
-                平均评分
+                {t('common.averageRating')}
               </div>
             </div>
           </div>
