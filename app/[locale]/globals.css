@@ -17,10 +17,63 @@
   --color-foreground: var(--foreground);
 }
 
+.container{
+  width: 100%;
+  max-width: 1200px;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Swiper 样式覆盖 */
+.swiper {
+  padding-bottom: 0 !important;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.swiper-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+}
+
+.swiper-slide {
+  height: auto;
+  flex-shrink: 0;
+  display: flex;
+  box-sizing: border-box;
+}
+
+/* 移动端图片尺寸限制 */
+@media (max-width: 767px) {
+  .swiper-slide {
+    width: calc((100% - 24px) / 3) !important;
+    max-width: calc((100% - 24px) / 3) !important;
+  }
+  
+  .swiper-slide > * {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  /* 移动端使用更小的宽高比 */
+  .game-carousel-image {
+    aspect-ratio: 2/3;
+  }
+}
+
+/* 桌面端使用标准宽高比 */
+@media (min-width: 768px) {
+  .game-carousel-image {
+    aspect-ratio: 3/4;
+  }
 }

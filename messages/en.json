@@ -87,6 +87,27 @@
     "privacyPolicy": "Privacy Policy",
     "termsOfService": "Terms of Service",
     "copyright": "© 2025 Game Station Demo. All rights reserved."
+  },
+  "sidebar": {
+    "casino": "Casino",
+    "sports": "Sports",
+    "home": "Home",
+    "games": "Games",
+    "promotions": "Promotions",
+    "weeklyDraw": "$75,000 Weekly Draw",
+    "competition": "$100,000 Competition",
+    "airdrop": "Pragmatic Airdrop Bonus",
+    "viewAll": "View All",
+    "affiliate": "Affiliate",
+    "vip": "VIP Club",
+    "blog": "Blog",
+    "forum": "Forum",
+    "sponsorships": "Sponsorships",
+    "responsible": "Responsible Gaming",
+    "support": "Support",
+    "language": "Language",
+    "open": "Open sidebar",
+    "close": "Close sidebar"
   }
 }
 

@@ -5,6 +5,8 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AuthModal from "@/components/AuthModal";
+import Sidebar from "@/components/Sidebar";
+import SidebarLayout from "@/components/SidebarLayout";
 import { ThemeProvider } from "next-themes";
 import { locales} from "@/i18n/routing";
 import { routing } from "@/i18n/routing";
@@ -26,8 +28,6 @@ export default async function LocaleLayout({
   const locale = resolvedParams.locale as (typeof locales)[number];
 
   // 验证 locale 是否有效
-
-
   if(!hasLocale(routing.locales, locale)){
     notFound();
   }
@@ -37,9 +37,14 @@ export default async function LocaleLayout({
       <body className="antialiased flex flex-col min-h-screen">
         <NextIntlClientProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
+            <div className="flex min-h-screen">
+              <Sidebar />
+              <SidebarLayout>
+                <Header />
+                <main className="flex-1">{children}</main>
+                <Footer />
+              </SidebarLayout>
+            </div>
             <AuthModal />
           </ThemeProvider>
         </NextIntlClientProvider>

@@ -87,6 +87,27 @@
     "privacyPolicy": "隐私政策",
     "termsOfService": "服务条款",
     "copyright": "© 2025 游戏站 Demo. All rights reserved."
+  },
+  "sidebar": {
+    "casino": "娱乐城",
+    "sports": "体育",
+    "home": "首页",
+    "games": "游戏",
+    "promotions": "促销活动",
+    "weeklyDraw": "$75,000 周度抽奖",
+    "competition": "$100,000 竞赛",
+    "airdrop": "Pragmatic 空投奖金",
+    "viewAll": "查看全部",
+    "affiliate": "联盟计划",
+    "vip": "VIP 俱乐部",
+    "blog": "博客",
+    "forum": "论坛",
+    "sponsorships": "赞助活动",
+    "responsible": "负责任博彩",
+    "support": "在线支持",
+    "language": "语言",
+    "open": "打开侧边栏",
+    "close": "关闭侧边栏"
   }
 }
 
