@@ -2,6 +2,8 @@ import createMiddleware from "next-intl/middleware";
 // import { locales, defaultLocale } from './i18n/routings';
 import { routing } from "@/i18n/routing";
 
+// 注意：middleware 默认就是 edge runtime，不需要显式声明
+// 如果必须声明，应该使用 'experimental-edge'，但通常不需要
 export default createMiddleware(routing);
 
 export const config = {

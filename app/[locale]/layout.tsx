@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
 import { notFound } from "next/navigation";
 import "./globals.css";
 import Header from "@/components/Header";
@@ -10,6 +11,8 @@ import SidebarLayout from "@/components/SidebarLayout";
 import { ThemeProvider } from "next-themes";
 import { locales} from "@/i18n/routing";
 import { routing } from "@/i18n/routing";
+
+export const runtime = 'edge';
 
 export const metadata: Metadata = {
   title: "游戏站 - 在线游戏平台",
@@ -32,10 +35,13 @@ export default async function LocaleLayout({
     notFound();
   }
 
+  // 获取消息
+  const messages = await getMessages();
+
   return (
     <html lang={locale === 'zh' ? 'zh-CN' : 'en'} suppressHydrationWarning>
       <body className="antialiased flex flex-col min-h-screen">
-        <NextIntlClientProvider>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="flex min-h-screen">
               <Sidebar />
