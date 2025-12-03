@@ -44,15 +44,28 @@ wrangler login
    - 点击 "Save and Deploy"
    - Cloudflare 会自动从你的 Git 仓库构建和部署
 
-### 方法二：通过 Wrangler CLI
+### 方法二：通过 Wrangler CLI（本地部署）
+
+**注意**：如果使用 Cloudflare Dashboard 自动部署，不需要手动运行此命令。
 
 ```bash
+# 安装 Wrangler（如果还没安装）
+pnpm add -D wrangler
+
+# 登录 Cloudflare
+npx wrangler login
+
 # 构建项目
 pnpm build
 
 # 部署到 Cloudflare Pages
-wrangler pages deploy .next
+npx wrangler pages deploy .next --project-name=my-stake
 ```
+
+**重要提示**：
+- 如果 `wrangler.toml` 中有 `[env.*]` 配置，会导致错误
+- 对于 Pages 项目，应该使用顶层配置，不需要环境配置
+- 如果遇到环境相关错误，可以删除 `wrangler.toml` 中的 `[env.*]` 部分
 
 ## 重要配置说明
 
