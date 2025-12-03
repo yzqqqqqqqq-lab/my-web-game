@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
-  output: 'export',
+  // output: 'export',   // 移除 output: 'export'，恢复默认的服务端渲染/边缘渲染模式
   images: {
     remotePatterns: [
       {
