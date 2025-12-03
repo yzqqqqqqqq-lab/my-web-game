@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "deploy:cf": "wrangler pages deploy .next",
+    "preview:cf": "wrangler pages dev .next"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
