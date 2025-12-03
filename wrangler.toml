@@ -1,7 +1,0 @@
-# Cloudflare Pages 配置
-# 注意：Cloudflare Pages 通过 Dashboard 自动部署时不需要此文件
-# 此文件仅用于本地测试和 CLI 部署
-
-name = "my-stake"
-pages_build_output_dir = ".next"
-

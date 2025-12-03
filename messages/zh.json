@@ -108,6 +108,12 @@
     "language": "语言",
     "open": "打开侧边栏",
     "close": "关闭侧边栏"
+  },
+  "notFound": {
+    "title": "页面未找到",
+    "description": "抱歉，您访问的页面不存在",
+    "backHome": "返回首页",
+    "browseGames": "浏览游戏"
   }
 }
 

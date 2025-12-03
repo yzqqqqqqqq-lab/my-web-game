@@ -108,6 +108,12 @@
     "language": "Language",
     "open": "Open sidebar",
     "close": "Close sidebar"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "Sorry, the page you are looking for does not exist",
+    "backHome": "Back to Home",
+    "browseGames": "Browse Games"
   }
 }
 
