@@ -1,5 +1,7 @@
 "use client";
 
+export const runtime = 'edge';
+
 import { mockGames } from "@/data/mockGames";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
