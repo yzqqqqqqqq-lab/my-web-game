@@ -31,24 +31,24 @@ export default function IconShowcase() {
   ];
 
   return (
-    <div className="p-8 bg-white dark:bg-zinc-900 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-6">
+    <div className="p-8 bg-white rounded-lg shadow-lg">
+      <h2 className="text-2xl font-bold text-gray-800 mb-6">
         Heroicons Showcase
       </h2>
 
       <div className="space-y-6">
         <div>
-          <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4">
+          <h3 className="text-lg font-semibold text-gray-700 mb-4">
             Outline Icons
           </h3>
           <div className="grid grid-cols-3 sm:grid-cols-6 gap-4">
             {outlineIcons.map(({ Icon, name }) => (
               <div
                 key={name}
-                className="flex flex-col items-center gap-2 p-4 bg-gray-50 dark:bg-zinc-800 rounded-lg"
+                className="flex flex-col items-center gap-2 p-4 bg-gray-50 rounded-lg"
               >
-                <Icon className="w-8 h-8 text-gray-700 dark:text-gray-300" />
-                <span className="text-sm text-gray-600 dark:text-gray-400">
+                <Icon className="w-8 h-8 text-gray-700" />
+                <span className="text-sm text-gray-600">
                   {name}
                 </span>
               </div>
@@ -57,17 +57,17 @@ export default function IconShowcase() {
         </div>
 
         <div>
-          <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4">
+          <h3 className="text-lg font-semibold text-gray-700 mb-4">
             Solid Icons
           </h3>
           <div className="grid grid-cols-3 sm:grid-cols-6 gap-4">
             {solidIcons.map(({ Icon, name }) => (
               <div
                 key={name}
-                className="flex flex-col items-center gap-2 p-4 bg-gray-50 dark:bg-zinc-800 rounded-lg"
+                className="flex flex-col items-center gap-2 p-4 bg-gray-50 rounded-lg"
               >
-                <Icon className="w-8 h-8 text-gray-700 dark:text-gray-300" />
-                <span className="text-sm text-gray-600 dark:text-gray-400">
+                <Icon className="w-8 h-8 text-gray-700" />
+                <span className="text-sm text-gray-600">
                   {name}
                 </span>
               </div>

@@ -11,12 +11,12 @@ export default function Counter() {
   const { count, increment, decrement, reset } = useCounterStore();
 
   return (
-    <div className="flex flex-col items-center gap-6 p-8 bg-white dark:bg-zinc-900 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200">
+    <div className="flex flex-col items-center gap-6 p-8 bg-white rounded-lg shadow-lg">
+      <h2 className="text-2xl font-bold text-gray-800">
         Counter Example
       </h2>
       
-      <div className="text-6xl font-bold text-blue-600 dark:text-blue-400">
+      <div className="text-6xl font-bold text-blue-600">
         {count}
       </div>
 

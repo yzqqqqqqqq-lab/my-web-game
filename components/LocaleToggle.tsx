@@ -19,7 +19,7 @@ export default function LocaleToggle() {
   return (
     <button
       onClick={toggleLocale}
-      className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800 transition-colors"
+      className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
       aria-label={locale === 'zh' ? 'Switch to English' : '切换到中文'}
       title={locale === 'zh' ? 'Switch to English' : '切换到中文'}
     >

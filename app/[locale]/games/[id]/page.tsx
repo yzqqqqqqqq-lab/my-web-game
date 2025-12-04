@@ -26,14 +26,14 @@ export default function GameDetailPage({ params }: GameDetailPageProps) {
 
   if (!game) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 dark:from-zinc-900 dark:to-zinc-800">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
             {t('gameDetail.gameNotFound')}
           </h1>
           <Link
             href="/games"
-            className="text-blue-600 dark:text-blue-400 hover:underline"
+            className="text-blue-600 hover:underline"
           >
             {t('gameDetail.backToGames')}
           </Link>
@@ -74,18 +74,18 @@ export default function GameDetailPage({ params }: GameDetailPageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-zinc-900 dark:to-zinc-800 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12">
       <div className="container mx-auto px-4">
         {/* Back Button */}
         <button
           onClick={() => router.back()}
-          className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 mb-6 transition-colors"
+          className="flex items-center gap-2 text-gray-600 hover:text-blue-600 mb-6 transition-colors"
         >
           <ArrowLeftIcon className="w-5 h-5" />
           <span>{t('common.back')}</span>
         </button>
 
-        <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
           {/* Hero Section */}
           <div className="relative h-96">
             <Image
@@ -122,7 +122,7 @@ export default function GameDetailPage({ params }: GameDetailPageProps) {
               {game.category.map((cat, index) => (
                 <span
                   key={index}
-                  className="px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium"
+                  className="px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium"
                 >
                   {cat}
                 </span>
@@ -131,10 +131,10 @@ export default function GameDetailPage({ params }: GameDetailPageProps) {
 
             {/* Description */}
             <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
                 {t('gameDetail.description')}
               </h2>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg">
+              <p className="text-gray-700 leading-relaxed text-lg">
                 {game.detailedDescription || game.description}
               </p>
             </div>
@@ -149,7 +149,7 @@ export default function GameDetailPage({ params }: GameDetailPageProps) {
                 <span className="text-lg">{t('gameDetail.startGame')}</span>
               </button>
               {!isAuthenticated && (
-                <p className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                <p className="flex items-center text-sm text-gray-500">
                   {t('gameDetail.loginRequired')}
                 </p>
               )}

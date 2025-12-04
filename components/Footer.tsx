@@ -6,26 +6,26 @@ import { Link } from '@/i18n/navigation';
 export default function Footer() {
   const t = useTranslations();
   return (
-    <footer className="bg-gray-100 dark:bg-zinc-900 border-t border-gray-200 dark:border-zinc-800 mt-auto">
+    <footer className="bg-gray-100 border-t border-gray-200 mt-auto">
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">
               {t('footer.about')}
             </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-gray-600">
               {t('footer.aboutDescription')}
             </p>
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">
               {t('footer.quickLinks')}
             </h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
                   href="/"
-                  className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  className="text-gray-600 hover:text-blue-600 transition-colors"
                 >
                   {t('common.home')}
                 </Link>
@@ -33,7 +33,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/games"
-                  className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  className="text-gray-600 hover:text-blue-600 transition-colors"
                 >
                   {t('common.games')}
                 </Link>
@@ -41,14 +41,14 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">
               {t('footer.legal')}
             </h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
                   href="#"
-                  className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  className="text-gray-600 hover:text-blue-600 transition-colors"
                 >
                   {t('footer.privacyPolicy')}
                 </Link>
@@ -56,7 +56,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#"
-                  className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  className="text-gray-600 hover:text-blue-600 transition-colors"
                 >
                   {t('footer.termsOfService')}
                 </Link>
@@ -64,7 +64,7 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        <div className="mt-8 pt-8 border-t border-gray-200 dark:border-zinc-800 text-center text-sm text-gray-600 dark:text-gray-400">
+        <div className="mt-8 pt-8 border-t border-gray-200 text-center text-sm text-gray-600">
           <p>{t('footer.copyright')}</p>
         </div>
       </div>

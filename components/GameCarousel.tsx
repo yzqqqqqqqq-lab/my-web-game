@@ -3,10 +3,12 @@
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { Game } from "@/types/game";
+import { Promotion } from "@/types/promotion";
 import { Link } from "@/i18n/navigation";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
+  ArrowTopRightOnSquareIcon,
 } from "@heroicons/react/24/outline";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
@@ -16,32 +18,34 @@ import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 
+type CarouselType = "game" | "event" | "promotion";
+
 interface GameCarouselProps {
-  games: Game[];
+  games?: Game[];
+  promotions?: Promotion[];
   title: string;
   icon?: React.ReactNode;
+  type?: CarouselType; // 'game' 显示在玩和分享按钮，'event' 不显示，'promotion' 显示促销卡片
 }
 
 export default function GameCarousel({
   games,
+  promotions,
   title,
   icon,
+  type = "game",
 }: GameCarouselProps) {
   const swiperRef = useRef<SwiperType | null>(null);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
-
-  // 在客户端挂载后设置 isMounted
-  // 这是处理 SSR hydration 的标准模式
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  // 使用惰性初始化来避免在 useEffect 中同步调用 setState
+  // 在客户端直接返回 true，服务端返回 false
+  const [isMounted] = useState(() => typeof window !== 'undefined');
 
   // 在窗口大小变化时更新Swiper尺寸
   useEffect(() => {
     if (!isMounted) return;
-    
+
     const handleResize = () => {
       if (swiperRef.current) {
         try {
@@ -52,7 +56,7 @@ export default function GameCarousel({
             swiper.update();
           }
         } catch (error) {
-          console.warn('Swiper resize update error:', error);
+          console.warn("Swiper resize update error:", error);
         }
       }
     };
@@ -64,51 +68,55 @@ export default function GameCarousel({
       resizeTimer = setTimeout(handleResize, 150);
     };
 
-    window.addEventListener('resize', debouncedResize);
+    window.addEventListener("resize", debouncedResize);
     return () => {
-      window.removeEventListener('resize', debouncedResize);
+      window.removeEventListener("resize", debouncedResize);
       clearTimeout(resizeTimer);
     };
   }, [isMounted]);
 
   return (
-    <div className="mb-12 w-full">
+    <div className="mb-6 w-full">
       {/* 标题和导航按钮 */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           {icon}
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
-            {title}
-          </h2>
+          <h2 className="text-2xl md:text-xl font-bold text-white">{title}</h2>
         </div>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => swiperRef.current?.slidePrev()}
-            disabled={isBeginning}
-            className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
-              isBeginning
-                ? "bg-gray-200 dark:bg-zinc-800 text-gray-400 dark:text-gray-600 cursor-not-allowed"
-                : "bg-white dark:bg-zinc-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-700 shadow-md hover:shadow-lg cursor-pointer"
-            }`}
-          >
-            <ChevronLeftIcon className="w-6 h-6" />
-          </button>
-          <button
-            onClick={() => swiperRef.current?.slideNext()}
-            disabled={isEnd}
-            className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
-              isEnd
-                ? "bg-gray-200 dark:bg-zinc-800 text-gray-400 dark:text-gray-600 cursor-not-allowed"
-                : "bg-white dark:bg-zinc-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-700 shadow-md hover:shadow-lg cursor-pointer"
-            }`}
-          >
-            <ChevronRightIcon className="w-6 h-6" />
-          </button>
+        <div className="flex items-center">
+          <div className="flex rounded-[32px] border border-grey-400 overflow-hidden bg-grey-600">
+            <button
+              onClick={() => swiperRef.current?.slidePrev()}
+              disabled={isBeginning}
+              className={`flex items-center justify-center w-14 h-10 transition-all ${
+                isBeginning
+                  ? "opacity-50 cursor-not-allowed"
+                  : "hover:bg-gray-500/20 cursor-pointer active:bg-gray-500/30"
+              }`}
+            >
+              <ChevronLeftIcon className="w-5 h-5 text-grey-200" />
+            </button>
+            <div className="w-px bg-grey-400" />
+            <button
+              onClick={() => swiperRef.current?.slideNext()}
+              disabled={isEnd}
+              className={`flex items-center justify-center w-14 h-10 transition-all ${
+                isEnd
+                  ? "opacity-50 cursor-not-allowed"
+                  : "hover:bg-gray-500/20 cursor-pointer active:bg-gray-500/30"
+              }`}
+            >
+              <ChevronRightIcon className="w-5 h-5 text-grey-200" />
+            </button>
+          </div>
         </div>
       </div>
 
       {/* Swiper 轮播容器 */}
-      <div className="overflow-hidden -mx-4 px-4 md:mx-0 md:px-0" suppressHydrationWarning>
+      <div
+        className="overflow-hidden -mx-4 px-4 md:mx-0 md:px-0"
+        suppressHydrationWarning
+      >
         {isMounted ? (
           <Swiper
             onSwiper={(swiper) => {
@@ -126,7 +134,7 @@ export default function GameCarousel({
                     swiper.update();
                   }
                 } catch (error) {
-                  console.warn('Swiper update error:', error);
+                  console.warn("Swiper update error:", error);
                 }
               });
             }}
@@ -135,19 +143,63 @@ export default function GameCarousel({
               setIsEnd(swiper.isEnd);
             }}
             modules={[Navigation]}
-            spaceBetween={12}
-            slidesPerView={3}
-            slidesPerGroup={3}
-            breakpoints={{
-              640: {
-                spaceBetween: 14,
-              },
-              768: {
-                spaceBetween: 16,
-                slidesPerView: 8,
-                slidesPerGroup: 2,
-              },
-            }}
+            spaceBetween={type === "promotion" ? 2 : 8}
+            slidesPerView={type === "promotion" ? 1 : 3}
+            slidesPerGroup={type === "promotion" ? 1 : 3}
+            breakpoints={
+              type === "promotion"
+                ? {
+                    // 促销活动卡片：<728px放1张，728px-1050px放2张，>=1050px放3张，翻页时翻整页
+                    728: {
+                      spaceBetween: 8,
+                      slidesPerView: 2,
+                      slidesPerGroup: 2,
+                    },
+                    1200: {
+                      spaceBetween: 8,
+                      slidesPerView: 3,
+                      slidesPerGroup: 3,
+                    },
+                  }
+                : {
+                    // 游戏和赛事卡片
+                    390: {
+                      spaceBetween: 4,
+                      slidesPerView: 3,
+                      slidesPerGroup: 2,
+                    },
+                    515: {
+                      spaceBetween: 2,
+                      slidesPerView: 4,
+                      slidesPerGroup: 2,
+                    },
+                    640: {
+                      spaceBetween: 8,
+                      slidesPerView: 4,
+                      slidesPerGroup: 2,
+                    },
+                    768: {
+                      spaceBetween: 8,
+                      slidesPerView: 5,
+                      slidesPerGroup: 2,
+                    },
+                    910: {
+                      spaceBetween: 8,
+                      slidesPerView: 6,
+                      slidesPerGroup: 2,
+                    },
+                    1060: {
+                      spaceBetween: 8,
+                      slidesPerView: 7,
+                      slidesPerGroup: 2,
+                    },
+                    1200: {
+                      spaceBetween: 8,
+                      slidesPerView: 8,
+                      slidesPerGroup: 2,
+                    },
+                  }
+            }
             speed={500}
             allowTouchMove={true}
             touchEventsTarget="container"
@@ -157,44 +209,126 @@ export default function GameCarousel({
             observer={false}
             observeParents={false}
           >
-        {games.map((game) => (
-          <SwiperSlide key={game.id} className="h-auto!">
-            <Link
-              href={`/games/${game.id}`}
-              className="group relative block rounded-xl overflow-hidden bg-white dark:bg-zinc-900 shadow-md hover:shadow-xl transition-all duration-300 w-full"
-            >
-              <div className="relative w-full max-w-full game-carousel-image">
-                <Image
-                  src={game.cover}
-                  alt={game.title}
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-300 rounded-xl"
-                  sizes="(max-width: 640px) calc(33.33vw - 16px), (max-width: 768px) calc(33.33vw - 18px), 12.5vw"
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
-                <div className="absolute bottom-0 left-0 right-0 p-3 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                  <h3 className="text-sm font-semibold text-white mb-1 line-clamp-1">
-                    {game.title}
-                  </h3>
-                  <p className="text-xs text-white/80 line-clamp-1">
-                    {game.category[0]}
-                  </p>
-                  <div className="mt-1 text-xs text-white/70">
-                    {game.playCount.toLocaleString()} 在玩
-                  </div>
-                </div>
-              </div>
-            </Link>
-          </SwiperSlide>
-        ))}
+            {type === "promotion"
+              ? promotions?.map((promotion) => (
+                  <SwiperSlide key={promotion.id} className="h-auto pt-4">
+                    <div className="group relative w-full px-1 h-[170px]">
+                      <Link href={promotion.href} className="block h-full">
+                        <div className="flex bg-grey-500 rounded-xl overflow-hidden h-full group-hover:opacity-90 transition-opacity duration-300">
+                          {/* 左侧内容区域 */}
+                          <div className="flex-1 p-4 flex flex-col gap-0.5">
+                            <div>
+                              {/* 徽章 */}
+                              {promotion.badge && (
+                                <div className="mb-3">
+                                  <span className="inline-block px-3 py-1 rounded-full bg-white/20 text-white text-xs font-semibold">
+                                    {promotion.badge}
+                                  </span>
+                                </div>
+                              )}
+                              {/* 标题 */}
+                              <h3 className="text-xl font-bold text-white  line-clamp-2">
+                                {promotion.title}
+                              </h3>
+                              {/* 描述 */}
+                              <p className="text-sm  text-white/80 line-clamp-2 ">
+                                {promotion.description}
+                              </p>
+                            </div>
+                            {/* 阅读更多 */}
+                            <span className="text-sm font-semibold text-white">
+                              阅读更多
+                            </span>
+                          </div>
+                          {/* 右侧图片区域 */}
+                          <div className="relative w-48 md:h-auto shrink-0">
+                            <Image
+                              src={promotion.cover}
+                              alt={promotion.title}
+                              fill
+                              className="object-contain"
+                              sizes="(max-width: 768px) 100vw, 192px"
+                            />
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                  </SwiperSlide>
+                ))
+              : games?.map((game) => (
+                  <SwiperSlide key={game.id} className="h-auto pt-4">
+                    <div className="group relative w-full px-1">
+                      <Link href={`/games/${game.id}`} className="block w-full">
+                        {/* 图片容器 */}
+                        <div className="relative w-full game-carousel-image rounded-xl overflow-hidden mb-2 group-hover:-translate-y-2.5 transition-transform duration-300">
+                          <Image
+                            src={game.cover}
+                            alt={game.title}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 640px) calc((100vw - 32px) / 3), (max-width: 768px) calc((100vw - 48px) / 5), (max-width: 910px) calc((100vw - 64px) / 6), (max-width: 1060px) calc((100vw - 80px) / 7), calc((100vw - 96px) / 8)"
+                          />
+                          {/* 悬停时显示的分享按钮（仅游戏类型） */}
+                          {type === "game" && (
+                            <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  // 分享功能
+                                  if (navigator.share) {
+                                    navigator.share({
+                                      title: game.title,
+                                      text: game.description,
+                                      url:
+                                        window.location.origin +
+                                        `/games/${game.id}`,
+                                    });
+                                  } else {
+                                    // 降级方案：复制链接
+                                    navigator.clipboard.writeText(
+                                      window.location.origin +
+                                        `/games/${game.id}`
+                                    );
+                                  }
+                                }}
+                                className="pointer-events-auto flex items-center justify-center gap-2 rounded-md bg-grey-400 text-white shadow-md px-3 py-2 text-xs font-semibold hover:bg-grey-300 transition-colors active:scale-95"
+                                onMouseDown={(e) => e.stopPropagation()}
+                              >
+                                <ArrowTopRightOnSquareIcon className="w-4 h-4" />
+                              </button>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* 游戏信息容器 */}
+                        <div className="info-wrap">
+                          {/* 在玩计数（仅游戏类型） */}
+                          {type === "game" && (
+                            <div className="flex items-center gap-2">
+                              <span
+                                className="block rounded-full bg-emerald-400 scale-up"
+                                style={{ width: "6px", height: "6px" }}
+                              />
+                              <span className="text-xs text-white/70">
+                                {game.playCount.toLocaleString()} 在玩
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      </Link>
+                    </div>
+                  </SwiperSlide>
+                ))}
           </Swiper>
         ) : (
           <div className="flex gap-4">
-            {games.slice(0, 8).map((game) => (
+            {/* {games.slice(0, 8).map((game) => (
               <div key={game.id} className="shrink-0 w-[calc((100%-112px)/8)]">
-                <div className="relative w-full game-carousel-image bg-gray-200 dark:bg-zinc-800 rounded-xl animate-pulse" />
+                <div className="relative w-full game-carousel-image bg-gray-200 rounded-xl animate-pulse" />
               </div>
-            ))}
+            ))} */}
           </div>
         )}
       </div>

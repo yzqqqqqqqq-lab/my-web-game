@@ -251,7 +251,7 @@ export default function Sidebar() {
             className={`
               w-full flex items-center gap-3 px-4 py-3 rounded-lg
               transition-colors duration-200
-              text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800
+              text-gray-700 hover:bg-gray-100
               ${level > 0 ? "pl-8" : ""}
             `}
           >
@@ -313,8 +313,8 @@ export default function Sidebar() {
               ${level > 0 ? "pl-8" : ""}
               ${
                 active
-                  ? "bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300"
-                  : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800"
+                  ? "bg-blue-100 text-blue-700"
+                  : "text-gray-700 hover:bg-gray-100"
               }
             `}
             onClick={() => {
@@ -361,7 +361,7 @@ export default function Sidebar() {
               w-full flex items-center gap-3 px-4 py-3 rounded-lg
               transition-colors duration-200
               ${level > 0 ? "pl-8" : ""}
-              text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800
+              text-gray-700 hover:bg-gray-100
             `}
             onClick={() => {
               console.log(`Navigate to ${item.id}`);
@@ -423,7 +423,7 @@ export default function Sidebar() {
       <aside
         ref={sidebarRef}
         className={`
-          fixed top-0 left-0 h-full bg-white dark:bg-zinc-950 border-r border-gray-200 dark:border-zinc-800
+          fixed top-0 left-0 h-full bg-white border-r border-gray-200
           z-50 transition-all duration-300 ease-in-out
           ${
             isOpen
@@ -440,12 +440,12 @@ export default function Sidebar() {
             <div
               className={`flex items-center ${
                 isOpen ? "justify-between" : "justify-center"
-              } p-4 border-b border-gray-200 dark:border-zinc-800 h-16`}
+              } p-4 border-b border-gray-200 h-16`}
             >
               {isOpen ? (
                 <>
                   <h2
-                    className={`text-xl font-bold text-gray-900 dark:text-white truncate flex-1 min-w-0 mr-2 transition-opacity duration-300 ${
+                    className={`text-xl font-bold text-gray-900 truncate flex-1 min-w-0 mr-2 transition-opacity duration-300 ${
                       contentVisible ? "opacity-100" : "opacity-0"
                     }`}
                   >
@@ -455,7 +455,7 @@ export default function Sidebar() {
               ) : null}
               <button
                 onClick={toggle}
-                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-zinc-800 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors shrink-0"
+                className="p-2 rounded-lg hover:bg-gray-100 text-gray-700 hover:text-gray-900 transition-colors shrink-0"
                 aria-label={isOpen ? t("sidebar.close") : t("sidebar.open")}
               >
                 {isOpen ? (
@@ -470,7 +470,7 @@ export default function Sidebar() {
             {/* Tabs */}
             {isOpen && (
               <div
-                className={`flex border-b border-gray-200 dark:border-zinc-800 transition-opacity duration-300 ${
+                className={`flex border-b border-gray-200 transition-opacity duration-300 ${
                   contentVisible ? "opacity-100" : "opacity-0"
                 }`}
               >
@@ -480,8 +480,8 @@ export default function Sidebar() {
                     flex-1 px-4 py-3 text-sm font-medium transition-colors
                     ${
                       activeTab === "casino"
-                        ? "bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 border-b-2 border-blue-600 dark:border-blue-400"
-                        : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800"
+                        ? "bg-blue-100 text-blue-700 border-b-2 border-blue-600"
+                        : "text-gray-700 hover:bg-gray-100"
                     }
                   `}
                 >
@@ -493,8 +493,8 @@ export default function Sidebar() {
                     flex-1 px-4 py-3 text-sm font-medium transition-colors
                     ${
                       activeTab === "sports"
-                        ? "bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 border-b-2 border-blue-600 dark:border-blue-400"
-                        : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800"
+                        ? "bg-blue-100 text-blue-700 border-b-2 border-blue-600"
+                        : "text-gray-700 hover:bg-gray-100"
                     }
                   `}
                 >
@@ -513,7 +513,7 @@ export default function Sidebar() {
             {/* Separator */}
             {isOpen && (
               <div
-                className={`my-4 border-t border-gray-200 dark:border-zinc-800 transition-opacity duration-300 ${
+                className={`my-4 border-t border-gray-200 transition-opacity duration-300 ${
                   contentVisible ? "opacity-100" : "opacity-0"
                 }`}
               />
@@ -526,11 +526,11 @@ export default function Sidebar() {
           </nav>
 
           {/* Footer with Language Selector */}
-          <div className="shrink-0 border-t border-gray-200 dark:border-zinc-800 p-4 relative">
+          <div className="shrink-0 border-t border-gray-200 p-4 relative">
             <div ref={languageMenuRef} className="relative">
               <button
                 onClick={() => setLanguageMenuOpen(!languageMenuOpen)}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800 transition-colors"
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
               >
                 <GlobeAltIcon
                   className={`w-5 h-5 shrink-0 transition-opacity duration-300 ${
@@ -573,7 +573,7 @@ export default function Sidebar() {
                       ? "bottom-full left-0 right-0 mb-2"
                       : "bottom-full left-0 mb-2 w-48"
                   }
-                  bg-white dark:bg-zinc-900 rounded-lg shadow-lg border border-gray-200 dark:border-zinc-700 overflow-hidden z-50
+                  bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden z-50
                 `}
                 >
                   {languages.map((lang) => (
@@ -585,8 +585,8 @@ export default function Sidebar() {
                         transition-colors duration-200
                         ${
                           locale === lang.code
-                            ? "bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300"
-                            : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800"
+                            ? "bg-blue-100 text-blue-700"
+                            : "text-gray-700 hover:bg-gray-100"
                         }
                       `}
                     >
@@ -607,7 +607,7 @@ export default function Sidebar() {
       {!isOpen && (
         <button
           onClick={toggle}
-          className="fixed top-4 left-4 z-40 p-2 bg-white dark:bg-zinc-900 rounded-lg border border-gray-200 dark:border-zinc-800 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-zinc-800 transition-colors lg:hidden"
+          className="fixed top-4 left-4 z-40 p-2 bg-white rounded-lg border border-gray-200 text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition-colors lg:hidden"
           aria-label={t("sidebar.open")}
         >
           <Bars3Icon className="w-6 h-6" />

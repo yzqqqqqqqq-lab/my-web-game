@@ -110,11 +110,11 @@ export default function AuthModal() {
       />
       
       {/* Modal */}
-      <div className="relative w-full max-w-md bg-white dark:bg-zinc-900 rounded-2xl shadow-xl p-8 animate-in fade-in zoom-in duration-200">
+      <div className="relative w-full max-w-md bg-white rounded-2xl shadow-xl p-8 animate-in fade-in zoom-in duration-200">
         {/* Close Button */}
         <button
           onClick={closeModal}
-          className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+          className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 transition-colors"
           aria-label={t('common.close')}
         >
           <XMarkIcon className="w-6 h-6" />
@@ -122,23 +122,23 @@ export default function AuthModal() {
 
         {/* Header */}
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">
             {mode === 'login' ? t('auth.welcomeBack') : t('auth.createAccount')}
           </h2>
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-gray-600">
             {mode === 'login' ? t('auth.loginSubtitle') : t('auth.registerSubtitle')}
           </p>
         </div>
 
         {/* Mode Toggle */}
-        <div className="flex bg-gray-100 dark:bg-zinc-800 rounded-lg p-1 mb-6">
+        <div className="flex bg-gray-100 rounded-lg p-1 mb-6">
           <button
             type="button"
             onClick={() => switchMode('login')}
             className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
               mode === 'login'
-                ? 'bg-white dark:bg-zinc-700 text-blue-600 dark:text-blue-400 shadow-sm'
-                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                ? 'bg-white text-blue-600 shadow-sm'
+                : 'text-gray-600 hover:text-gray-900'
             }`}
           >
             {t('common.login')}
@@ -148,8 +148,8 @@ export default function AuthModal() {
             onClick={() => switchMode('register')}
             className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
               mode === 'register'
-                ? 'bg-white dark:bg-zinc-700 text-blue-600 dark:text-blue-400 shadow-sm'
-                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                ? 'bg-white text-blue-600 shadow-sm'
+                : 'text-gray-600 hover:text-gray-900'
             }`}
           >
             {t('common.register')}
@@ -158,16 +158,16 @@ export default function AuthModal() {
 
         {/* Error Message */}
         {error && (
-          <div className="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-center gap-2">
-            <ExclamationCircleIcon className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0" />
-            <span className="text-sm text-red-600 dark:text-red-400">{error}</span>
+          <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2">
+            <ExclamationCircleIcon className="w-5 h-5 text-red-600 flex-shrink-0" />
+            <span className="text-sm text-red-600">{error}</span>
           </div>
         )}
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="modal-username" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label htmlFor="modal-username" className="block text-sm font-medium text-gray-700 mb-2">
               {t('auth.username')}
             </label>
             <div className="relative">
@@ -178,13 +178,13 @@ export default function AuthModal() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder={t('auth.usernamePlaceholder')}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-zinc-700 rounded-lg bg-white dark:bg-zinc-800 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
           </div>
 
           <div>
-            <label htmlFor="modal-password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label htmlFor="modal-password" className="block text-sm font-medium text-gray-700 mb-2">
               {t('auth.password')}
             </label>
             <div className="relative">
@@ -195,7 +195,7 @@ export default function AuthModal() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder={mode === 'register' ? t('auth.passwordPlaceholderRegister') : t('auth.passwordPlaceholder')}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-zinc-700 rounded-lg bg-white dark:bg-zinc-800 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
           </div>
@@ -220,11 +220,11 @@ export default function AuthModal() {
         </form>
 
         {/* Tips */}
-        <div className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
+        <div className="mt-6 text-center text-sm text-gray-500">
           {mode === 'login' ? (
-            <p>{t('auth.noAccount')} <button onClick={() => switchMode('register')} className="text-blue-600 dark:text-blue-400 hover:underline">{t('auth.registerNow')}</button></p>
+            <p>{t('auth.noAccount')} <button onClick={() => switchMode('register')} className="text-blue-600 hover:underline">{t('auth.registerNow')}</button></p>
           ) : (
-            <p>{t('auth.hasAccount')} <button onClick={() => switchMode('login')} className="text-blue-600 dark:text-blue-400 hover:underline">{t('auth.loginNow')}</button></p>
+            <p>{t('auth.hasAccount')} <button onClick={() => switchMode('login')} className="text-blue-600 hover:underline">{t('auth.loginNow')}</button></p>
           )}
         </div>
       </div>

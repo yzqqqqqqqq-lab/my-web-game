@@ -9,7 +9,6 @@
 - 📱 **游戏详情** - 查看游戏详细信息、评分和游玩次数
 - 🎯 **游戏试玩** - 登录后可以试玩游戏（包含倒计时和游戏界面）
 - 👤 **用户认证** - 支持登录和注册功能，使用手机号或邮箱
-- 🌓 **主题切换** - 支持明暗主题切换，自动跟随系统设置
 - 💾 **状态管理** - 使用 Zustand 进行状态管理，支持持久化存储
 
 ## 🚀 技术栈
@@ -19,7 +18,6 @@
 - **Tailwind CSS 4** - 实用优先的 CSS 框架
 - **Heroicons** - 精美的 SVG 图标库
 - **Zustand** - 轻量级状态管理库
-- **next-themes** - 主题切换库
 - **pnpm** - 快速、高效的包管理器
 - **ESLint** - 代码检查和质量保证
 
@@ -44,7 +42,6 @@ my-stake/
 │   ├── Header.tsx            # 导航头部组件
 │   ├── Footer.tsx            # 页脚组件
 │   ├── GameCard.tsx          # 游戏卡片组件
-│   ├── ThemeToggle.tsx       # 主题切换组件
 │   ├── Counter.tsx           # 计数器组件（示例）
 │   └── IconShowcase.tsx      # 图标展示组件（示例）
 ├── stores/                   # Zustand 状态管理
@@ -123,12 +120,6 @@ const { login, register, logout, isAuthenticated, userInfo } = useAuthStore();
 - 评分和游玩次数
 - 游戏详情描述
 
-### 主题切换
-
-使用 `next-themes` 实现主题切换：
-- 支持明暗主题
-- 自动跟随系统设置
-- 主题状态持久化
 
 ### 路由结构
 

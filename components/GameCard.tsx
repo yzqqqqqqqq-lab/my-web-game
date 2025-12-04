@@ -38,7 +38,7 @@ export default function GameCard({ game }: GameCardProps) {
   };
 
   return (
-    <div className="group bg-white dark:bg-zinc-900 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 dark:border-zinc-800">
+    <div className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200">
       <Link href={`/games/${game.id}`}>
         <div className="relative h-48 overflow-hidden">
           <Image
@@ -50,9 +50,9 @@ export default function GameCard({ game }: GameCardProps) {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <div className="flex items-center gap-1 bg-white/90 dark:bg-zinc-900/90 px-2 py-1 rounded-full">
+            <div className="flex items-center gap-1 bg-white/90 px-2 py-1 rounded-full">
               <PlayIcon className="w-4 h-4 text-blue-600" />
-              <span className="text-xs font-medium text-gray-900 dark:text-white">{t('gameDetail.startGame')}</span>
+              <span className="text-xs font-medium text-gray-900">{t('gameDetail.startGame')}</span>
             </div>
           </div>
         </div>
@@ -60,7 +60,7 @@ export default function GameCard({ game }: GameCardProps) {
       
       <div className="p-4">
         <Link href={`/games/${game.id}`}>
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 line-clamp-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+          <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-1 group-hover:text-blue-600 transition-colors">
             {game.title}
           </h3>
         </Link>
@@ -69,7 +69,7 @@ export default function GameCard({ game }: GameCardProps) {
           {game.category.map((cat, index) => (
             <span
               key={index}
-              className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 text-xs rounded-full"
+              className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full"
             >
               {cat}
             </span>
@@ -79,16 +79,16 @@ export default function GameCard({ game }: GameCardProps) {
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-1">
             {renderStars(game.rating)}
-            <span className="ml-1 text-sm text-gray-600 dark:text-gray-400">
+            <span className="ml-1 text-sm text-gray-600">
               {game.rating.toFixed(1)}
             </span>
           </div>
-          <span className="text-sm text-gray-500 dark:text-gray-500">
+          <span className="text-sm text-gray-500">
             {game.playCount.toLocaleString()} {t('common.playCount')}
           </span>
         </div>
         
-        <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+        <p className="text-sm text-gray-600 line-clamp-2">
           {game.description}
         </p>
       </div>

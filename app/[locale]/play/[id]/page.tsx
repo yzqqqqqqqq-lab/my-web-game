@@ -58,14 +58,14 @@ export default function PlayPage({ params }: PlayPageProps) {
 
   if (!game) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 dark:from-zinc-900 dark:to-zinc-800">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
             {t('play.gameNotFound')}
           </h1>
           <button
             onClick={() => router.push('/games')}
-            className="text-blue-600 dark:text-blue-400 hover:underline"
+            className="text-blue-600 hover:underline"
           >
             {t('play.backToGames')}
           </button>
@@ -92,19 +92,19 @@ export default function PlayPage({ params }: PlayPageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-zinc-900 dark:to-zinc-800">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Header */}
-      <div className="bg-white dark:bg-zinc-900 border-b border-gray-200 dark:border-zinc-800 shadow-sm">
+      <div className="bg-white border-b border-gray-200 shadow-sm">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <button
               onClick={() => router.back()}
-              className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors"
             >
               <ArrowLeftIcon className="w-5 h-5" />
               <span>{t('common.back')}</span>
             </button>
-            <h1 className="text-xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-xl font-bold text-gray-900">
               {game.title}
             </h1>
             <div className="w-20" /> {/* Spacer for centering */}
@@ -114,7 +114,7 @@ export default function PlayPage({ params }: PlayPageProps) {
 
       {/* Game Area */}
       <div className="container mx-auto px-4 py-8">
-        <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
           {/* Countdown Overlay */}
           {countdown !== null && (
             <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
@@ -147,11 +147,11 @@ export default function PlayPage({ params }: PlayPageProps) {
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center space-y-8">
                     {/* Score Display */}
-                    <div className="bg-white/90 dark:bg-zinc-900/90 rounded-2xl p-8 shadow-2xl">
-                      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                    <div className="bg-white/90 rounded-2xl p-8 shadow-2xl">
+                      <h2 className="text-2xl font-bold text-gray-900 mb-4">
                         {t('play.currentScore')}
                       </h2>
-                      <div className="text-7xl font-bold text-blue-600 dark:text-blue-400 mb-6">
+                      <div className="text-7xl font-bold text-blue-600 mb-6">
                         {score}
                       </div>
                       
@@ -191,9 +191,9 @@ export default function PlayPage({ params }: PlayPageProps) {
                     </div>
 
                     {/* Game Instructions */}
-                    <div className="bg-white/80 dark:bg-zinc-900/80 rounded-xl p-6 max-w-md mx-auto">
+                    <div className="bg-white/80 rounded-xl p-6 max-w-md mx-auto">
                       <p 
-                        className="text-gray-700 dark:text-gray-300 text-lg"
+                        className="text-gray-700 text-lg"
                         dangerouslySetInnerHTML={{ __html: t('play.instruction') }}
                       />
                     </div>

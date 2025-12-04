@@ -8,7 +8,6 @@ import Footer from "@/components/Footer";
 import AuthModal from "@/components/AuthModal";
 import Sidebar from "@/components/Sidebar";
 import SidebarLayout from "@/components/SidebarLayout";
-import { ThemeProvider } from "next-themes";
 import { locales} from "@/i18n/routing";
 import { routing } from "@/i18n/routing";
 
@@ -39,10 +38,9 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale === 'zh' ? 'zh-CN' : 'en'} suppressHydrationWarning>
+    <html lang={locale === 'zh' ? 'zh-CN' : 'en'}>
       <body className="antialiased flex flex-col min-h-screen">
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="flex min-h-screen">
               <Sidebar />
               <SidebarLayout>
@@ -52,7 +50,6 @@ export default async function LocaleLayout({
               </SidebarLayout>
             </div>
             <AuthModal />
-          </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>
