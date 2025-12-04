@@ -9,17 +9,10 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import Button from "@/components/Button";
-import {
-  Squares2X2Icon,
-  UserCircleIcon,
-  SparklesIcon,
-  TrophyIcon,
-  FireIcon,
-  PuzzlePieceIcon,
-  GiftIcon,
-} from "@heroicons/react/24/outline";
+import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { useAuthStore } from "@/stores/useAuthStore";
 import GameCarousel from "@/components/GameCarousel";
+import FAQSection from "@/components/FAQSection";
 
 export default function Home() {
   const t = useTranslations();
@@ -47,7 +40,7 @@ export default function Home() {
 
 
   return (
-    <div className="min-h-screen bg-grey-600">
+    <div className="min-h-screen bg-grey-600 py-8">
       <main className=" ">
         {/* Hero Section - 左右结构 */}
         <div
@@ -454,6 +447,9 @@ export default function Home() {
             type="promotion"
           />
         </div>
+
+        {/* 想了解更多 FAQ 模块 */}
+        <FAQSection />
       </main>
     </div>
   );

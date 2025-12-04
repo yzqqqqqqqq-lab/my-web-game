@@ -1,0 +1,68 @@
+"use client";
+
+import { Accordion, AccordionItem } from "@heroui/react";
+import { faqData, FAQItem } from "@/data/faqData";
+
+interface FAQSectionProps {
+  defaultExpandedKeys?: string[];
+}
+
+export default function FAQSection({
+  defaultExpandedKeys = [],
+}: FAQSectionProps) {
+  return (
+    <section className="bg-grey-600 relative my-6">
+      <div className="container m-auto py-12">
+        <div className="flex items-center mb-6 w-full gap-1.5">
+          <svg
+            data-ds-icon="Info"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            className="inline-block shrink-0"
+          >
+            <path
+              fill="currentColor"
+              d="M12 1C6.48 1 2 5.48 2 11s4.48 10 10 10v2l3.54-2.66C19.31 18.91 22 15.27 22 11c0-5.52-4.48-10-10-10m-.5 3c.83 0 1.5.67 1.5 1.5S12.33 7 11.5 7 10 6.33 10 5.5 10.67 4 11.5 4M15 17H9c-.55 0-1-.45-1-1s.45-1 1-1h2v-5H9c-.55 0-1-.45-1-1s.45-1 1-1h3c.55 0 1 .45 1 1v6h2c.55 0 1 .45 1 1s-.45 1-1 1"
+            />
+          </svg>
+          <h2 className="text-lg md:text-xl text-white font-semibold">
+            想了解更多？
+          </h2>
+        </div>
+
+        <div className="grid w-full gap-2">
+          <Accordion
+            defaultExpandedKeys={defaultExpandedKeys}
+            selectionMode="multiple"
+            className="gap-2 bg-transparent px-0"
+            variant="light"
+            hideIndicator={false}
+          >
+            {faqData.map((item: FAQItem) => (
+              <AccordionItem
+                key={item.id}
+                aria-label={item.question}
+                title={item.question}
+                classNames={{
+                  base: "bg-grey-500 rounded mb-2",
+                  title: "text-base font-semibold text-white text-left py-1",
+                  trigger:
+                    "py-3 px-4 min-h-0 ",
+                  content: "px-4 pb-4 text-base",
+                  indicator:
+                    "text-white transition-transform duration-200 rotate-270 data-[open=true]:rotate-90",
+                }}
+              >
+                {item.answer}
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </div>
+    </section>
+  );
+}
+
