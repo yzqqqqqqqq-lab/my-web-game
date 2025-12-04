@@ -161,7 +161,7 @@ export default function PlayPage({ params }: PlayPageProps) {
                         disabled={isSpinning}
                         className={`px-8 py-4 rounded-lg font-semibold text-lg transition-all transform ${
                           isSpinning
-                            ? 'bg-gray-400 cursor-not-allowed'
+                            ? 'bg-gray-400 '
                             : 'bg-blue-600 hover:bg-blue-700 hover:scale-105 active:scale-95'
                         } text-white shadow-lg`}
                       >

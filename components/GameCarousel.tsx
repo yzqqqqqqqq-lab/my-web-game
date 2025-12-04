@@ -40,12 +40,12 @@ export default function GameCarousel({
   const [isEnd, setIsEnd] = useState(false);
   // 使用惰性初始化来避免在 useEffect 中同步调用 setState
   // 在客户端直接返回 true，服务端返回 false
-  const [isMounted] = useState(() => typeof window !== 'undefined');
+  const [isMounted] = useState(() => typeof window !== "undefined");
 
   // 在窗口大小变化时更新Swiper尺寸
   useEffect(() => {
     if (!isMounted) return;
-    
+
     const handleResize = () => {
       if (swiperRef.current) {
         try {
@@ -85,29 +85,29 @@ export default function GameCarousel({
         </div>
         <div className="flex items-center">
           <div className="flex rounded-[32px] border border-grey-400 overflow-hidden bg-grey-600">
-          <button
-            onClick={() => swiperRef.current?.slidePrev()}
-            disabled={isBeginning}
+            <button
+              onClick={() => swiperRef.current?.slidePrev()}
+              disabled={isBeginning}
               className={`flex items-center justify-center w-14 h-10 transition-all ${
-              isBeginning
-                  ? "opacity-50 cursor-not-allowed"
+                isBeginning
+                  ? "opacity-50 "
                   : "hover:bg-gray-500/20 cursor-pointer active:bg-gray-500/30"
-            }`}
-          >
+              }`}
+            >
               <ChevronLeftIcon className="w-5 h-5 text-grey-200" />
-          </button>
+            </button>
             <div className="w-px bg-grey-400" />
-          <button
-            onClick={() => swiperRef.current?.slideNext()}
-            disabled={isEnd}
+            <button
+              onClick={() => swiperRef.current?.slideNext()}
+              disabled={isEnd}
               className={`flex items-center justify-center w-14 h-10 transition-all ${
-              isEnd
-                  ? "opacity-50 cursor-not-allowed"
+                isEnd
+                  ? "opacity-50 "
                   : "hover:bg-gray-500/20 cursor-pointer active:bg-gray-500/30"
-            }`}
-          >
+              }`}
+            >
               <ChevronRightIcon className="w-5 h-5 text-grey-200" />
-          </button>
+            </button>
           </div>
         </div>
       </div>
@@ -173,31 +173,31 @@ export default function GameCarousel({
                       slidesPerView: 4,
                       slidesPerGroup: 2,
                     },
-              640: {
+                    640: {
                       spaceBetween: 8,
                       slidesPerView: 4,
                       slidesPerGroup: 2,
-              },
-              768: {
+                    },
+                    768: {
                       spaceBetween: 8,
-                slidesPerView: 5,
-                slidesPerGroup: 2,
-              },
-              910: {
+                      slidesPerView: 5,
+                      slidesPerGroup: 2,
+                    },
+                    910: {
                       spaceBetween: 8,
-                slidesPerView: 6,
-                slidesPerGroup: 2,
-              },
-              1060: {
+                      slidesPerView: 6,
+                      slidesPerGroup: 2,
+                    },
+                    1060: {
                       spaceBetween: 8,
-                slidesPerView: 7,
-                slidesPerGroup: 2,
-              },
-              1200: {
+                      slidesPerView: 7,
+                      slidesPerGroup: 2,
+                    },
+                    1200: {
                       spaceBetween: 8,
-                slidesPerView: 8,
-                slidesPerGroup: 2,
-              },
+                      slidesPerView: 8,
+                      slidesPerGroup: 2,
+                    },
                   }
             }
             speed={500}
@@ -261,13 +261,13 @@ export default function GameCarousel({
                       <Link href={`/games/${game.id}`} className="block w-full">
                         {/* 图片容器 */}
                         <div className="relative w-full game-carousel-image rounded-xl overflow-hidden mb-2 group-hover:-translate-y-2.5 transition-transform duration-300">
-                <Image
-                  src={game.cover}
-                  alt={game.title}
-                  fill
+                          <Image
+                            src={game.cover}
+                            alt={game.title}
+                            fill
                             className="object-cover"
                             sizes="(max-width: 640px) calc((100vw - 32px) / 3), (max-width: 768px) calc((100vw - 48px) / 5), (max-width: 910px) calc((100vw - 64px) / 6), (max-width: 1060px) calc((100vw - 80px) / 7), calc((100vw - 96px) / 8)"
-                />
+                          />
                           {/* 悬停时显示的分享按钮（仅游戏类型） */}
                           {type === "game" && (
                             <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
@@ -312,15 +312,15 @@ export default function GameCarousel({
                                 style={{ width: "6px", height: "6px" }}
                               />
                               <span className="text-xs text-white/70">
-                    {game.playCount.toLocaleString()} 在玩
+                                {game.playCount.toLocaleString()} 在玩
                               </span>
-                  </div>
+                            </div>
                           )}
-              </div>
-            </Link>
+                        </div>
+                      </Link>
                     </div>
-          </SwiperSlide>
-        ))}
+                  </SwiperSlide>
+                ))}
           </Swiper>
         ) : (
           <div className="flex gap-4">

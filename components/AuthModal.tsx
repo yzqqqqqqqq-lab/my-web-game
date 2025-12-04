@@ -203,7 +203,7 @@ export default function AuthModal() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2"
+            className="w-full py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400  text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2"
           >
             {loading ? (
               <>
