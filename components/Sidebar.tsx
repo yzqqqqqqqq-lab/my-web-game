@@ -672,7 +672,7 @@ export default function Sidebar() {
                 </button>
 
                 {/* Tabs - 折叠状态下垂直排列，使用 mini 版本图片 */}
-                <div className="flex flex-col items-center gap-2 w-full">
+                <div className="flex flex-col items-center gap-2 w-full mt-2">
                   <Link
                     href="/casino/home"
                     className={`
@@ -722,7 +722,7 @@ export default function Sidebar() {
                           fill="currentColor"
                           fillRule="evenodd"
                           d="m21.86 4.63-7.25-3.38c-1-.47-2.19-.03-2.66.97l-6.76 14.5c-.47 1-.03 2.19.97 2.66l7.25 3.38c1 .47 2.19.03 2.66-.97l6.76-14.5c.47-1 .03-2.19-.97-2.66m-9.54 11-.85-4.81 4.23-2.44.85 4.81z"
-                          clip-rule="evenodd"
+                          clipRule="evenodd"
                         ></path>
                       </svg>
                     </div>

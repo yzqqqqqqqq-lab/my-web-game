@@ -8,7 +8,7 @@ interface FAQSectionProps {
 }
 
 export default function FAQSection({
-  defaultExpandedKeys = [],
+  defaultExpandedKeys = ['0'],
 }: FAQSectionProps) {
   return (
     <section className="bg-grey-600 relative my-6">
@@ -35,6 +35,7 @@ export default function FAQSection({
 
         <div className="grid w-full gap-2">
           <Accordion
+          
             defaultExpandedKeys={defaultExpandedKeys}
             selectionMode="multiple"
             className="gap-2 bg-transparent px-0"
