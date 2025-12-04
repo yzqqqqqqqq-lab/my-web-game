@@ -1,12 +1,38 @@
 @config "../../tailwind.config.mjs";
 @import "tailwindcss";
 
+/* Proxima Nova 字体引入 */
+@font-face {
+  font-family: "proxima-nova";
+  src: url("/font/proxima-nova-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "proxima-nova";
+  src: url("/font/proxima-nova-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "proxima-nova";
+  src: url("/font/proxima-nova-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  
+
   /* 颜色变量 */
   --color-grey-800: #071d2a;
+  --color-grey-700: #0f212e;
   --color-grey-600: #1a2c38;
   --color-grey-500: #213743;
   --color-grey-400: #2f4553;
@@ -14,7 +40,7 @@
   --color-grey-200: #b1bad3;
   --color-blue-500: #1475e1;
   --color-blue-600: #105eb4;
-  
+
   /* 侧边栏宽度变量（默认移动端为0） */
   --sidebar-width: 0px;
 }
@@ -23,6 +49,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-grey-800: var(--color-grey-800);
+  --color-grey-700: var(--color-grey-700);
   --color-grey-600: var(--color-grey-600);
   --color-grey-500: var(--color-grey-500);
   --color-grey-400: var(--color-grey-400);
@@ -32,7 +59,7 @@
   --color-blue-600: var(--color-blue-600);
 }
 
-.container{
+.container {
   width: 100%;
   padding: 0 3vw;
   max-width: min(calc(1200px + 6vw), calc(100vw - var(--sidebar-width)));
@@ -49,7 +76,7 @@
 body {
   background: var(--color-grey-600);
   color: var(--color-grey-200);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: "proxima-nova", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* 隐藏滚动条但保持滚动功能 */
@@ -102,7 +129,8 @@ body::-webkit-scrollbar {
 
 /* 游戏卡片动画 */
 @keyframes scale-up {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
   }
   50% {

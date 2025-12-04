@@ -40,18 +40,18 @@ export default function Home() {
 
 
   return (
-    <div className="min-h-screen bg-grey-600 py-8">
-      <main className=" ">
+    <div className="min-h-screen bg-grey-600 pb-8">
+      <main className=" space-y-6">
         {/* Hero Section - 左右结构 */}
         <div
-          className=" min-h-70 relative overflow-hidden"
+          className=" min-h-70 relative overflow-hidden py-8"
           style={{
             backgroundImage:
               "url(https://stake.com/_app/immutable/assets/header-bg.DLFzM8kq.png)",
             backgroundSize: "cover",
           }}
         >
-          <div className="px-[3vw] max-w-[calc(1200px+6vw)] mx-auto py-12 grid gap-8 items-center md:grid-cols-[40%_55%] md:justify-between">
+          <div className="container  mx-auto  grid gap-8 items-center md:grid-cols-[40%_55%] md:justify-between">
             {/* 左侧：未登录文案 / 登录后用户信息卡片*/}
             <div className="flex items-stretch relative z-10">
               {!isAuthenticated ? (
@@ -59,7 +59,7 @@ export default function Home() {
                   {/* 标题和注册按钮 */}
                   <div>
                     <div className="sm:px-24 md:px-0 lg:pr-20">
-                      <h1 className="text-lg md:text-[32px] text-white font-bold text-left">
+                      <h1 className="md:text-[32px] text-white font-bold text-left leading-[40px]">
                         世界上最大的在线赌场和体育博彩
                       </h1>
                     </div>
@@ -366,7 +366,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="container mx-auto py-12">
+        <div className="container mx-auto">
           {/* 热门游戏轮播 */}
           <GameCarousel
             games={hotGames}

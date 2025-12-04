@@ -34,7 +34,7 @@ export default function SidebarLayout({ children }: SidebarLayoutProps) {
   return (
     <div
       className={`flex flex-col flex-1 transition-all duration-300 ${
-        isOpen ? 'lg:ml-64' : 'lg:ml-20'
+        isOpen ? 'lg:ml-65' : 'lg:ml-15'
       }`}
     >
       {children}

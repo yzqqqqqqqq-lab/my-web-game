@@ -12,7 +12,7 @@ export default function FAQSection({
 }: FAQSectionProps) {
   return (
     <section className="bg-grey-600 relative my-6">
-      <div className="container m-auto py-12">
+      <div className="container m-auto ">
         <div className="flex items-center mb-6 w-full gap-1.5">
           <svg
             data-ds-icon="Info"
@@ -40,6 +40,7 @@ export default function FAQSection({
             className="gap-2 bg-transparent px-0"
             variant="light"
             hideIndicator={false}
+            showDivider={false}
           >
             {faqData.map((item: FAQItem) => (
               <AccordionItem

@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
+import Image from "next/image";
 import {
   Bars3Icon,
   GiftIcon,
@@ -14,7 +15,6 @@ import {
   SparklesIcon,
   TrophyIcon,
   ChevronDownIcon,
-  ChevronUpIcon,
   GlobeAltIcon,
   StarIcon,
   CalendarDaysIcon,
@@ -39,15 +39,27 @@ export default function Sidebar() {
   const locale = useLocale();
   const t = useTranslations();
   const [mounted, setMounted] = useState(false);
-  const [activeTab, setActiveTab] = useState<"casino" | "sports">("casino");
   const [contentVisible, setContentVisible] = useState(isOpen);
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
   const [pendingExpandItem, setPendingExpandItem] = useState<string | null>(
     null
   );
+  const [hoveredTab, setHoveredTab] = useState<"casino" | "sports" | null>(
+    null
+  );
   const sidebarRef = useRef<HTMLElement>(null);
   const transitionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const languageMenuRef = useRef<HTMLDivElement>(null);
+
+  // 根据路径判断 activeTab
+  const activeTab = useMemo<"casino" | "sports" | null>(() => {
+    if (pathname.includes("/sports")) {
+      return "sports";
+    } else if (pathname.includes("/casino")) {
+      return "casino";
+    }
+    return null; // 默认值
+  }, [pathname]);
 
   // 解决水合问题
   useEffect(() => {
@@ -177,13 +189,50 @@ export default function Sidebar() {
       id: "sponsorships",
       label: t("sidebar.sponsorships"),
       icon: SparklesIcon,
-      href: "#",
+      children: [
+        {
+          id: "drake",
+          label: "Drake",
+          icon: SparklesIcon,
+          href: "/zh/drake",
+        },
+        {
+          id: "trinbago",
+          label: "Trinbago Knight Riders",
+          icon: SparklesIcon,
+          href: "/zh/sponsorships/trinbago-knight-riders",
+        },
+        {
+          id: "davido",
+          label: "Davido",
+          icon: SparklesIcon,
+          href: "/zh/sponsorships/davido",
+        },
+        {
+          id: "stake-f1",
+          label: "Stake F1 车队",
+          icon: SparklesIcon,
+          href: "/zh/sponsorships/stake-f1-team",
+        },
+        {
+          id: "ufc",
+          label: "UFC",
+          icon: SparklesIcon,
+          href: "/zh/sponsorships/ufc",
+        },
+        {
+          id: "everton",
+          label: "埃弗顿足球俱乐部",
+          icon: SparklesIcon,
+          href: "/zh/sponsorships/everton",
+        },
+      ],
     },
     {
       id: "responsible",
       label: t("sidebar.responsible"),
       icon: ShieldCheckIcon,
-      href: "#",
+      href: "/zh/responsible-gambling",
     },
     {
       id: "support",
@@ -228,11 +277,31 @@ export default function Sidebar() {
     { code: "en", label: "English" },
   ];
 
+  const isDesktopCollapsed =
+    !isOpen && typeof window !== "undefined" ? window.innerWidth >= 768 : false;
+
   const renderNavItem = (item: NavItem, level: number = 0) => {
     const Icon = item.icon;
     const active = isActive(item.href);
     const hasChildren = item.children && item.children.length > 0;
     const expanded = hasChildren ? isExpanded(item.id) : false;
+
+    const baseButtonClasses = isOpen
+      ? `
+        w-full flex items-center justify-between gap-2 px-4 py-3 rounded-md
+        text-base font-semibold
+        bg-transparent text-white hover:text-white
+        hover:bg-grey-400
+        transition-colors
+      `
+      : `
+        w-11 h-11 flex items-center justify-center rounded-md
+        text-grey-200 hover:text-white
+        hover:bg-grey-500/80
+        transition-colors
+      `;
+
+    const baseLinkClasses = baseButtonClasses;
 
     if (hasChildren) {
       return (
@@ -240,63 +309,56 @@ export default function Sidebar() {
           <button
             onClick={() => {
               if (!isOpen) {
-                // 如果侧边栏折叠，先展开它，并标记待展开的菜单项
                 open();
                 setPendingExpandItem(item.id);
               } else {
-                // 如果侧边栏已展开，直接切换二级菜单
                 toggleExpanded(item.id);
               }
             }}
-            className={`
-              w-full flex items-center gap-3 px-4 py-3 rounded-lg
-              transition-colors duration-200
-              text-gray-700 hover:bg-gray-100
-              ${level > 0 ? "pl-8" : ""}
-            `}
+            className={`${baseButtonClasses} ${
+              level > 0 && isOpen ? "pl-6" : ""
+            }`}
           >
-            <Icon
-              className={`w-5 h-5 shrink-0 transition-opacity duration-300 ${
-                isOpen
-                  ? contentVisible
-                    ? "opacity-100"
-                    : "opacity-0"
-                  : "opacity-100"
-              }`}
-            />
-            {isOpen ? (
-              <>
+            <div className="flex items-center gap-2 overflow-hidden">
+              <Icon
+                className={`w-5 h-5 shrink-0 transition-opacity duration-300 ${
+                  isOpen
+                    ? contentVisible
+                      ? "opacity-100"
+                      : "opacity-0"
+                    : "opacity-100"
+                }`}
+              />
+              {isOpen && (
                 <span
-                  className={`flex-1 text-sm font-medium text-left transition-opacity duration-300 ${
+                  className={`truncate transition-opacity duration-300 ${
                     contentVisible ? "opacity-100" : "opacity-0"
                   }`}
                 >
                   {item.label}
                 </span>
-                <div
-                  className={`transition-opacity duration-300 ${
-                    contentVisible ? "opacity-100" : "opacity-0"
-                  }`}
-                >
-                  {expanded ? (
-                    <ChevronUpIcon className="w-4 h-4 shrink-0" />
-                  ) : (
-                    <ChevronDownIcon className="w-4 h-4 shrink-0" />
-                  )}
-                </div>
-              </>
-            ) : (
-              <span className="sr-only">{item.label}</span>
+              )}
+            </div>
+            {isOpen && (
+              <div
+                className={`shrink-0 flex w-4 h-4 -my-1 rounded-full items-center justify-center transition-transform duration-200 ${
+                  expanded ? "rotate-180" : "rotate-0"
+                } ${contentVisible ? "opacity-100" : "opacity-0"}`}
+              >
+                <ChevronDownIcon className="w-5 h-5 shrink-0" />
+              </div>
             )}
           </button>
           {isOpen && expanded && hasChildren && (
-            <ul
-              className={`mt-1 space-y-1 transition-opacity duration-300 ${
+            <div
+              className={`ml-6 transition-opacity duration-300 ${
                 contentVisible ? "opacity-100" : "opacity-0"
               }`}
             >
-              {item.children!.map((child) => renderNavItem(child, level + 1))}
-            </ul>
+              <ul className="space-y-0">
+                {item.children!.map((child) => renderNavItem(child, level + 1))}
+              </ul>
+            </div>
           )}
         </li>
       );
@@ -307,16 +369,13 @@ export default function Sidebar() {
         {item.href && item.href !== "#" ? (
           <Link
             href={item.href}
-            className={`
-              flex items-center gap-3 px-4 py-3 rounded-lg
-              transition-colors duration-200
-              ${level > 0 ? "pl-8" : ""}
-              ${
-                active
-                  ? "bg-blue-100 text-blue-700"
-                  : "text-gray-700 hover:bg-gray-100"
-              }
-            `}
+            className={`${baseLinkClasses} ${
+              level > 0 && isOpen ? "pl-0 rounded-none" : ""
+            } ${
+              active
+                ? "bg-grey-400/60 text-white"
+                : "bg-transparent text-white hover:text-white hover:bg-grey-400"
+            }`}
             onClick={() => {
               if (window.innerWidth < 1024) {
                 toggle();
@@ -335,7 +394,7 @@ export default function Sidebar() {
             {isOpen ? (
               <>
                 <span
-                  className={`flex-1 text-sm font-medium transition-opacity duration-300 ${
+                  className={`flex-1 text-base font-semibold truncate transition-opacity duration-300 ${
                     contentVisible ? "opacity-100" : "opacity-0"
                   }`}
                 >
@@ -357,12 +416,9 @@ export default function Sidebar() {
           </Link>
         ) : (
           <button
-            className={`
-              w-full flex items-center gap-3 px-4 py-3 rounded-lg
-              transition-colors duration-200
-              ${level > 0 ? "pl-8" : ""}
-              text-gray-700 hover:bg-gray-100
-            `}
+            className={`${baseButtonClasses} ${
+              level > 0 && isOpen ? "pl-0 rounded-none" : ""
+            }`}
             onClick={() => {
               console.log(`Navigate to ${item.id}`);
             }}
@@ -379,7 +435,7 @@ export default function Sidebar() {
             {isOpen ? (
               <>
                 <span
-                  className={`flex-1 text-sm font-medium text-left transition-opacity duration-300 ${
+                  className={`flex-1 text-base font-semibold text-left truncate transition-opacity duration-300 ${
                     contentVisible ? "opacity-100" : "opacity-0"
                   }`}
                 >
@@ -387,7 +443,7 @@ export default function Sidebar() {
                 </span>
                 {item.badge && (
                   <span
-                    className={`px-2 py-0.5 text-xs font-semibold bg-red-500 text-white rounded transition-opacity duration-300 ${
+                    className={`px-2 py-0.5 text-base font-semibold bg-red-500 text-white rounded transition-opacity duration-300 ${
                       contentVisible ? "opacity-100" : "opacity-0"
                     }`}
                   >
@@ -414,7 +470,7 @@ export default function Sidebar() {
       {/* Mobile overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          className="fixed inset-0 bg-black/60 z-40 md:hidden"
           onClick={toggle}
         />
       )}
@@ -423,12 +479,16 @@ export default function Sidebar() {
       <aside
         ref={sidebarRef}
         className={`
-          fixed top-0 left-0 h-full bg-white border-r border-gray-200
+          fixed top-0 left-0 h-full
+          text-grey-200
+          border-r border-grey-500/40
           z-50 transition-all duration-300 ease-in-out
+
+          bg-grey-700
           ${
             isOpen
-              ? "translate-x-0 w-64"
-              : "-translate-x-full lg:translate-x-0 lg:w-20"
+              ? "translate-x-0 w-[260px]"
+              : "-translate-x-full md:translate-x-0 md:w-[60px]"
           }
           overflow-hidden
         `}
@@ -436,170 +496,419 @@ export default function Sidebar() {
         <div className="flex flex-col h-full">
           {/* Header with Tabs */}
           <div className="shrink-0">
-            {/* Logo and Toggle */}
-            <div
-              className={`flex items-center ${
-                isOpen ? "justify-between" : "justify-center"
-              } p-4 border-b border-gray-200 h-16`}
-            >
-              {isOpen ? (
-                <>
-                  <h2
-                    className={`text-xl font-bold text-gray-900 truncate flex-1 min-w-0 mr-2 transition-opacity duration-300 ${
-                      contentVisible ? "opacity-100" : "opacity-0"
-                    }`}
-                  >
-                    {t("common.siteName")}
-                  </h2>
-                </>
-              ) : null}
-              <button
-                onClick={toggle}
-                className="p-2 rounded-lg hover:bg-gray-100 text-gray-700 hover:text-gray-900 transition-colors shrink-0"
-                aria-label={isOpen ? t("sidebar.close") : t("sidebar.open")}
-              >
-                {isOpen ? (
-                  // <XMarkIcon className="w-5 h-5" />
-                  <Bars3Icon className="w-5 h-5" />
-                ) : (
-                  <Bars3Icon className="w-5 h-5" />
-                )}
-              </button>
-            </div>
-
-            {/* Tabs */}
-            {isOpen && (
+            {/* Header with Menu Button and Tabs */}
+            {isOpen ? (
               <div
-                className={`flex border-b border-gray-200 transition-opacity duration-300 ${
+                className={`flex items-center gap-2 px-4 h-[60px] border-b border-grey-500/40 bg-grey-700/95 transition-opacity duration-300 ${
                   contentVisible ? "opacity-100" : "opacity-0"
                 }`}
               >
+                {/* Menu Toggle Button */}
                 <button
-                  onClick={() => setActiveTab("casino")}
-                  className={`
-                    flex-1 px-4 py-3 text-sm font-medium transition-colors
-                    ${
-                      activeTab === "casino"
-                        ? "bg-blue-100 text-blue-700 border-b-2 border-blue-600"
-                        : "text-gray-700 hover:bg-gray-100"
-                    }
-                  `}
+                  onClick={toggle}
+                  className="p-2 rounded-md hover:bg-grey-500/80 text-grey-200 hover:text-white transition-colors shrink-0"
+                  aria-label={t("sidebar.close")}
                 >
-                  {t("sidebar.casino")}
+                  <svg
+                    data-ds-icon="Menu"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    className="inline-block shrink-0"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M19 4H5a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1m.15 6H4.85a.85.85 0 0 0-.85.85v2.3c0 .47.38.85.85.85h14.3c.47 0 .85-.38.85-.85v-2.3a.85.85 0 0 0-.85-.85M19 16H5a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"
+                    ></path>
+                  </svg>
                 </button>
+
+                {/* Tabs */}
+                <div className="flex items-center gap-1.5 flex-1">
+                  <Link
+                    href="/casino/home"
+                    className={`
+                      relative ${
+                        isOpen
+                          ? "flex-1 inline-flex items-center justify-center gap-2 rounded-md px-3 py-2 h-9"
+                          : "w-11 h-11 flex items-center justify-center rounded-md"
+                      }
+                      text-base font-semibold
+                      transition-all overflow-hidden
+                      text-white
+                    `}
+                    onMouseEnter={() => setHoveredTab("casino")}
+                    onMouseLeave={() => setHoveredTab(null)}
+                  >
+                    {/* 底图 - 根据状态和 hover 显示 */}
+                    {/* Active Casino - 激活状态（无论是否 hover） */}
+                    <Image
+                      alt="Product Img"
+                      fill
+                      className={`object-cover transition-opacity ${
+                        activeTab === "casino" ? "opacity-100" : "opacity-0"
+                      }`}
+                      src="/sidebar-icons/active-sports.svg"
+                      sizes="(max-width: 768px) 50vw, 100px"
+                    />
+                    {/* Active Sports - hover 效果（非激活时 hover 显示） */}
+                    <Image
+                      alt="Product Img"
+                      fill
+                      className={`object-cover transition-opacity ${
+                        hoveredTab === "casino" || activeTab == "casino"
+                          ? "opacity-100"
+                          : "opacity-0"
+                      }`}
+                      src="/sidebar-icons/active-casino.svg"
+                      sizes="(max-width: 768px) 50vw, 100px"
+                    />
+                    {/* Default Casino - 非激活且未 hover */}
+                    <Image
+                      alt="Product Img"
+                      fill
+                      className={`object-cover transition-opacity ${
+                        activeTab !== "casino" && hoveredTab !== "casino"
+                          ? "opacity-100"
+                          : "opacity-0"
+                      }`}
+                      src="/sidebar-icons/default-casino.svg"
+                      sizes="(max-width: 768px) 50vw, 100px"
+                    />
+
+                    {isOpen ? (
+                      <span className="relative z-10 truncate">
+                        {t("sidebar.casino")}
+                      </span>
+                    ) : (
+                      <span className="sr-only">{t("sidebar.casino")}</span>
+                    )}
+                  </Link>
+                  <Link
+                    href="/sports/home"
+                    className={`
+                      relative ${
+                        isOpen
+                          ? "flex-1 inline-flex items-center justify-center gap-2 rounded-md px-3 py-2 h-9"
+                          : "w-11 h-11 flex items-center justify-center rounded-md"
+                      }
+                      text-base font-bold
+                      transition-all overflow-hidden
+                      text-white
+                    `}
+                    onMouseEnter={() => setHoveredTab("sports")}
+                    onMouseLeave={() => setHoveredTab(null)}
+                  >
+                    {/* 底图 - 根据状态和 hover 显示 */}
+                    {/* Active Casino - hover 效果（非激活时 hover 显示） */}
+                    <Image
+                      alt="Product Img"
+                      fill
+                      className={`object-cover transition-opacity ${
+                        hoveredTab === "sports" || activeTab == "sports"
+                          ? "opacity-100"
+                          : "opacity-0"
+                      }`}
+                      src="/sidebar-icons/active-sports.svg"
+                      sizes="(max-width: 768px) 50vw, 100px"
+                    />
+                    {/* Active Sports - 激活状态（无论是否 hover） */}
+                    <Image
+                      alt="Product Img"
+                      fill
+                      className={`object-cover transition-opacity ${
+                        activeTab === "sports" ? "opacity-100" : "opacity-0"
+                      }`}
+                      src="/sidebar-icons/active-casino.svg"
+                      sizes="(max-width: 768px) 50vw, 100px"
+                    />
+
+                    {/* Default Sports - 非激活且未 hover */}
+                    <Image
+                      alt="Product Img"
+                      fill
+                      className={`object-cover transition-opacity ${
+                        activeTab !== "sports" && hoveredTab !== "sports"
+                          ? "opacity-100"
+                          : "opacity-0"
+                      }`}
+                      src="/sidebar-icons/default-sports.svg"
+                      sizes="(max-width: 768px) 50vw, 100px"
+                    />
+                    {isOpen ? (
+                      <span className="relative z-10 truncate">
+                        {t("sidebar.sports")}
+                      </span>
+                    ) : (
+                      <span className="sr-only">{t("sidebar.sports")}</span>
+                    )}
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              <div className="flex flex-col items-center gap-2 px-2 py-2 border-b border-grey-500/40 bg-grey-700/95">
+                {/* Menu Toggle Button - 折叠状态下居中 */}
                 <button
-                  onClick={() => setActiveTab("sports")}
-                  className={`
-                    flex-1 px-4 py-3 text-sm font-medium transition-colors
-                    ${
-                      activeTab === "sports"
-                        ? "bg-blue-100 text-blue-700 border-b-2 border-blue-600"
-                        : "text-gray-700 hover:bg-gray-100"
-                    }
-                  `}
+                  onClick={toggle}
+                  className="w-11 h-11 flex items-center justify-center rounded-md hover:bg-grey-500/80 text-grey-200 hover:text-white transition-colors shrink-0"
+                  aria-label={t("sidebar.open")}
                 >
-                  {t("sidebar.sports")}
+                  <svg
+                    data-ds-icon="Menu"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    className="inline-block shrink-0"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M19 4H5a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1m.15 6H4.85a.85.85 0 0 0-.85.85v2.3c0 .47.38.85.85.85h14.3c.47 0 .85-.38.85-.85v-2.3a.85.85 0 0 0-.85-.85M19 16H5a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"
+                    ></path>
+                  </svg>
                 </button>
+
+                {/* Tabs - 折叠状态下垂直排列，使用 mini 版本图片 */}
+                <div className="flex flex-col items-center gap-2 w-full">
+                  <Link
+                    href="/casino/home"
+                    className={`
+                      relative w-11 h-11 flex items-center justify-center rounded-md
+                      transition-all overflow-hidden
+                    `}
+                    onMouseEnter={() => setHoveredTab("casino")}
+                    onMouseLeave={() => setHoveredTab(null)}
+                  >
+                    <Image
+                      alt="Product Img"
+                      fill
+                      className={`object-cover transition-opacity ${
+                        hoveredTab === "casino" || activeTab === "casino"
+                          ? "opacity-100"
+                          : "opacity-0"
+                      }`}
+                      src="/sidebar-icons/active-casino-mini.svg"
+                      sizes="44px"
+                    />
+                    <Image
+                      alt="Product Img"
+                      fill
+                      className={`object-cover transition-opacity ${
+                        activeTab !== "casino" && hoveredTab !== "casino"
+                          ? "opacity-100"
+                          : "opacity-0"
+                      }`}
+                      src="/sidebar-icons/default-casino-mini.svg"
+                      sizes="44px"
+                    />
+                    <div className="relative z-10 w-full h-full text-grey-200 hover:text-white flex items-center justify-center">
+                      <svg
+                        data-ds-icon="Casino"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        className="inline-block shrink-0 text-grey-200 hover:text-white"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="m2.14 4.63 7.25-3.38c.63-.3 1.34-.23 1.89.11-.09.14-.18.28-.26.43L4.81 15.1 1.17 7.29c-.47-1-.03-2.19.97-2.66"
+                        ></path>
+                        <path
+                          fill="currentColor"
+                          fillRule="evenodd"
+                          d="m21.86 4.63-7.25-3.38c-1-.47-2.19-.03-2.66.97l-6.76 14.5c-.47 1-.03 2.19.97 2.66l7.25 3.38c1 .47 2.19.03 2.66-.97l6.76-14.5c.47-1 .03-2.19-.97-2.66m-9.54 11-.85-4.81 4.23-2.44.85 4.81z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
+                    </div>
+                  </Link>
+                  <Link
+                    href="/sports/home"
+                    className={`
+                      relative w-11 h-11 flex items-center justify-center rounded-md
+                      transition-all overflow-hidden
+                    `}
+                    onMouseEnter={() => setHoveredTab("sports")}
+                    onMouseLeave={() => setHoveredTab(null)}
+                  >
+                    {/* 底图 - 根据状态和 hover 显示，使用 mini 版本 */}
+                    <Image
+                      alt="Product Img"
+                      fill
+                      className={`object-cover transition-opacity ${
+                        hoveredTab === "sports" || activeTab === "sports"
+                          ? "opacity-100"
+                          : "opacity-0"
+                      }`}
+                      src="/sidebar-icons/active-sports-mini.svg"
+                      sizes="44px"
+                    />
+
+                    <Image
+                      alt="Product Img"
+                      fill
+                      className={`object-cover transition-opacity ${
+                        activeTab !== "sports" && hoveredTab !== "sports"
+                          ? "opacity-100"
+                          : "opacity-0"
+                      }`}
+                      src="/sidebar-icons/default-sports-mini.svg"
+                      sizes="44px"
+                    />
+                    <div className="relative z-10 w-full h-full text-grey-200 hover:text-white flex items-center justify-center">
+                      <svg
+                        data-ds-icon="Basketball"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        className="inline-block shrink-0 "
+                      >
+                        <path
+                          fill="currentColor"
+                          fillRule="evenodd"
+                          d="M20.864 18.483a11 11 0 0 0 1.824-3.931 8.5 8.5 0 0 0-3.529 1.402 36 36 0 0 1 1.705 2.529m-5.399 3.94a11.1 11.1 0 0 0 4.134-2.493 33 33 0 0 0-1.833-2.776 8.48 8.48 0 0 0-2.292 5.269zm1.998-17.63a11.43 11.43 0 0 1-2.218 6.772c.98.934 1.907 1.915 2.768 2.96a10.35 10.35 0 0 1 4.95-1.842c.019-.23.037-.45.037-.688 0-4.196-2.356-7.843-5.812-9.694.175.806.275 1.64.275 2.492m-13.365-.43a35.2 35.2 0 0 1 9.79 5.965 9.6 9.6 0 0 0 1.742-5.535c0-1.182-.22-2.318-.614-3.362A11 11 0 0 0 12 1a10.94 10.94 0 0 0-7.902 3.363M5.932 16.33c-1.55 0-3.016-.312-4.364-.862C3.026 19.838 7.142 23 12 23c.55 0 1.082-.055 1.613-.128a10.35 10.35 0 0 1 3.007-7.166 33 33 0 0 0-2.548-2.73 11.48 11.48 0 0 1-8.131 3.363z"
+                          clipRule="evenodd"
+                        ></path>
+                        <path
+                          fill="currentColor"
+                          fillRule="evenodd"
+                          d="M12.706 11.73a33.4 33.4 0 0 0-9.818-5.883 10.9 10.9 0 0 0-1.824 7.321 9.66 9.66 0 0 0 11.642-1.448z"
+                          clipRule="evenodd"
+                        ></path>
+                      </svg>
+                    </div>
+                  </Link>
+                </div>
               </div>
             )}
           </div>
 
-          {/* Navigation */}
-          <nav className="flex-1 overflow-y-auto py-4">
-            <ul className="space-y-1 px-2">
-              {navItems.map((item) => renderNavItem(item))}
-            </ul>
+          {/* Navigation + content (scrollable) */}
+          <nav className=" overflow-y-auto">
+            <div className="  rounded-md">
+              {/* 主导航 */}
+              <ul className="space-y-1 px-2">
+                {navItems.map((item) => renderNavItem(item))}
+              </ul>
 
-            {/* Separator */}
-            {isOpen && (
-              <div
-                className={`my-4 border-t border-gray-200 transition-opacity duration-300 ${
-                  contentVisible ? "opacity-100" : "opacity-0"
-                }`}
-              />
-            )}
-
-            {/* Bottom Items */}
-            <ul className="space-y-1 px-2">
-              {bottomItems.map((item) => renderNavItem(item))}
-            </ul>
-          </nav>
-
-          {/* Footer with Language Selector */}
-          <div className="shrink-0 border-t border-gray-200 p-4 relative">
-            <div ref={languageMenuRef} className="relative">
-              <button
-                onClick={() => setLanguageMenuOpen(!languageMenuOpen)}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
-              >
-                <GlobeAltIcon
-                  className={`w-5 h-5 shrink-0 transition-opacity duration-300 ${
-                    isOpen
-                      ? contentVisible
-                        ? "opacity-100"
-                        : "opacity-0"
-                      : "opacity-100"
+              {/* 分割线 */}
+              {isOpen && (
+                <div
+                  className={`py-2.5 px-2 transition-opacity duration-300 ${
+                    contentVisible ? "opacity-100" : "opacity-0"
                   }`}
-                />
-                {isOpen ? (
-                  <>
-                    <span
-                      className={`flex-1 text-sm font-medium text-left transition-opacity duration-300 ${
+                >
+                  <hr className="border-grey-500/40" />
+                </div>
+              )}
+
+              {/* 底部业务入口（赞助活动、负责博彩、在线支持） */}
+              <ul className="space-y-1 px-2">
+                {bottomItems.map((item) => renderNavItem(item))}
+              </ul>
+
+              {/* 语言切换 — 按设计稿放在同一卡片内，而不是固定在侧边栏最底部 */}
+              <div className="mt-2 px-2">
+                <div ref={languageMenuRef} className="relative">
+                  <button
+                    onClick={() => setLanguageMenuOpen(!languageMenuOpen)}
+                    className={`
+                    ${
+                      isOpen
+                        ? "w-full justify-between px-4 py-3"
+                        : "w-11 h-11 justify-center p-1"
+                    }
+                    flex items-center gap-2 rounded-md
+                    text-base font-semibold
+                    bg-transparent text-white hover:text-white hover:bg-grey-400
+                    transition-colors
+                  `}
+                  >
+                    <GlobeAltIcon
+                      className={`w-5 h-5 shrink-0 transition-opacity duration-300 ${
+                        isOpen
+                          ? contentVisible
+                            ? "opacity-100"
+                            : "opacity-0"
+                          : "opacity-100"
+                      }`}
+                    />
+                    {isOpen ? (
+                      <>
+                        <span
+                          className={`flex-1 text-base font-semibold text-left transition-opacity duration-300 ${
+                            contentVisible ? "opacity-100" : "opacity-0"
+                          }`}
+                        >
+                          {t("sidebar.language")}:{" "}
+                          {locale === "zh" ? "中文" : "English"}
+                        </span>
+                        {contentVisible && (
+                          <div
+                            className={`shrink-0 flex w-4 h-4 -my-1 rounded-full items-center justify-center transition-transform duration-200 ${
+                              languageMenuOpen ? "rotate-180" : "rotate-0"
+                            }`}
+                          >
+                            <ChevronDownIcon className="w-5 h-5 shrink-0" />
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <span className="sr-only">{t("sidebar.language")}</span>
+                    )}
+                  </button>
+
+                  {/* Language Accordion Content */}
+                  {isOpen && languageMenuOpen && (
+                    <div
+                      className={`ml-6 transition-opacity duration-300 ${
                         contentVisible ? "opacity-100" : "opacity-0"
                       }`}
                     >
-                      {t("sidebar.language")}:{" "}
-                      {locale === "zh" ? "中文" : "English"}
-                    </span>
-                    {contentVisible && (
-                      <ChevronDownIcon
-                        className={`w-4 h-4 shrink-0 transition-transform duration-200 ${
-                          languageMenuOpen ? "rotate-180" : ""
-                        }`}
-                      />
-                    )}
-                  </>
-                ) : (
-                  <span className="sr-only">{t("sidebar.language")}</span>
-                )}
-              </button>
-
-              {/* Language Dropdown Menu */}
-              {languageMenuOpen && (
-                <div
-                  className={`
-                  absolute ${
-                    isOpen
-                      ? "bottom-full left-0 right-0 mb-2"
-                      : "bottom-full left-0 mb-2 w-48"
-                  }
-                  bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden z-50
-                `}
-                >
-                  {languages.map((lang) => (
-                    <button
-                      key={lang.code}
-                      onClick={() => handleSelectLocale(lang.code)}
-                      className={`
-                        w-full flex items-center gap-3 px-4 py-3 text-sm font-medium
-                        transition-colors duration-200
-                        ${
-                          locale === lang.code
-                            ? "bg-blue-100 text-blue-700"
-                            : "text-gray-700 hover:bg-gray-100"
-                        }
-                      `}
-                    >
-                      <span>{lang.label}</span>
-                      {locale === lang.code && (
-                        <span className="ml-auto text-xs">✓</span>
-                      )}
-                    </button>
-                  ))}
+                      <div className="space-y-0">
+                        {languages.map((lang) => (
+                          <button
+                            key={lang.code}
+                            onClick={() => handleSelectLocale(lang.code)}
+                            className={`
+                            w-full flex items-center justify-between px-4 py-3
+                            text-base font-semibold
+                            bg-transparent text-white hover:text-white hover:bg-grey-400
+                            transition-colors rounded-none
+                          `}
+                          >
+                            <span>{lang.label}</span>
+                            {locale === lang.code && (
+                              <svg
+                                className="w-6 h-6 shrink-0"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <circle
+                                  cx="12"
+                                  cy="12"
+                                  r="6"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                            )}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
             </div>
-          </div>
+          </nav>
         </div>
       </aside>
 

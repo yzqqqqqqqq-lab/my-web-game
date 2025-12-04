@@ -301,6 +301,7 @@ export default function Footer() {
             className="gap-3 bg-transparent px-0"
             variant="light"
             hideIndicator={false}
+            showDivider={false}
           >
             {footerColumns.map((column) => (
               <AccordionItem
