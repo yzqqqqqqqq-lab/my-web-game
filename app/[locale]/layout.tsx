@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { hasLocale, NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import "./globals.css";
 import Header from "@/components/Header";
@@ -8,10 +8,10 @@ import Footer from "@/components/Footer";
 import AuthModal from "@/components/AuthModal";
 import Sidebar from "@/components/Sidebar";
 import SidebarLayout from "@/components/SidebarLayout";
-import { locales} from "@/i18n/routing";
+import { locales } from "@/i18n/routing";
 import { routing } from "@/i18n/routing";
-
-export const runtime = 'edge';
+import { Providers } from "./providers";
+export const runtime = "edge";
 
 export const metadata: Metadata = {
   title: "游戏站 - 在线游戏平台",
@@ -30,7 +30,7 @@ export default async function LocaleLayout({
   const locale = resolvedParams.locale as (typeof locales)[number];
 
   // 验证 locale 是否有效
-  if(!hasLocale(routing.locales, locale)){
+  if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
 
@@ -38,9 +38,10 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale === 'zh' ? 'zh-CN' : 'en'}>
+    <html lang={locale === "zh" ? "zh-CN" : "en"}>
       <body className="antialiased flex flex-col min-h-screen">
-        <NextIntlClientProvider locale={locale} messages={messages}>
+        <Providers>
+          <NextIntlClientProvider locale={locale} messages={messages}>
             <div className="flex min-h-screen">
               <Sidebar />
               <SidebarLayout>
@@ -50,9 +51,9 @@ export default async function LocaleLayout({
               </SidebarLayout>
             </div>
             <AuthModal />
-        </NextIntlClientProvider>
+          </NextIntlClientProvider>
+        </Providers>
       </body>
     </html>
   );
 }
-
