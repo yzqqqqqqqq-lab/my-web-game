@@ -40,6 +40,7 @@ export default function Sidebar() {
   const t = useTranslations();
   const [mounted, setMounted] = useState(false);
   const [contentVisible, setContentVisible] = useState(isOpen);
+  const [navVisible, setNavVisible] = useState(isOpen);
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
   const [pendingExpandItem, setPendingExpandItem] = useState<string | null>(
     null
@@ -82,6 +83,7 @@ export default function Sidebar() {
     // 在动画开始前先隐藏内容（只在状态改变时）
     const hideTimer = setTimeout(() => {
       setContentVisible(false);
+      setNavVisible(false);
     }, 0);
 
     const handleTransitionEnd = (e: TransitionEvent) => {
@@ -90,6 +92,7 @@ export default function Sidebar() {
         // 动画完成后，根据 isOpen 状态显示/隐藏内容
         if (isOpen) {
           setContentVisible(true);
+          setNavVisible(true);
           // 如果有待展开的菜单项，在内容可见后打开它
           if (pendingExpandItem) {
             setTimeout(() => {
@@ -99,6 +102,8 @@ export default function Sidebar() {
           }
         } else {
           setContentVisible(false);
+          // 折叠时，nav 也应该淡入显示
+          setNavVisible(true);
         }
       }
     };
@@ -108,6 +113,8 @@ export default function Sidebar() {
     // Fallback: 如果 transitionend 没有触发，350ms 后根据 isOpen 状态显示内容
     transitionTimeoutRef.current = setTimeout(() => {
       setContentVisible(isOpen);
+      // nav 在展开和折叠时都应该可见
+      setNavVisible(true);
       // 如果有待展开的菜单项，在内容可见后打开它
       if (isOpen && pendingExpandItem) {
         setTimeout(() => {
@@ -481,7 +488,6 @@ export default function Sidebar() {
         className={`
           fixed top-0 left-0 h-full
           text-grey-200
-          border-r border-grey-500/40
           z-50 transition-all duration-300 ease-in-out
 
           bg-grey-700
@@ -499,9 +505,7 @@ export default function Sidebar() {
             {/* Header with Menu Button and Tabs */}
             {isOpen ? (
               <div
-                className={`flex items-center gap-2 px-4 h-[60px] border-b border-grey-500/40 bg-grey-700/95 transition-opacity duration-300 ${
-                  contentVisible ? "opacity-100" : "opacity-0"
-                }`}
+                className={`flex items-center gap-2 px-4 h-[60px] border-b border-grey-500/40 bg-grey-700/95 transition-opacity duration-300 `}
               >
                 {/* Menu Toggle Button */}
                 <button
@@ -543,7 +547,6 @@ export default function Sidebar() {
                     onMouseLeave={() => setHoveredTab(null)}
                   >
                     {/* 底图 - 根据状态和 hover 显示 */}
-                    {/* Active Casino - 激活状态（无论是否 hover） */}
                     <Image
                       alt="Product Img"
                       fill
@@ -791,15 +794,24 @@ export default function Sidebar() {
           </div>
 
           {/* Navigation + content (scrollable) */}
-          <nav className=" overflow-y-auto">
-            <div className="  rounded-md">
+          <nav
+            className={`overflow-y-auto transition-all duration-300 ${
+              navVisible
+                ? "translate-y-0 opacity-100"
+                : "translate-y-5 opacity-0"
+            } 
+             ${isOpen ? "p-4" : "px-2"}
+              
+            `}
+          >
+            <div className={`rounded-md ${isOpen ? "bg-grey-600" : ""} `}>
               {/* 主导航 */}
-              <ul className="space-y-1 px-2">
+              <ul className="space-y-1">
                 {navItems.map((item) => renderNavItem(item))}
               </ul>
 
               {/* 分割线 */}
-              {isOpen && (
+              {/* {isOpen && (
                 <div
                   className={`py-2.5 px-2 transition-opacity duration-300 ${
                     contentVisible ? "opacity-100" : "opacity-0"
@@ -807,15 +819,15 @@ export default function Sidebar() {
                 >
                   <hr className="border-grey-500/40" />
                 </div>
-              )}
+              )} */}
 
               {/* 底部业务入口（赞助活动、负责博彩、在线支持） */}
-              <ul className="space-y-1 px-2">
+              <ul className="space-y-1 ">
                 {bottomItems.map((item) => renderNavItem(item))}
               </ul>
 
               {/* 语言切换 — 按设计稿放在同一卡片内，而不是固定在侧边栏最底部 */}
-              <div className="mt-2 px-2">
+              <div className="mt-2">
                 <div ref={languageMenuRef} className="relative">
                   <button
                     onClick={() => setLanguageMenuOpen(!languageMenuOpen)}
@@ -873,35 +885,60 @@ export default function Sidebar() {
                       }`}
                     >
                       <div className="space-y-0">
-                        {languages.map((lang) => (
-                          <button
-                            key={lang.code}
-                            onClick={() => handleSelectLocale(lang.code)}
-                            className={`
-                            w-full flex items-center justify-between px-4 py-3
-                            text-base font-semibold
-                            bg-transparent text-white hover:text-white hover:bg-grey-400
-                            transition-colors rounded-none
-                          `}
-                          >
-                            <span>{lang.label}</span>
-                            {locale === lang.code && (
-                              <svg
-                                className="w-6 h-6 shrink-0"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
+                        {languages.map((lang) => {
+                          const isSelected = locale === lang.code;
+                          return (
+                            <label
+                              key={lang.code}
+                              onClick={() => handleSelectLocale(lang.code)}
+                              className={`
+                                w-full inline-flex relative items-center justify-between px-4 py-3
+                                text-base font-semibold
+                                bg-transparent text-white hover:text-white hover:bg-grey-400
+                                transition-colors rounded-none cursor-pointer
+                              `}
+                            >
+                              <input
+                                type="radio"
+                                id={lang.code}
+                                value={lang.code}
+                                checked={isSelected}
+                                onChange={() => handleSelectLocale(lang.code)}
+                                className="sr-only"
+                                tabIndex={-1}
+                              />
+                              <span className="flex-1 text-left">
+                                {lang.label}
+                              </span>
+                              <span
+                                className={`shrink-0 flex items-center justify-center w-6 h-6 relative border-2 border-grey-400 rounded-full ${
+                                  isSelected ? "bg-grey-400" : ""
+                                }`}
                               >
-                                <circle
-                                  cx="12"
-                                  cy="12"
-                                  r="6"
-                                  fill="currentColor"
-                                />
-                              </svg>
-                            )}
-                          </button>
-                        ))}
+                                <svg
+                                  data-ds-icon="RadioChecked"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  className={`inline-block shrink-0 text-white transition-all duration-150 ease-out ${
+                                    isSelected
+                                      ? "opacity-100 scale-100"
+                                      : "opacity-0 scale-0"
+                                  }`}
+                                >
+                                  <circle
+                                    cx="12"
+                                    cy="12"
+                                    r="6"
+                                    fill="currentColor"
+                                  />
+                                </svg>
+                              </span>
+                            </label>
+                          );
+                        })}
                       </div>
                     </div>
                   )}
