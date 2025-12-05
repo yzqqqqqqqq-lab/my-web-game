@@ -6,7 +6,7 @@ import { mockGames } from "@/data/mockGames";
 import { mockCompetitions } from "@/data/mockCompetitions";
 import { mockPromotions } from "@/data/mockPromotions";
 import { useTranslations } from "next-intl";
-import Button from "@/components/Button";
+import Button from "@/components/ui/Button";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { useAuthStore } from "@/stores/useAuthStore";
 import GameCarousel from "@/components/GameCarousel";

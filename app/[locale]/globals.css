@@ -40,6 +40,7 @@
   --color-grey-200: #b1bad3;
   --color-blue-500: #1475e1;
   --color-blue-600: #105eb4;
+  --color-red-300: #f2708a;
 
   /* 侧边栏宽度变量（默认移动端为0） */
   --sidebar-width: 0px;
@@ -57,6 +58,7 @@
   --color-grey-200: var(--color-grey-200);
   --color-blue-500: var(--color-blue-500);
   --color-blue-600: var(--color-blue-600);
+  --color-red-300: var(--color-red-300);
 }
 
 .container {
@@ -140,4 +142,41 @@ body::-webkit-scrollbar {
 
 .scale-up {
   animation: scale-up 2s ease-in-out infinite;
+}
+
+/* 日期选择器样式自定义 */
+input[type="date"] {
+  color-scheme: dark;
+}
+
+/* 隐藏原生日历图标（使用自定义图标） */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
+input[type="date"]::-moz-calendar-picker-indicator {
+  display: none;
+}
+
+/* 确保日期输入框文本颜色为白色 */
+input[type="date"] {
+  color: white;
+}
+
+input[type="date"]::-webkit-datetime-edit-text {
+  color: white;
+}
+
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-year-field {
+  color: white;
+}
+
+input[type="date"]::-webkit-datetime-edit-month-field:focus,
+input[type="date"]::-webkit-datetime-edit-day-field:focus,
+input[type="date"]::-webkit-datetime-edit-year-field:focus {
+  background-color: rgba(20, 117, 225, 0.2);
+  color: white;
 }
