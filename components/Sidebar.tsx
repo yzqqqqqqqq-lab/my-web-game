@@ -5,17 +5,19 @@ import { useTranslations, useLocale } from "next-intl";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import Image from "next/image";
 import {
-  Bars3Icon,
   GiftIcon,
   UserGroupIcon,
+  TrophyIcon,
   BookOpenIcon,
   ChatBubbleLeftRightIcon,
+  SparklesIcon,
   ShieldCheckIcon,
   QuestionMarkCircleIcon,
-  SparklesIcon,
-  TrophyIcon,
-  ChevronDownIcon,
   GlobeAltIcon,
+} from "@/lib/icons";
+import {
+  Bars3Icon,
+  ChevronDownIcon,
   StarIcon,
   CalendarDaysIcon,
   EllipsisHorizontalIcon,
@@ -297,7 +299,7 @@ export default function Sidebar() {
       ? `
         w-full flex items-center justify-between gap-2 px-4 py-3 rounded-md
         text-base font-semibold
-        bg-transparent text-white hover:text-white
+        bg-transparent text-grey-200 hover:text-white
         hover:bg-grey-400
         transition-colors
       `

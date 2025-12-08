@@ -85,7 +85,7 @@ export default function Home() {
                       {/* Google */}
                       <button
                         type="button"
-                        className="inline-flex items-center gap-2 justify-center rounded-md bg-grey-400 text-white hover:bg-grey-300 text-sm shadow-md py-2 px-4 transition-colors active:scale-[0.98]"
+                        className="inline-flex items-center gap-2 justify-center rounded-md bg-grey-400 text-white hover:bg-grey-300 text-sm shadow-md p-3 transition-colors active:scale-[0.98]"
                       >
                         <svg
                           width="20"

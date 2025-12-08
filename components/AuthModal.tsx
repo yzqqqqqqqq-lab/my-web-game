@@ -6,9 +6,24 @@ import { useTranslations, useLocale } from "next-intl";
 import { useRouter, usePathname } from "@/i18n/navigation";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { Input, Form, Select, SelectItem } from "@heroui/react";
+import { Input, Form, Select, SelectItem, Modal, ModalContent, ModalHeader, ModalBody } from "@heroui/react";
 import Button from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
+
+import {
+  StakeLogo,
+  GoogleLogo,
+  FacebookLogo,
+  LineLogo,
+  TwitchLogo,
+  EyeIcon,
+  EyeSlashIcon,
+  ErrorIcon,
+  ChevronLeftIcon,
+  ChevronDownIcon,
+  CalendarIcon,
+  PasskeyIcon,
+} from "@/lib/icons";
 
 // 常量定义
 const VALIDATION_RULES = {
@@ -18,195 +33,6 @@ const VALIDATION_RULES = {
 
 type AuthMode = "login" | "register";
 
-// Stake Logo SVG Component
-const StakeLogo = ({ className }: { className?: string }) => (
-  <svg
-    id="Layer_1"
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 400 200"
-    className={className}
-    fill="currentColor"
-  >
-    <g id="Layer_5">
-      <path
-        fill="currentColor"
-        d="M31.47,58.5c-.1-25.81,16.42-40.13,46.75-40.23,21.82-.08,25.72,14.2,25.72,19.39,0,9.94-14.06,20.48-14.06,20.48,0,0,.78,6.19,12.85,6.14,12.07-.05,23.83-8.02,23.76-27.96-.06-22.91-24.06-33.38-47.78-33.29C58.87,3.09,6.24,5.88,6.42,58.13c.18,46.41,87.76,50.5,87.83,80.21.12,32.27-36.08,40.96-48.33,40.96s-17.23-8.67-17.25-13.43c-.09-26.13,25.92-33.41,25.92-33.41,0-1.95-1.52-10.64-11.59-10.6-25.95.05-36.28,22.36-36.21,44.14.07,18.53,13.16,30.09,32.94,30.01,37.82-.14,80.46-18.59,80.3-59.56-.14-38.32-88.46-48.33-88.57-77.96Z"
-      />
-      <path
-        fill="currentColor"
-        d="M391.96,161.17c-.3-.73-1.15-.56-2.27.37-4.29,3.54-14.1,13.56-37.06,13.65-41.85.16-49.12-68.83-49.12-68.83,0,0,31.9-23.81,36.88-33.42,4.98-9.61-10.87-11.7-10.87-11.7,0,0-22.31,27.15-38.13,35.1,1.72-11.81,13.42-38.72,14.09-54.2.67-15.48-18.63-11.7-21.72-10.22,0,6.76-17.06,68.1-23.27,101.82-3.66,5.85-8.88,12.54-13.56,12.55-2.71,0-3.71-5.02-3.73-12.22,0-9.99,5.5-25.99,5.46-35.71,0-6.73-3.09-7.13-5.75-7.12-.58,0-3.77.09-4.36.09-6.83,0-4.58-5.85-10.73-5.79-18.8.07-42.75,20.59-43.79,51.57-6.35,4.2-15.23,9.5-19.77,9.52-4.76,0-5.94-4.4-5.95-8.2,0-6.68,10.8-46.37,10.8-46.37,0,0,13.76-3.53,19.77-4.69,4.54-.89,5.85-1.22,7.62-3.41s5.22-6.73,8.01-10.8c2.79-4.08.05-7.23-5.11-7.21-6.77,0-24.88,4.29-24.88,4.29,0,0,8.7-37.5,8.69-38.26s-.98-1.16-2.45-1.15c-3.3,0-9.18,1.77-12.94,3.12-5.76,2.06-10.45,9.12-11.4,12.4s-7.46,29.02-7.46,29.02c0,0-34.88,12.04-39.65,13.85-.29.1-.49.37-.49.68s3.99,15.6,12.17,15.54c5.85,0,23.04-7.04,23.04-7.04,0,0-8.83,35.1-8.78,46.81,0,7.51,3.54,16.3,18.21,16.26,13.65,0,25.6-7.05,32.29-11.96,3.66,9.25,12.3,11.79,18.2,11.77,13.22,0,23.4-10.55,24.71-11.96,1.72,4.06,5.76,11.85,15.01,11.82,5.23,0,10.64-5.85,14.63-11.53-.08,1.18-.06,2.36.05,3.54,1.6,14.55,23.2,6,24.38,3.97.73-10.52.27-32.03,4.48-45.31,5.58,45.3,26.74,75.78,64.78,75.64,21.27-.08,32.18-6.19,36.69-11.23,3.69-4.08,4.94-9.81,3.29-15.06ZM209.45,146.23c-18.26.07,5.59-47.27,21.17-47.33.02,6.1-.32,47.26-21.17,47.33Z"
-      />
-      <path
-        fill="currentColor"
-        d="M357.73,160.74c16.49-.06,29.25-10.91,31.59-14.44,3.02-4.59-3.51-11.53-5.59-11.41-5.21,4.98-10.65,11.01-22.87,11.05-14.38.06-11.13-15.77-11.13-15.77,0,0,27.68,3.58,38.81-16.32,3.56-6.37,3.71-15.17,2.27-18.97s-9.49-10.81-22.3-9.75c-15.74,1.33-35.57,17.74-39.93,37.45-3.5,15.86,3.12,38.26,29.14,38.17ZM375.28,94.33c2.59-.09,2.36,4.18,1.67,8.65-.98,6.06-9.29,21.45-25.17,20.85,1.1-8.96,12.91-29.15,23.53-29.5h-.03Z"
-      />
-    </g>
-  </svg>
-);
-
-// Google Logo SVG Component
-const GoogleLogo = () => (
-  <svg
-    id="layer-google-logo"
-    xmlns="http://www.w3.org/2000/svg"
-    xmlnsXlink="http://www.w3.org/1999/xlink"
-    viewBox="0 0 16 16"
-    className="w-5 h-5"
-  >
-    <defs>
-      <style>{`.cls-google-logo-1 { clip-path: url(#clip-google-logo); } .cls-google-logo-2 { fill: none; } .cls-google-logo-2, .cls-google-logo-3, .cls-google-logo-4, .cls-google-logo-5, .cls-google-logo-6 { stroke-width: 0px; } .cls-google-logo-3 { fill: #34a853; } .cls-google-logo-4 { fill: #4285f4; } .cls-google-logo-5 { fill: #e94235; } .cls-google-logo-6 { fill: #fbbc04; }`}</style>
-      <clipPath id="clip-google-logo">
-        <rect className="cls-google-logo-2" width="16" height="16" />
-      </clipPath>
-    </defs>
-    <g id="layer-google-logo-2">
-      <g className="cls-google-logo-1">
-        <path
-          className="cls-google-logo-4"
-          d="M15.68,8.18c0-.57-.05-1.11-.15-1.64h-7.53v3.09h4.31c-.19,1-.75,1.85-1.6,2.41v2.01h2.59c1.51-1.39,2.39-3.44,2.39-5.88Z"
-        />
-        <path
-          className="cls-google-logo-3"
-          d="M8,16c2.16,0,3.97-.72,5.29-1.94l-2.59-2.01c-.72.48-1.63.76-2.71.76-2.08,0-3.85-1.41-4.48-3.3H.85v2.07c1.32,2.61,4.02,4.41,7.15,4.41Z"
-        />
-        <path
-          className="cls-google-logo-6"
-          d="M3.52,9.52c-.16-.48-.25-.99-.25-1.52s.09-1.04.25-1.52v-2.07H.85c-.54,1.08-.85,2.3-.85,3.59s.31,2.51.85,3.59l2.67-2.07Z"
-        />
-        <path
-          className="cls-google-logo-5"
-          d="M8,3.18c1.17,0,2.23.4,3.06,1.2l2.29-2.29c-1.39-1.29-3.2-2.08-5.35-2.08C4.87,0,2.17,1.79.85,4.41l2.67,2.07c.63-1.89,2.39-3.3,4.48-3.3Z"
-        />
-      </g>
-    </g>
-  </svg>
-);
-
-// Facebook Logo
-const FacebookLogo = () => (
-  <svg
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    className="w-5 h-5"
-  >
-    <path
-      fill="#0866FF"
-      d="M22.986 11.993C22.986 5.92 18.066 1 11.993 1S1 5.92 1 11.993c0 5.153 3.545 9.482 8.341 10.677v-7.31H7.074v-3.367H9.34V10.55c0-3.737 1.69-5.483 5.373-5.483.7 0 1.896.138 2.39.275v3.05a14 14 0 0 0-1.263-.04c-1.8 0-2.501.687-2.501 2.46v1.181h3.586l-.618 3.367H13.34v7.558c5.441-.66 9.66-5.29 9.66-10.911z"
-    />
-    <path
-      fill="#fff"
-      d="m16.294 15.36.619-3.367h-3.587v-1.182c0-1.772.7-2.46 2.501-2.46.563 0 1.017 0 1.264.042v-3.05c-.495-.138-1.69-.276-2.39-.276-3.67 0-5.374 1.732-5.374 5.483v1.443H7.06v3.367h2.267v7.31c.852.206 1.745.33 2.652.33.454 0 .894-.027 1.333-.082V15.36z"
-    />
-  </svg>
-);
-
-// Line Logo
-const LineLogo = () => (
-  <svg
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    className="w-5 h-5"
-  >
-    <path
-      fill="#06C755"
-      d="M12.03 23c6.075 0 11-4.925 11-11s-4.925-11-11-11-11 4.925-11 11 4.925 11 11 11"
-    />
-    <path
-      fill="#fff"
-      d="M19.373 11.365c0-3.285-3.299-5.962-7.343-5.962S4.688 8.08 4.688 11.365c0 2.954 2.608 5.41 6.142 5.88.234.055.565.151.648.358.07.18.055.484.028.663 0 0-.083.525-.11.635-.028.18-.152.731.634.4.787-.331 4.237-2.498 5.77-4.265 1.062-1.173 1.573-2.346 1.573-3.67"
-    />
-    <path
-      fill="#06C755"
-      d="M16.93 13.256a.14.14 0 0 0 .138-.138v-.524a.14.14 0 0 0-.138-.138h-1.408v-.539h1.408a.14.14 0 0 0 .138-.138v-.524a.14.14 0 0 0-.138-.138h-1.408v-.539h1.408a.14.14 0 0 0 .138-.138v-.524a.14.14 0 0 0-.138-.138h-2.07a.14.14 0 0 0-.138.138v3.202c0 .083.069.138.138.138zm-7.646 0a.14.14 0 0 0 .138-.138v-.524a.14.14 0 0 0-.138-.138H7.876v-2.54a.14.14 0 0 0-.138-.138h-.525a.14.14 0 0 0-.138.138v3.202c0 .083.07.138.138.138zm1.256-3.478h-.525a.14.14 0 0 0-.138.138v3.216c0 .076.062.138.138.138h.525a.14.14 0 0 0 .138-.138V9.916a.14.14 0 0 0-.138-.138m3.547 0h-.525a.14.14 0 0 0-.138.138v1.905l-1.463-1.988V9.82h-.524a.14.14 0 0 0-.138.138v3.202c0 .083.069.138.138.138h.524a.14.14 0 0 0 .138-.138v-1.904l1.463 1.987.042.042h.565a.14.14 0 0 0 .139-.139V9.945a.14.14 0 0 0-.139-.138z"
-    />
-  </svg>
-);
-
-// Twitch Logo
-const TwitchLogo = () => (
-  <svg
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    className="w-5 h-5"
-  >
-    <path
-      fill="#fff"
-      d="m19.246 11.22-2.995 3.136h-2.996l-2.63 2.754v-2.754H7.25V2.576h11.996z"
-    />
-    <path
-      fill="#9146FF"
-      d="M6.505 1 2.75 4.932v14.136h4.5V23l3.755-3.932H14L20.75 12V1zm12.741 10.22-2.995 3.136h-2.996l-2.63 2.754v-2.754H7.25V2.576h11.996z"
-    />
-    <path
-      fill="#9146FF"
-      d="M17.009 5.329h-1.505v4.712h1.505zm-4.134 0H11.37v4.712h1.505z"
-    />
-  </svg>
-);
-
-// Eye Icons SVG Components
-const EyeIcon = ({ className }: { className?: string }) => (
-  <svg
-    data-ds-icon="ViewOn"
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    className={className}
-  >
-    <path
-      fill="currentColor"
-      d="M12 4C5.92 4 1 7.58 1 12s4.92 8 11 8 11-3.58 11-8-4.92-8-11-8m0 13c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5"
-    />
-    <path fill="currentColor" d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-  </svg>
-);
-
-const EyeSlashIcon = ({ className }: { className?: string }) => (
-  <svg
-    data-ds-icon="ViewOff"
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    className={className}
-  >
-    <path
-      fill="currentColor"
-      d="M20.508 8.488 7.4 17.829c-.683.482-.503 1.547.301 1.788a14.5 14.5 0 0 0 4.259.623c6.107 0 11.049-3.596 11.049-8.036 0-1.245-.382-2.42-1.075-3.465-.311-.472-.954-.572-1.416-.251zm3.304-4.902a1 1 0 0 0-1.396-.23l-3.596 2.56c-1.878-1.094-4.269-1.747-6.87-1.747C5.843 4.169.9 7.765.9 12.204c0 1.829.835 3.516 2.25 4.862L.42 19.015a1.005 1.005 0 0 0 .593 1.818c.2 0 .401-.06.582-.181l4.71-3.355.744-.532L18.85 8.357l.713-.512 4.018-2.863a1 1 0 0 0 .231-1.396M2.91 12.204c0-3.264 4.138-6.026 9.04-6.026 1.838 0 3.576.391 5.022 1.054l-1.467 1.045-1.074.763a4.02 4.02 0 0 0-2.471-.853 4.017 4.017 0 0 0-3.797 5.323l-3.315 2.36c-1.205-1.024-1.928-2.3-1.928-3.666z"
-    ></path>
-  </svg>
-);
-
-// 错误消息图标组件
-const ErrorIcon = ({ className }: { className?: string }) => (
-  <svg
-    data-ds-icon="Caution"
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    className={cn("inline-block shrink-0 text-red-300", className)}
-  >
-    <path
-      fill="currentColor"
-      d="M21.78 19.04 13.83 3.13c-.75-1.51-2.91-1.51-3.66 0l-7.95 15.9c-.68 1.36.31 2.96 1.83 2.96h15.9c1.52 0 2.51-1.6 1.83-2.96zM11 7c0-.55.45-1 1-1s1 .45 1 1v7c0 .55-.45 1-1 1s-1-.45-1-1zm1 12c-.83 0-1.5-.67-1.5-1.5S11.17 16 12 16s1.5.67 1.5 1.5S12.83 19 12 19"
-    ></path>
-  </svg>
-);
-
 // 错误消息显示组件
 const ErrorMessage = ({ message }: { message: string }) => (
   <div className="flex items-center gap-2 mt-2 mb-1">
@@ -215,99 +41,11 @@ const ErrorMessage = ({ message }: { message: string }) => (
   </div>
 );
 
-// ChevronLeft Icon Component
-const ChevronLeftIcon = ({ className }: { className?: string }) => (
-  <svg
-    data-ds-icon="ChevronLeft"
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    className={className}
-  >
-    <path
-      fill="currentColor"
-      d="M14.293 5.293a1 1 0 1 1 1.414 1.414L10.414 12l5.293 5.293.068.076a1 1 0 0 1-1.406 1.406l-.076-.068-6-6a1 1 0 0 1 0-1.414z"
-    />
-  </svg>
-);
-
-// ChevronDown Icon Component
-const ChevronDownIcon = ({ className }: { className?: string }) => (
-  <svg
-    data-ds-icon="ChevronDown"
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    className={className}
-  >
-    <path
-      fill="currentColor"
-      d="M17.293 8.293a1 1 0 1 1 1.414 1.414l-6 6a1 1 0 0 1-1.414 0l-6-6-.068-.076A1 1 0 0 1 6.63 8.225l.076.068L12 13.586z"
-    />
-  </svg>
-);
-
-// Calendar Icon Component
-const CalendarIcon = ({ className }: { className?: string }) => (
-  <svg
-    data-ds-icon="Calendar"
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    className={className}
-  >
-    <path
-      fill="currentColor"
-      d="M2 19c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-9H2zM20 4h-1v2.02c0 .71-.36 1.41-.99 1.73C16.5 8.51 15 7.43 15 6V4H9v2.02c0 .71-.36 1.41-.99 1.73C6.5 8.51 5 7.43 5 6V4H4c-1.1 0-2 .9-2 2v3h20V6c0-1.1-.9-2-2-2"
-    />
-    <path
-      fill="currentColor"
-      d="M7 7c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1s-1 .45-1 1v3c0 .55.45 1 1 1m10 0c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1s-1 .45-1 1v3c0 .55.45 1 1 1"
-    />
-  </svg>
-);
-
 // Language options - Only include supported locales
 const languages = [
   { value: "en", label: "English" },
   { value: "zh", label: "中文" },
 ];
-
-// Passkey Icon SVG Component
-const PasskeyIcon = () => (
-  <svg
-    data-ds-icon="Passkey"
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    className="shrink-0"
-  >
-    <path
-      fill="currentColor"
-      fillRule="evenodd"
-      d="M22.176 9.928c0 1.997-1.221 3.696-2.921 4.316l1.028 1.715-1.522 1.884 1.522 1.842L17.829 23 16.1 21.142v-7.024c-1.537-.703-2.613-2.315-2.613-4.19 0-2.522 1.945-4.567 4.345-4.567s4.344 2.045 4.344 4.567m-4.345.698c.579 0 1.048-.492 1.048-1.101s-.47-1.103-1.048-1.103-1.048.493-1.048 1.103c-.002.608.47 1.101 1.048 1.101"
-      clipRule="evenodd"
-    />
-    <path
-      fill="currentColor"
-      fillRule="evenodd"
-      d="M14.678 14.949c-1.404-1.16-2.347-2.943-2.476-4.968H4.68c-1.578 0-2.857 1.306-2.857 2.918v3.648c0 .806.64 1.46 1.428 1.46h9.998c.789 0 1.428-.654 1.428-1.46z"
-      clipRule="evenodd"
-    />
-    <path
-      fill="currentColor"
-      d="M7.9 9.107c-.349-.066-.694-.129-1.024-.27-1.245-.525-1.97-1.495-2.206-2.865-.16-.938-.084-1.865.293-2.742.535-1.247 1.496-1.922 2.757-2.151.754-.136 1.506-.106 2.231.167 1.093.408 1.826 1.197 2.164 2.354.343 1.166.293 2.333-.224 3.438-.536 1.153-1.47 1.772-2.652 2.014l-.295.06A84 84 0 0 0 7.9 9.107"
-    />
-  </svg>
-);
 
 export default function AuthModal() {
   const router = useRouter();
@@ -740,42 +478,42 @@ export default function AuthModal() {
     setShowPassword((prev) => !prev);
   }, []);
 
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      {/* Backdrop */}
-      <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-        onClick={closeModal}
-      />
+    <Modal
+      isOpen={isOpen}
+      onClose={closeModal}
+      size="2xl"
+      classNames={{
+        base: "max-w-[630px] max-h-[716px] modal-slide-up",
+        backdrop: "bg-black/50 ",
+        wrapper: "p-4 flex items-center justify-center",
+      }}
+      hideCloseButton
+      isDismissable={true}
+      isKeyboardDismissDisabled={false}
+      placement="center"
+    >
+      <ModalContent className="bg-grey-600 text-grey-200 rounded-md overflow-hidden flex flex-col h-full max-h-[716px] min-w-[200px]">
+        {(onClose) => (
+          <>
+            {/* Header with Logo and Close Button */}
+            <ModalHeader className="h-15 px-4 py-0 flex items-center justify-between bg-grey-600 border-none">
+              <div className="flex items-center">
+                <StakeLogo className="h-10 text-white" />
+              </div>
+              <button
+                onClick={onClose}
+                className="inline-flex relative items-center gap-2 justify-center rounded-sm bg-transparent text-grey-200 hover:text-white transition-colors p-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                aria-label={t("common.close")}
+                data-testid="exit-registration"
+              >
+                <XMarkIcon className="w-5 h-5" />
+              </button>
+            </ModalHeader>
 
-      {/* Modal */}
-      <div
-        className="relative w-full min-w-[200px] max-w-[630px] h-full max-h-[716px] rounded-md bg-cover bg-center bg-grey-600 text-grey-200 overflow-hidden flex flex-col"
-        data-modal-card="true"
-      >
-        {/* Header with Logo and Close Button */}
-        <div className="h-15 px-4 py-0 flex items-center justify-between bg-grey-600">
-          <div className="flex items-center">
-            <StakeLogo className="h-10 text-white" />
-          </div>
-          <button
-            onClick={closeModal}
-            className="inline-flex relative items-center gap-2 justify-center rounded-sm bg-transparent text-grey-200 hover:text-white transition-colors p-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-            aria-label={t("common.close")}
-            data-testid="exit-registration"
-          >
-            <XMarkIcon className="w-5 h-5" />
-          </button>
-        </div>
-
-        {/* Content Area */}
-        <div
-          className="flex-1 bg-grey-700 overflow-y-auto overscroll-none flex flex-col"
-          data-modal-content="true"
-        >
-          <div className="flex flex-col flex-1 relative bg-grey-700 px-4 pb-4">
+            {/* Content Area */}
+            <ModalBody className="flex-1 bg-grey-700 overflow-y-auto overscroll-none flex flex-col p-0">
+              <div className="flex flex-col flex-1 relative bg-grey-700 px-4 pb-4">
             {/* Progress Bar and Step Indicator - Only for Register Mode */}
             {mode === "register" && (
               <div className="pt-2 sticky top-0 bg-grey-700 z-10">
@@ -1780,9 +1518,11 @@ export default function AuthModal() {
                 )}
               </>
             )}
-          </div>
-        </div>
-      </div>
-    </div>
+              </div>
+            </ModalBody>
+          </>
+        )}
+      </ModalContent>
+    </Modal>
   );
 }
