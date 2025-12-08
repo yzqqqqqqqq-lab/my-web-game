@@ -241,7 +241,7 @@ export default function Sidebar() {
       id: "responsible",
       label: t("sidebar.responsible"),
       icon: ShieldCheckIcon,
-      href: "/zh/responsible-gambling",
+      href: "#",
     },
     {
       id: "support",
@@ -426,7 +426,7 @@ export default function Sidebar() {
         ) : (
           <button
             className={`${baseButtonClasses} ${
-              level > 0 && isOpen ? "pl-0 rounded-none" : ""
+              level > 0 && isOpen ? "rounded-none border-l-2 border-grey-400 " : ""
             }`}
             onClick={() => {
               console.log(`Navigate to ${item.id}`);
@@ -841,7 +841,7 @@ export default function Sidebar() {
                     }
                     flex items-center gap-2 rounded-md
                     text-base font-semibold
-                    bg-transparent text-white hover:text-white hover:bg-grey-400
+                    bg-transparent text-grey-200 hover:text-white hover:bg-grey-400
                     transition-colors
                   `}
                   >
