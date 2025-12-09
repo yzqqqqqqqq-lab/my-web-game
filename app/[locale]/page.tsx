@@ -7,11 +7,16 @@ import { mockCompetitions } from "@/data/mockCompetitions";
 import { mockPromotions } from "@/data/mockPromotions";
 import { useTranslations } from "next-intl";
 import Button from "@/components/ui/Button";
-import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { useAuthStore } from "@/stores/useAuthStore";
 import GameCarousel from "@/components/GameCarousel";
 import FAQSection from "@/components/FAQSection";
 import ProductCards from "@/components/ProductCards";
+import {
+  VIPNoneIcon,
+  VIPBronzeIcon,
+  ChevronRightIcon,
+  InfoIcon,
+} from "@/lib/icons";
 
 export default function Home() {
   const t = useTranslations();
@@ -192,52 +197,68 @@ export default function Home() {
                   </div>
                 </div>
               ) : (
-                <div className="relative flex-1 rounded-3xl bg-linear-to-br from-emerald-500 via-emerald-600 to-emerald-700 text-white p-6 md:p-7 shadow-2xl overflow-hidden">
-                  <div className="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.4),transparent_55%)]" />
-                  <div className="relative flex flex-col h-full">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-3">
-                        <UserCircleIcon className="w-10 h-10 text-white" />
-                        <div>
-                          <div className="text-sm text-emerald-100">
-                            {t("common.welcomeBack") ?? "欢迎回来"}
+                <div className="flex justify-center rounded-md relative w-full max-w-96 bg-linear-to-b from-grey-500 to-grey-700 aspect-video">
+                  <div
+                    className="flex flex-col justify-center rounded-md w-full bg-grey-700 z-10 h-full"
+                    style={{ border: "2px solid var(--color-grey-400)" }}
+                  >
+                    <div className="flex flex-col justify-between px-6 py-5 z-10 h-full">
+                      {/* 顶部：标题和VIP图标 */}
+                      <div className="flex justify-between mb-6">
+                        <span className="text-neutral-default text-xl font-medium text-white">
+                          {userInfo?.username || "VIP 玩家"}
+                        </span>
+                        <VIPNoneIcon />
+                      </div>
+
+                      {/* VIP进度区域 */}
+                      <div className="w-full">
+                        <div className="flex justify-between items-end gap-5 mb-2">
+                          <button
+                            type="button"
+                            className="inline-flex items-center gap-2 text-white hover:text-white/80 transition-colors text-sm font-semibold"
+                          >
+                            您的 VIP 进度
+                            <ChevronRightIcon className="w-5 h-5" />
+                          </button>
+                          <span className="flex gap-1 items-center text-sm text-white">
+                            <span className="font-semibold">
+                              {vipProgress.toFixed(2)}%
+                            </span>
+                            <div className="hoverable" role="tooltip">
+                              <InfoIcon className="w-5 h-5 text-grey-200" />
+                            </div>
+                          </span>
+                        </div>
+
+                        {/* 进度条 */}
+                        <div
+                          role="meter"
+                          aria-valuemin={0}
+                          aria-valuemax={100}
+                          aria-valuenow={vipProgress}
+                          className="relative w-full my-2 overflow-hidden rounded-full bg-grey-400 h-[0.625em]"
+                        >
+                          <div
+                            className="h-full shadow-lg rounded-full transition-all duration-500"
+                            style={{
+                              width: `${vipProgress}%`,
+                              backgroundColor: "var(--color-green-400)",
+                            }}
+                          />
+                        </div>
+
+                        {/* 底部：当前等级和下一等级 */}
+                        <div className="flex justify-between w-full mt-2">
+                          <div className="flex items-center gap-1">
+                            <VIPNoneIcon className="w-4 h-4" />
+                            <span className="text-sm text-white">暂无级别</span>
                           </div>
-                          <div className="text-lg font-semibold">
-                            {userInfo?.username || "VIP 玩家"}
+                          <div className="flex items-center gap-1">
+                            <VIPBronzeIcon className="w-4 h-4" />
+                            <span className="text-sm text-white">青铜</span>
                           </div>
                         </div>
-                      </div>
-                      <span className="rounded-full bg-emerald-900/40 px-3 py-1 text-xs font-semibold border border-emerald-300/40">
-                        VIP 0 · 新手
-                      </span>
-                    </div>
-
-                    <div className="mt-2 mb-6">
-                      <div className="flex items-center justify-between text-xs mb-2">
-                        <span className="text-emerald-50">您的 VIP 进度</span>
-                        <span className="text-emerald-100">
-                          {vipProgress.toFixed(2)}%
-                        </span>
-                      </div>
-                      <div className="h-2 rounded-full bg-emerald-900/40 overflow-hidden">
-                        <div
-                          className="h-full  rounded-full bg-linear-to-r from-yellow-300 to-amber-500 transition-all duration-500"
-                          style={{ width: `${vipProgress}%` }}
-                        />
-                      </div>
-                      <div className="mt-2 text-[11px] text-emerald-50/90">
-                        下注即可开始累积 VIP 经验，解锁更高等级和专属奖励。
-                      </div>
-                    </div>
-
-                    <div className="mt-auto flex items-center justify-between text-xs">
-                      <div className="space-y-1">
-                        {/* <div className="text-emerald-50/90">当前等级</div> */}
-                        <div className="font-semibold">暂无等级</div>
-                      </div>
-                      <div className="space-y-1 text-right">
-                        {/* <div className="text-emerald-50/90">下一等级</div> */}
-                        <div className="font-semibold">青铜</div>
                       </div>
                     </div>
                   </div>

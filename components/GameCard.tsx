@@ -39,7 +39,7 @@ export default function GameCard({ game }: GameCardProps) {
 
   return (
     <div className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200">
-      <Link href={`/games/${game.id}`}>
+      <Link href={game.demoUrl}>
         <div className="relative h-48 overflow-hidden">
           <Image
             src={game.cover}
@@ -59,7 +59,7 @@ export default function GameCard({ game }: GameCardProps) {
       </Link>
       
       <div className="p-4">
-        <Link href={`/games/${game.id}`}>
+        <Link href={game.demoUrl}>
           <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-1 group-hover:text-blue-600 transition-colors">
             {game.title}
           </h3>

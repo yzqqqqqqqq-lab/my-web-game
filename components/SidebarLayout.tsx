@@ -13,14 +13,14 @@ export default function SidebarLayout({ children }: SidebarLayoutProps) {
   // 设置 CSS 变量来存储侧边栏宽度，用于容器宽度计算
   useEffect(() => {
     const root = document.documentElement;
-    if (window.innerWidth >= 1024) { // lg breakpoint
+    if (window.innerWidth >= 768) { // lg breakpoint
       root.style.setProperty('--sidebar-width', isOpen ? '256px' : '80px');
     } else {
       root.style.setProperty('--sidebar-width', '0px');
     }
 
     const handleResize = () => {
-      if (window.innerWidth >= 1024) {
+      if (window.innerWidth >= 768) {
         root.style.setProperty('--sidebar-width', isOpen ? '256px' : '80px');
       } else {
         root.style.setProperty('--sidebar-width', '0px');
@@ -34,7 +34,7 @@ export default function SidebarLayout({ children }: SidebarLayoutProps) {
   return (
     <div
       className={`flex flex-col flex-1 transition-all duration-300 ${
-        isOpen ? 'lg:ml-65' : 'lg:ml-15'
+        isOpen ? 'md:ml-65' : 'md:ml-15'
       }`}
     >
       {children}

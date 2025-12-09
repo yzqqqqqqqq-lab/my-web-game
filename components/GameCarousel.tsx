@@ -10,6 +10,7 @@ import {
   ChevronRightIcon,
   ArrowTopRightOnSquareIcon,
 } from "@heroicons/react/24/outline";
+import { Tooltip } from "@heroui/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
@@ -17,6 +18,7 @@ import type { Swiper as SwiperType } from "swiper";
 // 导入 Swiper 样式
 import "swiper/css";
 import "swiper/css/navigation";
+import { SpecialIcon } from "@/lib/icons";
 
 type CarouselType = "game" | "event" | "promotion";
 
@@ -258,7 +260,7 @@ export default function GameCarousel({
               : games?.map((game) => (
                   <SwiperSlide key={game.id} className="h-auto pt-4">
                     <div className="group relative w-full px-1">
-                      <Link href={`/games/${game.id}`} className="block w-full">
+                      <Link href={game.demoUrl} className="block w-full">
                         {/* 图片容器 */}
                         <div className="relative w-full game-carousel-image rounded-xl overflow-hidden mb-2 group-hover:-translate-y-2.5 transition-transform duration-300">
                           <Image
@@ -268,6 +270,27 @@ export default function GameCarousel({
                             className="object-cover"
                             sizes="(max-width: 640px) calc((100vw - 32px) / 3), (max-width: 768px) calc((100vw - 48px) / 5), (max-width: 910px) calc((100vw - 64px) / 6), (max-width: 1060px) calc((100vw - 80px) / 7), calc((100vw - 96px) / 8)"
                           />
+                          {/* S标记（特殊游戏） */}
+                          {type === "game" && game.isSpecial && (
+                            <div className="absolute top-1 left-1 z-10">
+                              <Tooltip
+                                content="stake"
+                                classNames={{
+                                  base: [
+                                    // arrow color
+                                    "bg-white rounded-md",
+                                  ],
+                                  content: ["px-4 py-2 text-grey-800 "],
+                                }}
+                                showArrow
+                                delay={200}
+                              >
+                                <div className="flex items-center justify-center w-7 h-7 rounded-full bg-grey-800 text-white ">
+                                  <SpecialIcon />
+                                </div>
+                              </Tooltip>
+                            </div>
+                          )}
                           {/* 悬停时显示的分享按钮（仅游戏类型） */}
                           {type === "game" && (
                             <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
@@ -283,13 +306,13 @@ export default function GameCarousel({
                                       text: game.description,
                                       url:
                                         window.location.origin +
-                                        `/games/${game.id}`,
+                                        game.demoUrl,
                                     });
                                   } else {
                                     // 降级方案：复制链接
                                     navigator.clipboard.writeText(
                                       window.location.origin +
-                                        `/games/${game.id}`
+                                        game.demoUrl
                                     );
                                   }
                                 }}
@@ -324,11 +347,11 @@ export default function GameCarousel({
           </Swiper>
         ) : (
           <div className="flex gap-4">
-            {/* {games.slice(0, 8).map((game) => (
+            {games && games.slice(0, 8).map((game) => (
               <div key={game.id} className="shrink-0 w-[calc((100%-112px)/8)]">
                 <div className="relative w-full game-carousel-image bg-gray-200 rounded-xl animate-pulse" />
               </div>
-            ))} */}
+            ))}
           </div>
         )}
       </div>

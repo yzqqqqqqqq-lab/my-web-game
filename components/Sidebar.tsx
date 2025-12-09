@@ -426,7 +426,9 @@ export default function Sidebar() {
         ) : (
           <button
             className={`${baseButtonClasses} ${
-              level > 0 && isOpen ? "rounded-none border-l-2 border-grey-400 " : ""
+              level > 0 && isOpen
+                ? "rounded-none border-l-2 border-grey-400 "
+                : ""
             }`}
             onClick={() => {
               console.log(`Navigate to ${item.id}`);
@@ -677,7 +679,7 @@ export default function Sidebar() {
                 </button>
 
                 {/* Tabs - 折叠状态下垂直排列，使用 mini 版本图片 */}
-                <div className="flex flex-col items-center gap-2 w-full mt-2">
+                <div className={`flex flex-col items-center gap-2 w-full mt-2 text-grey-200 hover:text-white ${activeTab === "casino" ? "text-white" : ""}`}>
                   <Link
                     href="/casino/home"
                     className={`
@@ -709,7 +711,7 @@ export default function Sidebar() {
                       src="/sidebar-icons/default-casino-mini.svg"
                       sizes="44px"
                     />
-                    <div className="relative z-10 w-full h-full text-grey-200 hover:text-white flex items-center justify-center">
+                    <div className="relative z-10 w-full h-full  flex items-center justify-center">
                       <svg
                         data-ds-icon="Casino"
                         width="20"
@@ -717,7 +719,7 @@ export default function Sidebar() {
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
-                        className="inline-block shrink-0 text-grey-200 hover:text-white"
+                        className="inline-block shrink-0"
                       >
                         <path
                           fill="currentColor"
@@ -735,8 +737,9 @@ export default function Sidebar() {
                   <Link
                     href="/sports/home"
                     className={`
-                      relative w-11 h-11 flex items-center justify-center rounded-md
+                      relative w-11 h-11 flex items-center justify-center rounded-md text-grey-200 hover:text-white
                       transition-all overflow-hidden
+                      ${activeTab === "sports" ? "text-white" : ""}
                     `}
                     onMouseEnter={() => setHoveredTab("sports")}
                     onMouseLeave={() => setHoveredTab(null)}
@@ -765,7 +768,7 @@ export default function Sidebar() {
                       src="/sidebar-icons/default-sports-mini.svg"
                       sizes="44px"
                     />
-                    <div className="relative z-10 w-full h-full text-grey-200 hover:text-white flex items-center justify-center">
+                    <div className="relative z-10 w-full h-full flex items-center justify-center">
                       <svg
                         data-ds-icon="Basketball"
                         width="20"

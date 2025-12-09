@@ -47,6 +47,10 @@
 
   /* 圆角变量 */
   --radius-md: 8px;
+
+  /* Header 和 Footer 高度变量 */
+  --header-height: 60px;
+  --mobile-footer-height: 0px;
 }
 
 @theme inline {
@@ -220,4 +224,39 @@ input[type="date"]::-webkit-datetime-edit-year-field:focus {
 
 .modal-slide-up[data-exiting] {
   animation: modal-slide-up-exit 0.2s ease-in;
+}
+
+/* 游戏容器移动端样式 */
+.game-wrapper.mobile-view {
+  background: var(--color-grey-700);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+@media (max-width: 767px) {
+  .game-wrapper.mobile-view {
+    height: calc(100dvh - var(--header-height) - var(--mobile-footer-height) - 6vw);
+    max-height: none !important;
+  }
+
+  .game-content.mobile-view {
+    height: 100% !important;
+    padding-bottom: 0 !important;
+  }
+
+  .game-content.mobile-view::before {
+    content: "";
+    display: block;
+    padding-bottom: var(--game-mobile-aspect);
+  }
+}
+
+@media (min-width: 768px) {
+  .game-wrapper.mobile-view {
+    max-height: 675px;
+  }
+
+  .game-content.mobile-view {
+    padding-bottom: var(--game-desktop-aspect) !important;
+  }
 }
