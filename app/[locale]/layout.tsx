@@ -5,12 +5,17 @@ import { notFound } from "next/navigation";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import AuthModal from "@/components/AuthModal";
 import Sidebar from "@/components/Sidebar";
 import SidebarLayout from "@/components/SidebarLayout";
 import { locales } from "@/i18n/routing";
 import { routing } from "@/i18n/routing";
 import { Providers } from "./providers";
+import dynamic from "next/dynamic";
+
+const AuthModal = dynamic(() => import("@/components/AuthModal"), {
+  ssr: false,
+});
+
 export const runtime = "edge";
 
 export const metadata: Metadata = {

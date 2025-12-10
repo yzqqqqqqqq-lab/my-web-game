@@ -15,8 +15,12 @@ import {
   WalletIcon,
 } from "@/lib/icons";
 import { useSidebarStore } from "@/stores/useSidebarStore";
-import UserDropdown from "@/components/ui/UserDropdown";
 import Button from "@/components/ui/Button";
+import dynamic from "next/dynamic";
+
+const UserDropdown = dynamic(() => import("@/components/ui/UserDropdown"), {
+  ssr: false,
+});
 
 export default function Header() {
   const { userInfo, isAuthenticated } = useAuthStore();
