@@ -9,7 +9,7 @@ import Sidebar from "@/components/Sidebar";
 import SidebarLayout from "@/components/SidebarLayout";
 import { locales } from "@/i18n/routing";
 import { routing } from "@/i18n/routing";
-import { Providers } from "./providers";
+// import { Providers } from "./providers";
 import AuthModalWrapper from "@/components/AuthModalWrapper";
 
 export const runtime = "edge";
@@ -41,7 +41,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale === "zh" ? "zh-CN" : "en"}>
       <body className="antialiased flex flex-col min-h-screen">
-        <Providers>
+        {/* <Providers> */}
           <NextIntlClientProvider locale={locale} messages={messages}>
             <div className="flex min-h-screen">
               <Sidebar />
@@ -53,7 +53,7 @@ export default async function LocaleLayout({
             </div>
             <AuthModalWrapper />
           </NextIntlClientProvider>
-        </Providers>
+        {/* </Providers> */}
       </body>
     </html>
   );

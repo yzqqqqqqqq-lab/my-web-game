@@ -15,7 +15,6 @@ import {
   WalletIcon,
 } from "@/lib/icons";
 import { useSidebarStore } from "@/stores/useSidebarStore";
-import Button from "@/components/ui/Button";
 import dynamic from "next/dynamic";
 
 const UserDropdown = dynamic(() => import("@/components/ui/UserDropdown"), {
@@ -144,22 +143,18 @@ export default function Header() {
                 </>
               ) : (
                 <div className="flex items-center gap-2">
-                  <Button
+                  <Link
                     href="?modal=auth&tab=login"
-                    variant="default"
-                    size="md"
-                    className="flex items-center gap-2"
+                    className="flex items-center gap-2 bg-grey-400 text-white hover:bg-grey-300 focus-visible:outline-grey-400 text-md py-2.5 px-5 rounded-md inline-flex justify-center font-semibold transition-all focus-visible:outline-2 focus-visible:outline-offset-2 active:scale-[0.98]"
                   >
                     <span>{t("common.login")}</span>
-                  </Button>
-                  <Button
+                  </Link>
+                  <Link
                     href="?modal=auth&tab=register"
-                    variant="primary"
-                    size="md"
-                    className="flex items-center gap-2"
+                    className="flex items-center gap-2 bg-blue-500 text-white hover:bg-blue-600 focus-visible:outline-blue-500 text-md py-2.5 px-5 rounded-md inline-flex justify-center font-semibold transition-all focus-visible:outline-2 focus-visible:outline-offset-2 active:scale-[0.98]"
                   >
                     <span>{t("common.register")}</span>
-                  </Button>
+                  </Link>
                 </div>
               )}
             </section>

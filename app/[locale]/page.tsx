@@ -6,7 +6,7 @@ import { mockGames } from "@/data/mockGames";
 import { mockCompetitions } from "@/data/mockCompetitions";
 import { mockPromotions } from "@/data/mockPromotions";
 import { useTranslations } from "next-intl";
-import Button from "@/components/ui/Button";
+import { Link } from "@/i18n/navigation";
 import { useAuthStore } from "@/stores/useAuthStore";
 import FAQSection from "@/components/FAQSection";
 import ProductCards from "@/components/ProductCards";
@@ -74,14 +74,12 @@ export default function Home() {
                       </h1>
                     </div>
                     <div className="flex justify-center md:justify-start mt-4">
-                      <Button
+                      <Link
                         href="?modal=auth&tab=register"
-                        variant="primary"
-                        size="md"
-                        className="w-auto shadow-md"
+                        className="w-auto shadow-md inline-flex items-center justify-center gap-2 rounded-md font-semibold transition-all focus-visible:outline-2 focus-visible:outline-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98] bg-blue-500 text-white hover:bg-blue-600 focus-visible:outline-blue-500 text-md py-2.5 px-5"
                       >
                         注册
-                      </Button>
+                      </Link>
                     </div>
                   </div>
 

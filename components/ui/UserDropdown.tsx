@@ -18,6 +18,7 @@ import {
   QuestionMarkCircleIcon,
   LogoutIcon,
 } from "@/lib/icons";
+import HeroUIWrapper from "@/components/HeroUIWrapper";
 
 interface MenuItem {
   id: string;
@@ -185,7 +186,7 @@ export default function UserDropdown({
   };
 
   return (
-    <>
+    <HeroUIWrapper>
       {/* 下拉菜单 */}
       {isOpen && (
         <div
@@ -295,7 +296,7 @@ export default function UserDropdown({
           )}
         </ModalContent>
       </Modal>
-    </>
+    </HeroUIWrapper>
   );
 }
 
