@@ -8,7 +8,6 @@ import { mockPromotions } from "@/data/mockPromotions";
 import { useTranslations } from "next-intl";
 import Button from "@/components/ui/Button";
 import { useAuthStore } from "@/stores/useAuthStore";
-import GameCarousel from "@/components/GameCarousel";
 import FAQSection from "@/components/FAQSection";
 import ProductCards from "@/components/ProductCards";
 import {
@@ -17,6 +16,13 @@ import {
   ChevronRightIcon,
   InfoIcon,
 } from "@/lib/icons";
+import dynamic from "next/dynamic";
+import GameCarouselSkeleton from "@/components/GameCarouselSkeleton";
+
+const GameCarousel = dynamic(() => import("@/components/GameCarousel"), {
+  ssr: false,
+  loading: () => <GameCarouselSkeleton />,
+});
 
 export default function Home() {
   const t = useTranslations();

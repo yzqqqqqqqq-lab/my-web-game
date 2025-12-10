@@ -16,7 +16,13 @@ import {
   Square3Stack3DIcon,
 } from "@heroicons/react/24/outline";
 import { StatsIcon } from "@/lib/icons";
-import GameCarousel from "@/components/GameCarousel";
+import dynamic from "next/dynamic";
+import GameCarouselSkeleton from "@/components/GameCarouselSkeleton";
+
+const GameCarousel = dynamic(() => import("@/components/GameCarousel"), {
+  ssr: false,
+  loading: () => <GameCarouselSkeleton />,
+});
 
 interface CasinoGamePlayPageProps {
   params: Promise<{ id: string; locale: string }>;
