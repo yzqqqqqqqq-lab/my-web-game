@@ -10,11 +10,7 @@ import SidebarLayout from "@/components/SidebarLayout";
 import { locales } from "@/i18n/routing";
 import { routing } from "@/i18n/routing";
 import { Providers } from "./providers";
-import dynamic from "next/dynamic";
-
-const AuthModal = dynamic(() => import("@/components/AuthModal"), {
-  ssr: false,
-});
+import AuthModalWrapper from "@/components/AuthModalWrapper";
 
 export const runtime = "edge";
 
@@ -55,7 +51,7 @@ export default async function LocaleLayout({
                 <Footer />
               </SidebarLayout>
             </div>
-            <AuthModal />
+            <AuthModalWrapper />
           </NextIntlClientProvider>
         </Providers>
       </body>
