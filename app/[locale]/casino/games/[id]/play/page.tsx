@@ -68,13 +68,13 @@ export default function CasinoGamePlayPage({
   const containerId = `softswiss_game_container_${game?.gameSlug || game?.id || "game"}`;
 
   // 权限检查
-  useEffect(() => {
-    if (!isAuthenticated) {
-      router.push(
-        `/casino/games/${resolvedParams.id}/play?modal=auth&tab=login&mode=${mode}`
-      );
-    }
-  }, [isAuthenticated, router, resolvedParams.id, mode]);
+  // useEffect(() => {
+  //   if (!isAuthenticated) {
+  //     router.push(
+  //       `/casino/games/${resolvedParams.id}/play?modal=auth&tab=login&mode=${mode}`
+  //     );
+  //   }
+  // }, [isAuthenticated, router, resolvedParams.id, mode]);
 
   // 游戏加载完成处理
   useEffect(() => {
@@ -132,9 +132,9 @@ export default function CasinoGamePlayPage({
     console.log(game);
   };
 
-  if (!isAuthenticated) {
-    return null; // 等待重定向
-  }
+  // if (!isAuthenticated) {
+  //   return null; // 等待重定向
+  // }
 
   if (!game) {
     return (

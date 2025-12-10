@@ -766,6 +766,7 @@ export default function AuthModal() {
                       {t("auth.register.step1.description")}
                     </p>
                     <Select
+                      aria-label={t("auth.register.step1.title") || "选择语言"}
                       selectedKeys={[registerData.language]}
                       onSelectionChange={(keys) => {
                         const selected = Array.from(keys)[0] as string;

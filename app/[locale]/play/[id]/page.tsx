@@ -27,16 +27,16 @@ export default function PlayPage({ params }: PlayPageProps) {
 
   const game = mockGames.find((g) => g.id === resolvedParams.id);
 
-  // 权限检查
-  useEffect(() => {
-    if (!isAuthenticated) {
-      router.push(`/play/${resolvedParams.id}?modal=auth&tab=login`);
-    }
-  }, [isAuthenticated, router, resolvedParams.id]);
+  // 权限检查 - 暂时隐藏
+  // useEffect(() => {
+  //   if (!isAuthenticated) {
+  //     router.push(`/play/${resolvedParams.id}?modal=auth&tab=login`);
+  //   }
+  // }, [isAuthenticated, router, resolvedParams.id]);
 
   // 倒计时
   useEffect(() => {
-    if (!isAuthenticated || !game) return;
+    if (!game) return;
 
     if (countdown !== null && countdown > 0) {
       const timer = setTimeout(() => {
@@ -50,11 +50,12 @@ export default function PlayPage({ params }: PlayPageProps) {
       }, 1000);
       return () => clearTimeout(timer);
     }
-  }, [countdown, isAuthenticated, game]);
+  }, [countdown, game]);
 
-  if (!isAuthenticated) {
-    return null; // 等待重定向
-  }
+  // 暂时隐藏登录校验
+  // if (!isAuthenticated) {
+  //   return null; // 等待重定向
+  // }
 
   if (!game) {
     return (

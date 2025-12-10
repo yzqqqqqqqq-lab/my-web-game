@@ -26,8 +26,8 @@ export const useAuthStore = create<AuthState>()(
           return { success: false, message: '请输入账号和密码' };
         }
         
-        if (password.length < 6) {
-          return { success: false, message: '密码长度至少6位' };
+        if (password.length < 8) {
+          return { success: false, message: '密码长度至少8位' };
         }
 
         // 模拟成功登录
@@ -54,8 +54,8 @@ export const useAuthStore = create<AuthState>()(
           return { success: false, message: '账号格式不正确（请输入手机号或邮箱）' };
         }
 
-        if (password.length < 6) {
-          return { success: false, message: '密码长度至少6位' };
+        if (password.length < 8) {
+          return { success: false, message: '密码长度至少8位' };
         }
 
         // 模拟成功注册并自动登录
