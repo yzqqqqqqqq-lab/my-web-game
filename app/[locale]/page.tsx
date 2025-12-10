@@ -8,7 +8,6 @@ import { mockPromotions } from "@/data/mockPromotions";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { useAuthStore } from "@/stores/useAuthStore";
-import FAQSection from "@/components/FAQSection";
 import ProductCards from "@/components/ProductCards";
 import {
   VIPNoneIcon,
@@ -22,6 +21,10 @@ import GameCarouselSkeleton from "@/components/GameCarouselSkeleton";
 const GameCarousel = dynamic(() => import("@/components/GameCarousel"), {
   ssr: false,
   loading: () => <GameCarouselSkeleton />,
+});
+
+const FAQSection = dynamic(() => import("@/components/FAQSection"), {
+  ssr: false,
 });
 
 export default function Home() {

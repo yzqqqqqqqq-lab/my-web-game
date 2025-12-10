@@ -3,16 +3,17 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import Sidebar from "@/components/Sidebar";
 import SidebarLayout from "@/components/SidebarLayout";
 import { locales } from "@/i18n/routing";
 import { routing } from "@/i18n/routing";
 // import { Providers } from "./providers";
 import AuthModalWrapper from "@/components/AuthModalWrapper";
+import SidebarWrapper from "@/components/SidebarWrapper";
+import HeaderWrapper from "@/components/HeaderWrapper";
+import FooterWrapper from "@/components/FooterWrapper";
 
 export const runtime = "edge";
+
 
 export const metadata: Metadata = {
   title: "游戏站 - 在线游戏平台",
@@ -44,11 +45,11 @@ export default async function LocaleLayout({
         {/* <Providers> */}
           <NextIntlClientProvider locale={locale} messages={messages}>
             <div className="flex min-h-screen">
-              <Sidebar />
+              <SidebarWrapper />
               <SidebarLayout>
-                <Header />
+                <HeaderWrapper />
                 <main className="flex-1">{children}</main>
-                <Footer />
+                <FooterWrapper />
               </SidebarLayout>
             </div>
             <AuthModalWrapper />
