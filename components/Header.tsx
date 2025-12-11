@@ -32,10 +32,10 @@ export default function Header() {
   const balance = "0.00000000";
 
   return (
-    <header className="sticky top-0 z-50 bg-grey-600 border-b border-grey-400">
+    <header className="sticky top-0 z-50 md:sticky md:top-0 bg-grey-600" id="header">
       <div className="w-full">
         <div className="container mx-auto">
-          <div className="flex items-center justify-between h-15 px-4">
+          <div className="flex items-center justify-between h-15">
             {/* 左侧：Logo */}
             <div className="flex items-center pr-2 shrink-0">
               <Link
@@ -50,7 +50,7 @@ export default function Header() {
                 </div>
                 {/* Desktop Logo */}
                 <div className="hidden md:block">
-                  <StakeLogo className="h-8 text-white" />
+                  <StakeLogo className="h-10 text-white" />
                 </div>
               </Link>
             </div>

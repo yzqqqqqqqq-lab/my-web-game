@@ -260,3 +260,66 @@ input[type="date"]::-webkit-datetime-edit-year-field:focus {
     padding-bottom: var(--game-desktop-aspect) !important;
   }
 }
+
+/* 移动端视口高度优化 */
+@supports (height: 100dvh) {
+  @media (max-width: 767px) {
+    .min-h-screen {
+      min-height: 100dvh;
+    }
+  }
+}
+
+/* 移动端固定视口布局 - 彻底解决滚动抖动 */
+@media (max-width: 767px) {
+  /* 固定 body，防止整个页面滚动 */
+  html {
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  body {
+    height: 100%;
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    overscroll-behavior: none;
+  }
+  
+  /* 移动端主视口容器 - 3层布局结构 */
+  #mobile-viewport {
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+  }
+  
+  /* Header - 在移动端滚动容器内固定 */
+  #header {
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  
+  /* 中间内容滚动区域 */
+  #mobile-scroll-content {
+    flex: 1 1 0%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    position: relative;
+    min-height: 0; /* 重要：允许 flex 子元素收缩 */
+  }
+  
+  /* 底部导航 - 固定在底部 */
+  #mobile-footer {
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1300;
+  }
+}

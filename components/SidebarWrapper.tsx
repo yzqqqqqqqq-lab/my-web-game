@@ -9,6 +9,12 @@ const Sidebar = dynamic(() => import("@/components/Sidebar"), {
 });
 
 export default function SidebarWrapper() {
-  return <Sidebar />;
+  return (
+    <div 
+      className="hidden md:block shrink-0 transition-all duration-300 ease-in-out"
+      style={{ width: 'var(--sidebar-width, 60px)' }}
+    >
+      <Sidebar />
+    </div>
+  );
 }
-

@@ -12,6 +12,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "mediumrare.imgix.net",
       },
+      {
+        protocol: "https",
+        hostname: "stake.com",
+      },
     ],
   },
 };

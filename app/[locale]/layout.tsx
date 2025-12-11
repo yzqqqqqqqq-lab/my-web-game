@@ -11,6 +11,9 @@ import AuthModalWrapper from "@/components/AuthModalWrapper";
 import SidebarWrapper from "@/components/SidebarWrapper";
 import HeaderWrapper from "@/components/HeaderWrapper";
 import FooterWrapper from "@/components/FooterWrapper";
+import SiteLoader from "@/components/SiteLoader";
+import MobileFooterWrapper from "@/components/MobileFooterWrapper";
+import MobileSidebarWrapper from "@/components/MobileSidebarWrapper";
 
 export const runtime = "edge";
 
@@ -41,17 +44,27 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale === "zh" ? "zh-CN" : "en"}>
-      <body className="antialiased flex flex-col min-h-screen">
+      <body className="antialiased">
+        <SiteLoader />
         {/* <Providers> */}
           <NextIntlClientProvider locale={locale} messages={messages}>
-            <div className="flex min-h-screen">
-              <SidebarWrapper />
-              <SidebarLayout>
-                <HeaderWrapper />
-                <main className="flex-1">{children}</main>
-                <FooterWrapper />
-              </SidebarLayout>
+            {/* 移动端固定视口容器 */}
+            <div id="mobile-viewport" className="md:contents">
+              {/* HeaderWrapper 移入 SidebarLayout 内部，以实现 PC 端侧边栏全高布局 */}
+              <div id="mobile-scroll-content" className="md:contents">
+                <div className="flex min-h-screen md:min-h-0">
+                  <SidebarWrapper />
+                  <SidebarLayout>
+                    <HeaderWrapper />
+                    <main className="flex-1">{children}</main>
+                    <FooterWrapper />
+                  </SidebarLayout>
+                </div>
+              </div>
+              <MobileFooterWrapper />
             </div>
+            {/* 移动端 Drawer 侧边栏 */}
+            <MobileSidebarWrapper />
             <AuthModalWrapper />
           </NextIntlClientProvider>
         {/* </Providers> */}

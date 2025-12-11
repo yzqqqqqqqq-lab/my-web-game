@@ -33,9 +33,20 @@ interface NavItem {
   children?: NavItem[];
 }
 
-export default function Sidebar() {
-  const { isOpen, toggle, toggleExpanded, isExpanded, open } =
-    useSidebarStore();
+interface SidebarProps {
+  className?: string;
+  forceExpanded?: boolean;
+}
+
+export default function Sidebar({ className, forceExpanded = false }: SidebarProps) {
+  const sidebarStore = useSidebarStore();
+  // 如果 forceExpanded 为 true，则强制 isOpen 为 true，且覆盖 toggle 等方法（虽然移动端可能不需要 toggle）
+  const isOpen = forceExpanded || sidebarStore.isOpen;
+  const toggle = forceExpanded ? () => {} : sidebarStore.toggle;
+  const toggleExpanded = sidebarStore.toggleExpanded;
+  const isExpanded = sidebarStore.isExpanded;
+  const open = sidebarStore.open;
+
   const pathname = usePathname();
   const router = useRouter();
   const locale = useLocale();
@@ -286,8 +297,8 @@ export default function Sidebar() {
     { code: "en", label: "English" },
   ];
 
-  const isDesktopCollapsed =
-    !isOpen && typeof window !== "undefined" ? window.innerWidth >= 768 : false;
+  // const isDesktopCollapsed =
+  //   !isOpen && typeof window !== "undefined" ? window.innerWidth >= 768 : false;
 
   const renderNavItem = (item: NavItem, level: number = 0) => {
     const Icon = item.icon;
@@ -297,15 +308,16 @@ export default function Sidebar() {
 
     const baseButtonClasses = isOpen
       ? `
-        w-full flex items-center justify-between gap-2 px-4 py-3 rounded-md
+        w-full flex items-center justify-between gap-2 px-4 py-3
+        ${level === 0 ? "rounded-md" : "rounded-none"}
         text-base font-semibold
-        bg-transparent text-grey-200 hover:text-white
+        bg-transparent text-white hover:text-white
         hover:bg-grey-400
         transition-colors
       `
       : `
         w-11 h-11 flex items-center justify-center rounded-md
-        text-grey-200 hover:text-white
+        text-white
         hover:bg-grey-500/80
         transition-colors
       `;
@@ -324,13 +336,13 @@ export default function Sidebar() {
                 toggleExpanded(item.id);
               }
             }}
-            className={`${baseButtonClasses} ${
-              level > 0 && isOpen ? "pl-6" : ""
+            className={`group ${baseButtonClasses} ${
+              level > 0 && isOpen ? "pl-6 ml-4" : ""
             }`}
           >
             <div className="flex items-center gap-2 overflow-hidden">
               <Icon
-                className={`w-5 h-5 shrink-0 transition-opacity duration-300 ${
+                className={`w-5 h-5 shrink-0 text-grey-200 group-hover:text-white transition-all duration-300 ${
                   isOpen
                     ? contentVisible
                       ? "opacity-100"
@@ -340,7 +352,7 @@ export default function Sidebar() {
               />
               {isOpen && (
                 <span
-                  className={`truncate transition-opacity duration-300 ${
+                  className={`text-base font-semibold truncate transition-opacity duration-300 ${
                     contentVisible ? "opacity-100" : "opacity-0"
                   }`}
                 >
@@ -360,7 +372,7 @@ export default function Sidebar() {
           </button>
           {isOpen && expanded && hasChildren && (
             <div
-              className={`ml-6 transition-opacity duration-300 ${
+              className={`transition-opacity duration-300 ${
                 contentVisible ? "opacity-100" : "opacity-0"
               }`}
             >
@@ -378,11 +390,11 @@ export default function Sidebar() {
         {item.href && item.href !== "#" ? (
           <Link
             href={item.href}
-            className={`${baseLinkClasses} ${
-              level > 0 && isOpen ? "pl-0 rounded-none" : ""
+            className={`group ${baseLinkClasses} ${
+              level > 0 && isOpen ? "pl-6 ml-4 rounded-none" : ""
             } ${
               active
-                ? "bg-grey-400/60 text-white"
+                ? "bg-grey-400 text-white"
                 : "bg-transparent text-white hover:text-white hover:bg-grey-400"
             }`}
             onClick={() => {
@@ -392,7 +404,7 @@ export default function Sidebar() {
             }}
           >
             <Icon
-              className={`w-5 h-5 shrink-0 transition-opacity duration-300 ${
+              className={`w-5 h-5 shrink-0 text-grey-200 group-hover:text-white transition-all duration-300 ${
                 isOpen
                   ? contentVisible
                     ? "opacity-100"
@@ -425,7 +437,7 @@ export default function Sidebar() {
           </Link>
         ) : (
           <button
-            className={`${baseButtonClasses} ${
+            className={`group ${baseButtonClasses} ${
               level > 0 && isOpen
                 ? "rounded-none border-l-2 border-grey-400 "
                 : ""
@@ -435,7 +447,7 @@ export default function Sidebar() {
             }}
           >
             <Icon
-              className={`w-5 h-5 shrink-0 transition-opacity duration-300 ${
+              className={`w-5 h-5 shrink-0 text-grey-200 group-hover:text-white transition-all duration-300 ${
                 isOpen
                   ? contentVisible
                     ? "opacity-100"
@@ -478,10 +490,20 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Mobile overlay */}
+      {/* Mobile overlay - 仅移动端 (< 768px) */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black/60 z-40 md:hidden"
+          onClick={toggle}
+        />
+      )}
+
+      {/* Tablet overlay - 768px-1200px 浮动遮罩层 */}
+      {isOpen && (
+        <div
+          data-layout=""
+          className="overlay fixed inset-0 bg-black/60 z-1598 hidden md:block min-[1200px]:hidden!"
+          style={{ "--header-height": "60px" } as React.CSSProperties}
           onClick={toggle}
         />
       )}
@@ -490,17 +512,26 @@ export default function Sidebar() {
       <aside
         ref={sidebarRef}
         className={`
-          fixed top-0 left-0 h-full
           text-grey-200
-          z-50 transition-all duration-300 ease-in-out
-
+          transition-all duration-300 ease-in-out
           bg-grey-700
+          overflow-hidden
+          
+          /* 移动端和平板端 (< 1200px): fixed 定位，浮动效果 */
+          fixed top-0 left-0 h-full z-50
           ${
             isOpen
-              ? "translate-x-0 w-[260px]"
-              : "-translate-x-full md:translate-x-0 md:w-[60px]"
+              ? "translate-x-0 w-[260px] md:z-1599"
+              : "-translate-x-full md:translate-x-0 md:w-[60px] md:z-1599"
           }
-          overflow-hidden
+          
+          /* 桌面端 (>= 1200px): sticky 定位，高度充满屏幕 */
+          min-[1200px]:sticky! min-[1200px]:translate-x-0! min-[1200px]:z-auto! min-[1200px]:top-0! min-[1200px]:left-auto! min-[1200px]:h-screen!
+          min-[1200px]:${
+            isOpen ? "w-[260px]" : "w-[60px]"
+          }
+          
+          ${className || ""}
         `}
       >
         <div className="flex flex-col h-full">
@@ -809,14 +840,14 @@ export default function Sidebar() {
               
             `}
           >
-            <div className={`rounded-md ${isOpen ? "bg-grey-600" : ""} `}>
+            <div className={`${isOpen ? "rounded-md bg-grey-600" : ""} `}>
               {/* 主导航 */}
               <ul className="space-y-1">
                 {navItems.map((item) => renderNavItem(item))}
               </ul>
 
               {/* 分割线 */}
-              {/* {isOpen && (
+              {isOpen && (
                 <div
                   className={`py-2.5 px-2 transition-opacity duration-300 ${
                     contentVisible ? "opacity-100" : "opacity-0"
@@ -824,10 +855,10 @@ export default function Sidebar() {
                 >
                   <hr className="border-grey-500/40" />
                 </div>
-              )} */}
+              )}
 
               {/* 底部业务入口（赞助活动、负责博彩、在线支持） */}
-              <ul className="space-y-1 ">
+              <ul className="space-y-1">
                 {bottomItems.map((item) => renderNavItem(item))}
               </ul>
 
@@ -836,7 +867,7 @@ export default function Sidebar() {
                 <div ref={languageMenuRef} className="relative">
                   <button
                     onClick={() => setLanguageMenuOpen(!languageMenuOpen)}
-                    className={`
+                    className={`group
                     ${
                       isOpen
                         ? "w-full justify-between px-4 py-3"
@@ -844,12 +875,12 @@ export default function Sidebar() {
                     }
                     flex items-center gap-2 rounded-md
                     text-base font-semibold
-                    bg-transparent text-grey-200 hover:text-white hover:bg-grey-400
+                    bg-transparent text-white hover:text-white hover:bg-grey-400
                     transition-colors
                   `}
                   >
                     <GlobeAltIcon
-                      className={`w-5 h-5 shrink-0 transition-opacity duration-300 ${
+                      className={`w-5 h-5 shrink-0 text-grey-200 group-hover:text-white transition-all duration-300 ${
                         isOpen
                           ? contentVisible
                             ? "opacity-100"
