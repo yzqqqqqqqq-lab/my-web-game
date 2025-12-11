@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 
-const MobileFooter = dynamic(() => import("@/components/MobileFooter"), {
+const MobileFooter = dynamic(() => import("@/components/footer/MobileFooter"), {
   ssr: false,
 });
 

@@ -3,11 +3,11 @@
 import dynamic from "next/dynamic";
 import { useMobileSidebarStore } from "@/stores/useMobileSidebarStore";
 
-const MobileSidebar = dynamic(() => import("@/components/MobileSidebar"), {
+const MobileSidebar = dynamic(() => import("@/components/sidebar/MobileSidebar"), {
   ssr: false,
 });
 
-const Sidebar = dynamic(() => import("@/components/Sidebar"), {
+const Sidebar = dynamic(() => import("@/components/sidebar/Sidebar"), {
   ssr: false,
 });
 

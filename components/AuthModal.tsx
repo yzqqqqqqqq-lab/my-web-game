@@ -484,22 +484,22 @@ export default function AuthModal() {
       onClose={closeModal}
       size="2xl"
       classNames={{
-        base: "max-w-[630px] max-h-[716px] modal-slide-up",
-        backdrop: "bg-black/50 ",
-        wrapper: "p-4 flex items-center justify-center",
+        base: "max-w-[630px] max-h-[716px] modal-slide-up md:max-w-[630px] md:max-h-[716px] max-md:!max-w-full max-md:!w-full max-md:!h-full max-md:!max-h-full max-md:!m-0 max-md:rounded-none",
+        backdrop: "bg-black/50",
+        wrapper: "p-4 flex items-center justify-center max-md:p-0",
       }}
       hideCloseButton
       isDismissable={true}
       isKeyboardDismissDisabled={false}
       placement="center"
     >
-      <ModalContent className="bg-grey-600 text-grey-200 rounded-md overflow-hidden flex flex-col h-full max-h-[716px] min-w-[200px]">
+      <ModalContent className="bg-grey-600 text-grey-200 rounded-md overflow-hidden flex flex-col h-full max-h-[716px] min-w-[200px] max-md:rounded-none max-md:max-h-full">
         {(onClose) => (
           <>
             {/* Header with Logo and Close Button */}
-            <ModalHeader className="h-15 px-4 py-0 flex items-center justify-between bg-grey-600 border-none">
+            <ModalHeader className="h-15 px-4 py-3 flex items-center justify-between bg-grey-600 border-none max-md:h-[60px] max-md:px-5">
               <div className="flex items-center">
-                <StakeLogo className="h-10 text-white" />
+                <StakeLogo className="h-10 text-white max-md:h-8" />
               </div>
               <button
                 onClick={onClose}
@@ -507,16 +507,16 @@ export default function AuthModal() {
                 aria-label={t("common.close")}
                 data-testid="exit-registration"
               >
-                <XMarkIcon className="w-5 h-5" />
+                <XMarkIcon className="w-5 h-5 max-md:w-6 max-md:h-6" />
               </button>
             </ModalHeader>
 
             {/* Content Area */}
             <ModalBody className="flex-1 bg-grey-700 overflow-y-auto overscroll-none flex flex-col p-0">
-              <div className="flex flex-col flex-1 relative bg-grey-700 px-4 pb-4">
+              <div className="flex flex-col flex-1 relative bg-grey-700 px-4 pb-4 max-md:px-5 max-md:pb-6">
             {/* Progress Bar and Step Indicator - Only for Register Mode */}
             {mode === "register" && (
-              <div className="pt-2 sticky top-0 bg-grey-700 z-10">
+              <div className="pt-2 sticky top-0 bg-grey-700 z-10 max-md:pt-3">
                 {/* Progress Steps */}
                 <div className="grid grid-cols-3 gap-1 mb-2">
                   {[1, 2, 3].map((step) => (
@@ -530,14 +530,14 @@ export default function AuthModal() {
                   ))}
                 </div>
                 {/* Step Number and Back Button */}
-                <div className="flex items-center justify-between h-6">
+                <div className="flex items-center justify-between h-6 max-md:h-8">
                   {registerStep > 1 ? (
                     <Button
                       type="button"
                       variant="light"
                       onPress={handleGoBack}
-                      className="text-sm text-grey-200 hover:text-white transition-colors h-auto p-0 min-w-0"
-                      startContent={<ChevronLeftIcon className="w-5 h-5" />}
+                      className="text-sm text-grey-200 hover:text-white transition-colors h-auto p-0 min-w-0 max-md:text-base"
+                      startContent={<ChevronLeftIcon className="w-5 h-5 max-md:w-6 max-md:h-6" />}
                       data-testid="steps-back"
                     >
                       {t("auth.register.previousPage")}
@@ -545,7 +545,7 @@ export default function AuthModal() {
                   ) : (
                     <div />
                   )}
-                  <span className="text-sm text-grey-200">
+                  <span className="text-sm text-grey-200 max-md:text-base">
                     {t("auth.register.step")} {registerStep} / 3
                   </span>
                 </div>
@@ -555,11 +555,11 @@ export default function AuthModal() {
             {/* Login Form */}
             {mode === "login" && (
               <>
-                <div className="mt-5 h-auto">
+                <div className="mt-5 h-auto max-md:mt-6">
                   <Form
                     onSubmit={handleSubmit}
                     validationErrors={validationErrors}
-                    className="h-full flex flex-col gap-4"
+                    className="h-full flex flex-col gap-4 max-md:gap-5"
                     data-test-form-valid="true"
                   >
                     {/* Server Error Message */}
@@ -572,8 +572,8 @@ export default function AuthModal() {
 
                     {/* Email/Username Field */}
                     <div className="w-full">
-                      <label className="block mb-1">
-                        <span className="text-sm font-semibold text-grey-200">
+                      <label className="block mb-1 max-md:mb-2">
+                        <span className="text-sm font-semibold text-grey-200 max-md:text-base">
                           {t("auth.emailOrUsername")}
                           <span className="text-red-300 ml-[0.5ch]">*</span>
                         </span>
@@ -592,9 +592,10 @@ export default function AuthModal() {
                         classNames={{
                           base: "w-full",
                           input:
-                            "!text-white placeholder:text-grey-300 focus-visible:outline-none ",
-                          inputWrapper: getInputWrapperClasses(
-                            !!validationErrors.emailOrName
+                            "!text-white placeholder:text-grey-300 focus-visible:outline-none max-md:text-base",
+                          inputWrapper: cn(
+                            getInputWrapperClasses(!!validationErrors.emailOrName),
+                            "max-md:h-[48px]"
                           ),
                         }}
                       />
@@ -605,8 +606,8 @@ export default function AuthModal() {
 
                     {/* Password Field */}
                     <div className="w-full">
-                      <label className="block mb-1">
-                        <span className="text-sm font-semibold text-grey-200">
+                      <label className="block mb-1 max-md:mb-2">
+                        <span className="text-sm font-semibold text-grey-200 max-md:text-base">
                           {t("auth.password")}
                           <span className="text-red-300 ml-[0.5ch]">*</span>
                         </span>
@@ -632,18 +633,19 @@ export default function AuthModal() {
                             }
                           >
                             {showPassword ? (
-                              <EyeSlashIcon className="w-5 h-5 shrink-0" />
+                              <EyeSlashIcon className="w-5 h-5 shrink-0 max-md:w-6 max-md:h-6" />
                             ) : (
-                              <EyeIcon className="w-5 h-5 shrink-0" />
+                              <EyeIcon className="w-5 h-5 shrink-0 max-md:w-6 max-md:h-6" />
                             )}
                           </button>
                         }
                         classNames={{
                           base: "w-full",
                           input:
-                            "!text-white placeholder:text-grey-300 focus-visible:outline-none",
-                          inputWrapper: getInputWrapperClasses(
-                            !!validationErrors.password
+                            "!text-white placeholder:text-grey-300 focus-visible:outline-none max-md:text-base",
+                          inputWrapper: cn(
+                            getInputWrapperClasses(!!validationErrors.password),
+                            "max-md:h-[48px]"
                           ),
                         }}
                       />
@@ -661,7 +663,7 @@ export default function AuthModal() {
                           // TODO: Implement forgot password
                           console.log("Forgot password");
                         }}
-                        className="mb-1 inline-flex items-center justify-start text-base font-bold text-white hover:text-grey-200 transition-colors self-start h-auto p-0 min-w-0"
+                        className="mb-1 inline-flex items-center justify-start text-base font-bold text-white hover:text-grey-200 transition-colors self-start h-auto p-0 min-w-0 max-md:text-base max-md:mb-0"
                       >
                         {t("auth.forgotPassword")}
                       </Button>
@@ -675,7 +677,7 @@ export default function AuthModal() {
                         color="primary"
                         size="lg"
                         radius="md"
-                        className="w-full min-w-[12ch] h-13 bg-blue-500 hover:bg-blue-600 data-[hover=true]:bg-blue-600 text-white font-semibold shadow-md"
+                        className="w-full min-w-[12ch] h-13 bg-blue-500 hover:bg-blue-600 data-[hover=true]:bg-blue-600 text-white font-semibold shadow-md max-md:h-[52px] max-md:text-base"
                         data-testid="button-login"
                         isLoading={loading}
                       >
@@ -688,11 +690,11 @@ export default function AuthModal() {
                 </div>
 
                 {/* Alternative Login Methods */}
-                <div className="mt-4 flex flex-col gap-6">
+                <div className="mt-4 flex flex-col gap-6 max-md:mt-5 max-md:gap-5">
                   {/* Or Divider */}
                   <div className="flex items-center gap-4">
                     <div className="flex-1 h-px bg-grey-400"></div>
-                    <span className="text-base text-grey-200 text-center">
+                    <span className="text-base text-grey-200 text-center max-md:text-sm">
                       {t("auth.orUse")}
                     </span>
                     <div className="flex-1 h-px bg-grey-400"></div>
@@ -705,8 +707,8 @@ export default function AuthModal() {
                     variant="solid"
                     size="lg"
                     radius="md"
-                    className="w-full bg-grey-400 hover:bg-grey-300 data-[hover=true]:bg-grey-300 text-white font-semibold shadow-md"
-                    startContent={<PasskeyIcon />}
+                    className="w-full bg-grey-400 hover:bg-grey-300 data-[hover=true]:bg-grey-300 text-white font-semibold shadow-md max-md:h-[52px] max-md:text-base"
+                    startContent={<PasskeyIcon className="max-md:w-5 max-md:h-5" />}
                   >
                     {t("auth.loginWithPasskey")}
                   </Button>
@@ -717,9 +719,9 @@ export default function AuthModal() {
                     onPress={handleGoogleLogin}
                     variant="solid"
                     size="lg"
-                    className="w-full bg-grey-400 hover:bg-grey-300 data-[hover=true]:bg-grey-300 text-white font-semibold shadow-md"
+                    className="w-full bg-grey-400 hover:bg-grey-300 data-[hover=true]:bg-grey-300 text-white font-semibold shadow-md max-md:h-[52px] max-md:text-base"
                     data-analytics="provider-login-google"
-                    startContent={<GoogleLogo />}
+                    startContent={<GoogleLogo className="w-5 h-5" />}
                   >
                     {t("auth.loginWithGoogle")}
                   </Button>
@@ -730,21 +732,21 @@ export default function AuthModal() {
                     onPress={handleSignInAnotherWay}
                     variant="solid"
                     size="lg"
-                    className="w-full bg-grey-400 hover:bg-grey-300 data-[hover=true]:bg-grey-300 text-white font-semibold shadow-md"
+                    className="w-full bg-grey-400 hover:bg-grey-300 data-[hover=true]:bg-grey-300 text-white font-semibold shadow-md max-md:h-[52px] max-md:text-base"
                   >
                     {t("auth.signInAnotherWay")}
                   </Button>
                 </div>
 
                 {/* Register Link */}
-                <div className="flex flex-col justify-end gap-3 mt-auto pt-6">
-                  <span className="text-base text-grey-200 text-center">
+                <div className="flex flex-col justify-end gap-3 mt-auto pt-6 max-md:pt-5">
+                  <span className="text-base text-grey-200 text-center max-md:text-sm">
                     {t("auth.noAccount")}{" "}
                     <Button
                       type="button"
                       variant="light"
                       onPress={() => switchMode("register")}
-                      className="inline text-white hover:text-grey-200 transition-colors font-semibold h-auto p-0 min-w-0"
+                      className="inline text-white hover:text-grey-200 transition-colors font-semibold h-auto p-0 min-w-0 max-md:text-sm"
                     >
                       {t("auth.registerAccount")}
                     </Button>
@@ -758,11 +760,11 @@ export default function AuthModal() {
               <>
                 {/* Step 1: Language Selection */}
                 {registerStep === 1 && (
-                  <div className="mt-5 h-auto flex flex-col flex-1">
-                    <h2 className="text-xl font-semibold text-white mb-2">
+                  <div className="mt-5 h-auto flex flex-col flex-1 max-md:mt-6">
+                    <h2 className="text-xl font-semibold text-white mb-2 max-md:text-lg max-md:mb-3">
                       {t("auth.register.step1.title")}
                     </h2>
-                    <p className="text-base text-grey-200 mb-4">
+                    <p className="text-base text-grey-200 mb-4 max-md:text-sm max-md:mb-5">
                       {t("auth.register.step1.description")}
                     </p>
                     <Select
@@ -847,20 +849,20 @@ export default function AuthModal() {
                         color="primary"
                         size="md"
                         radius="md"
-                        className="w-full h-13 bg-blue-500 hover:bg-blue-600 data-[hover=true]:bg-blue-600 text-white font-semibold shadow-md py-3.5 px-7"
+                        className="w-full h-13 bg-blue-500 hover:bg-blue-600 data-[hover=true]:bg-blue-600 text-white font-semibold shadow-md py-3.5 px-7 max-md:h-[52px] max-md:text-base"
                         data-testid="register-language"
                       >
                         {t("auth.register.step1.confirm")}
                       </Button>
                     </div>
-                    <div className="flex flex-col justify-end gap-3 mt-4">
-                      <span className="text-base text-grey-200 text-center">
+                    <div className="flex flex-col justify-end gap-3 mt-4 max-md:mt-5">
+                      <span className="text-base text-grey-200 text-center max-md:text-sm">
                         已有账户？{" "}
                         <Button
                           type="button"
                           variant="light"
                           onPress={() => switchMode("login")}
-                          className="inline text-white hover:text-grey-200 transition-colors font-semibold h-auto p-0 min-w-0"
+                          className="inline text-white hover:text-grey-200 transition-colors font-semibold h-auto p-0 min-w-0 max-md:text-sm"
                         >
                           登录
                         </Button>
@@ -871,8 +873,8 @@ export default function AuthModal() {
 
                 {/* Step 2: Create Account Form */}
                 {registerStep === 2 && (
-                  <div className="mt-5 h-auto">
-                    <h2 className="text-lg font-semibold text-white mb-1 self-start">
+                  <div className="mt-5 h-auto max-md:mt-6">
+                    <h2 className="text-lg font-semibold text-white mb-1 self-start max-md:text-base max-md:mb-3">
                       {t("auth.register.step2.title")}
                     </h2>
                     <Form
@@ -881,7 +883,7 @@ export default function AuthModal() {
                         handleRegisterContinue();
                       }}
                       validationErrors={validationErrors}
-                      className=" flex flex-col gap-4 mt-4"
+                      className=" flex flex-col gap-4 mt-4 max-md:gap-4 max-md:mt-4"
                     >
                       {error && (
                         <div className="p-3 bg-red-500/20 border border-red-500/50 rounded-md flex items-center gap-2">
@@ -891,8 +893,8 @@ export default function AuthModal() {
                       )}
                       {/* Email Field */}
                       <div className="w-full">
-                        <label className="block mb-1">
-                          <span className="text-sm font-semibold text-grey-200">
+                        <label className="block mb-1 max-md:mb-1.5">
+                          <span className="text-sm font-semibold text-grey-200 max-md:text-sm">
                             {t("auth.register.step2.email")}
                             <span className="text-red-300 ml-[0.5ch]">*</span>
                           </span>
@@ -930,9 +932,10 @@ export default function AuthModal() {
                           classNames={{
                             base: "w-full",
                             input:
-                              "!text-white placeholder:text-grey-300 focus-visible:outline-none",
-                            inputWrapper: getInputWrapperClasses(
-                              !!validationErrors.email
+                              "!text-white placeholder:text-grey-300 focus-visible:outline-none max-md:text-sm",
+                            inputWrapper: cn(
+                              getInputWrapperClasses(!!validationErrors.email),
+                              "max-md:h-[48px]"
                             ),
                           }}
                         />
@@ -942,8 +945,8 @@ export default function AuthModal() {
                       </div>
                       {/* Username Field */}
                       <div className="w-full">
-                        <label className="block mb-1">
-                          <span className="text-sm font-semibold text-grey-200">
+                        <label className="block mb-1 max-md:mb-1.5">
+                          <span className="text-sm font-semibold text-grey-200 max-md:text-sm">
                             {t("auth.register.step2.username")}
                             <span className="text-red-300 ml-[0.5ch]">*</span>
                           </span>
@@ -981,9 +984,10 @@ export default function AuthModal() {
                           classNames={{
                             base: "w-full",
                             input:
-                              "!text-white placeholder:text-grey-300 focus-visible:outline-none",
-                            inputWrapper: getInputWrapperClasses(
-                              !!validationErrors.username
+                              "!text-white placeholder:text-grey-300 focus-visible:outline-none max-md:text-sm",
+                            inputWrapper: cn(
+                              getInputWrapperClasses(!!validationErrors.username),
+                              "max-md:h-[48px]"
                             ),
                           }}
                         />
@@ -993,8 +997,8 @@ export default function AuthModal() {
                       </div>
                       {/* Password Field */}
                       <div className="w-full">
-                        <label className="block mb-1">
-                          <span className="text-sm font-semibold text-grey-200">
+                        <label className="block mb-1 max-md:mb-2">
+                          <span className="text-sm font-semibold text-grey-200 max-md:text-sm">
                             {t("auth.register.step2.password")}
                             <span className="text-red-300 ml-[0.5ch]">*</span>
                           </span>
@@ -1041,18 +1045,19 @@ export default function AuthModal() {
                               }
                             >
                               {showPassword ? (
-                                <EyeSlashIcon className="w-5 h-5 shrink-0" />
+                                <EyeSlashIcon className="w-5 h-5 shrink-0 max-md:w-6 max-md:h-6" />
                               ) : (
-                                <EyeIcon className="w-5 h-5 shrink-0" />
+                                <EyeIcon className="w-5 h-5 shrink-0 max-md:w-6 max-md:h-6" />
                               )}
                             </button>
                           }
                           classNames={{
                             base: "w-full",
                             input:
-                              "!text-white placeholder:text-grey-300 focus-visible:outline-none",
-                            inputWrapper: getInputWrapperClasses(
-                              !!validationErrors.password
+                              "!text-white placeholder:text-grey-300 focus-visible:outline-none max-md:text-sm",
+                            inputWrapper: cn(
+                              getInputWrapperClasses(!!validationErrors.password),
+                              "max-md:h-[48px]"
                             ),
                           }}
                         />
@@ -1062,8 +1067,8 @@ export default function AuthModal() {
                       </div>
                       {/* Date of Birth Field */}
                       <div className="w-full">
-                        <label className="block mb-1">
-                          <span className="text-sm font-semibold text-grey-200">
+                        <label className="block mb-1 max-md:mb-2">
+                          <span className="text-sm font-semibold text-grey-200 max-md:text-sm">
                             {t("auth.register.step2.dateOfBirth")}
                             <span className="text-red-300 ml-[0.5ch]">*</span>
                           </span>
@@ -1114,15 +1119,16 @@ export default function AuthModal() {
                               className="text-grey-200 hover:text-white transition-colors p-1"
                               aria-label="Open date picker"
                             >
-                              <CalendarIcon className="w-5 h-5 shrink-0" />
+                              <CalendarIcon className="w-5 h-5 shrink-0 max-md:w-6 max-md:h-6" />
                             </button>
                           }
                           classNames={{
                             base: "w-full",
                             input:
-                              "!text-white placeholder:text-grey-300 focus-visible:outline-none",
-                            inputWrapper: getInputWrapperClasses(
-                              !!validationErrors.dateOfBirth
+                              "!text-white placeholder:text-grey-300 focus-visible:outline-none max-md:text-sm",
+                            inputWrapper: cn(
+                              getInputWrapperClasses(!!validationErrors.dateOfBirth),
+                              "max-md:h-[48px]"
                             ),
                           }}
                         />
@@ -1199,8 +1205,11 @@ export default function AuthModal() {
                                   classNames={{
                                     base: "w-1/3",
                                     input:
-                                      "!text-white placeholder:text-grey-300 focus-visible:outline-none",
-                                    inputWrapper: getInputWrapperClasses(false),
+                                      "!text-white placeholder:text-grey-300 focus-visible:outline-none max-md:text-sm",
+                                    inputWrapper: cn(
+                                      getInputWrapperClasses(false),
+                                      "max-md:h-[48px]"
+                                    ),
                                   }}
                                 />
                                 <Input
@@ -1220,8 +1229,11 @@ export default function AuthModal() {
                                   classNames={{
                                     base: "w-2/3",
                                     input:
-                                      "!text-white placeholder:text-grey-300 focus-visible:outline-none",
-                                    inputWrapper: getInputWrapperClasses(false),
+                                      "!text-white placeholder:text-grey-300 focus-visible:outline-none max-md:text-sm",
+                                    inputWrapper: cn(
+                                      getInputWrapperClasses(false),
+                                      "max-md:h-[48px]"
+                                    ),
                                   }}
                                 />
                               </div>
@@ -1290,8 +1302,11 @@ export default function AuthModal() {
                               classNames={{
                                 base: "w-full",
                                 input:
-                                  "!text-white placeholder:text-grey-300 focus-visible:outline-none",
-                                inputWrapper: getInputWrapperClasses(false),
+                                  "!text-white placeholder:text-grey-300 focus-visible:outline-none max-md:text-sm",
+                                inputWrapper: cn(
+                                  getInputWrapperClasses(false),
+                                  "max-md:h-[48px]"
+                                ),
                               }}
                             />
                           )}
@@ -1305,7 +1320,7 @@ export default function AuthModal() {
                           color="primary"
                           size="md"
                           radius="md"
-                          className="w-full h-13 bg-blue-500 hover:bg-blue-600 data-[hover=true]:bg-blue-600 text-white font-semibold shadow-md py-3.5 px-7"
+                          className="w-full h-13 bg-blue-500 hover:bg-blue-600 data-[hover=true]:bg-blue-600 text-white font-semibold shadow-md py-3.5 px-7 max-md:h-[52px] max-md:text-base"
                           data-testid="button-register"
                           isLoading={loading}
                         >
@@ -1313,66 +1328,66 @@ export default function AuthModal() {
                         </Button>
                       </div>
                       {/* OAuth Buttons */}
-                      <div className="flex flex-col justify-center items-center gap-4 mt-4 w-full">
+                      <div className="flex flex-col justify-center items-center gap-4 mt-4 w-full max-md:mt-5">
                         <div className="flex items-center gap-4 w-full max-w-[200px]">
                           <div className="flex-1 h-px bg-grey-400"></div>
-                          <span className="text-base text-grey-200 text-center whitespace-nowrap">
+                          <span className="text-base text-grey-200 text-center whitespace-nowrap max-md:text-sm">
                             {t("auth.orUse")}
                           </span>
                           <div className="flex-1 h-px bg-grey-400"></div>
                         </div>
-                        <div className="flex gap-2 w-full justify-center items-center">
+                        <div className="flex gap-2 w-full justify-center items-center max-md:gap-3">
                           <Button
                             type="button"
                             onPress={handleGoogleLogin}
                             variant="solid"
                             size="md"
-                            className="w-13 aspect-square bg-grey-400 hover:bg-grey-300 data-[hover=true]:bg-grey-300 text-white font-semibold shadow-md p-0 min-w-0"
+                            className="w-13 aspect-square bg-grey-400 hover:bg-grey-300 data-[hover=true]:bg-grey-300 text-white font-semibold shadow-md p-0 min-w-0 max-md:w-14 max-md:h-14"
                             data-analytics="provider-login-google"
                           >
-                            <GoogleLogo />
+                            <GoogleLogo className="max-md:w-6 max-md:h-6" />
                           </Button>
                           <Button
                             type="button"
                             onPress={() => console.log("Facebook login")}
                             variant="solid"
                             size="md"
-                            className="w-13 aspect-square bg-grey-400 hover:bg-grey-300 data-[hover=true]:bg-grey-300 text-white font-semibold shadow-md p-0 min-w-0"
+                            className="w-13 aspect-square bg-grey-400 hover:bg-grey-300 data-[hover=true]:bg-grey-300 text-white font-semibold shadow-md p-0 min-w-0 max-md:w-14 max-md:h-14"
                             data-analytics="provider-login-facebook"
                           >
-                            <FacebookLogo />
+                            <FacebookLogo className="max-md:w-6 max-md:h-6" />
                           </Button>
                           <Button
                             type="button"
                             onPress={() => console.log("Line login")}
                             variant="solid"
                             size="md"
-                            className="w-13 aspect-square bg-grey-400 hover:bg-grey-300 data-[hover=true]:bg-grey-300 text-white font-semibold shadow-md p-0 min-w-0"
+                            className="w-13 aspect-square bg-grey-400 hover:bg-grey-300 data-[hover=true]:bg-grey-300 text-white font-semibold shadow-md p-0 min-w-0 max-md:w-14 max-md:h-14"
                             data-analytics="provider-login-line"
                           >
-                            <LineLogo />
+                            <LineLogo className="max-md:w-6 max-md:h-6" />
                           </Button>
                           <Button
                             type="button"
                             onPress={() => console.log("Twitch login")}
                             variant="solid"
                             size="md"
-                            className="w-13 aspect-square bg-grey-400 hover:bg-grey-300 data-[hover=true]:bg-grey-300 text-white font-semibold shadow-md p-0 min-w-0"
+                            className="w-13 aspect-square bg-grey-400 hover:bg-grey-300 data-[hover=true]:bg-grey-300 text-white font-semibold shadow-md p-0 min-w-0 max-md:w-14 max-md:h-14"
                             data-analytics="provider-login-twitch"
                           >
-                            <TwitchLogo />
+                            <TwitchLogo className="max-md:w-6 max-md:h-6" />
                           </Button>
                         </div>
                       </div>
                     </Form>
-                    <div className="flex flex-col justify-end gap-3 mt-4">
-                      <span className="text-base text-grey-200 text-center">
+                    <div className="flex flex-col justify-end gap-3 mt-4 max-md:mt-5">
+                      <span className="text-base text-grey-200 text-center max-md:text-sm">
                         {t("auth.hasAccount")}{" "}
                         <Button
                           type="button"
                           variant="light"
                           onPress={() => switchMode("login")}
-                          className="inline text-white hover:text-grey-200 transition-colors font-semibold h-auto p-0 min-w-0"
+                          className="inline text-white hover:text-grey-200 transition-colors font-semibold h-auto p-0 min-w-0 max-md:text-sm"
                         >
                           {t("auth.loginNow")}
                         </Button>
@@ -1383,8 +1398,8 @@ export default function AuthModal() {
 
                 {/* Step 3: Terms and Conditions */}
                 {registerStep === 3 && (
-                  <div className="mt-5 h-auto flex flex-col flex-1">
-                    <h2 className="text-lg font-semibold text-white mb-1 self-start">
+                  <div className="mt-5 h-auto flex flex-col flex-1 max-md:mt-6">
+                    <h2 className="text-lg font-semibold text-white mb-1 self-start max-md:text-base max-md:mb-2">
                       {t("auth.register.step3.title")}
                     </h2>
                     <Form
@@ -1392,7 +1407,7 @@ export default function AuthModal() {
                         e.preventDefault();
                         handleCreateAccount();
                       }}
-                      className="flex flex-col gap-4 mt-4 flex-1 h-full"
+                      className="flex flex-col gap-4 mt-4 flex-1 h-full max-md:gap-5 max-md:mt-5"
                     >
                         {/* Terms Content */}
                         <div
@@ -1494,7 +1509,7 @@ export default function AuthModal() {
                           color="primary"
                           size="md"
                           radius="md"
-                          className="w-full h-13 bg-blue-500 hover:bg-blue-600 data-[hover=true]:bg-blue-600 text-white font-semibold shadow-md py-3.5 px-7"
+                          className="w-full h-13 bg-blue-500 hover:bg-blue-600 data-[hover=true]:bg-blue-600 text-white font-semibold shadow-md py-3.5 px-7 max-md:h-[52px] max-md:text-base"
                           data-testid="submit-terms"
                           isLoading={loading}
                         >
@@ -1502,14 +1517,14 @@ export default function AuthModal() {
                         </Button>
                       </div>
                     </Form>
-                    <div className="flex flex-col justify-end gap-3 mt-4">
-                      <span className="text-base text-grey-200 text-center">
+                    <div className="flex flex-col justify-end gap-3 mt-4 max-md:mt-5">
+                      <span className="text-base text-grey-200 text-center max-md:text-sm">
                         {t("auth.hasAccount")}{" "}
                         <Button
                           type="button"
                           variant="light"
                           onPress={() => switchMode("login")}
-                          className="inline text-white hover:text-grey-200 transition-colors font-semibold h-auto p-0 min-w-0"
+                          className="inline text-white hover:text-grey-200 transition-colors font-semibold h-auto p-0 min-w-0 max-md:text-sm"
                         >
                           登录
                         </Button>

@@ -43,13 +43,13 @@ export const StakeLogo = ({ className }: { className?: string }) => (
 );
 
 // Google Logo SVG Component
-export const GoogleLogo = () => (
+export const GoogleLogo = ({ className }: { className?: string }) => (
   <svg
     id="layer-google-logo"
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
     viewBox="0 0 16 16"
-    className="w-5 h-5"
+    className={className || "w-5 h-5"}
   >
     <defs>
       <style>{`.cls-google-logo-1 { clip-path: url(#clip-google-logo); } .cls-google-logo-2 { fill: none; } .cls-google-logo-2, .cls-google-logo-3, .cls-google-logo-4, .cls-google-logo-5, .cls-google-logo-6 { stroke-width: 0px; } .cls-google-logo-3 { fill: #34a853; } .cls-google-logo-4 { fill: #4285f4; } .cls-google-logo-5 { fill: #e94235; } .cls-google-logo-6 { fill: #fbbc04; }`}</style>
@@ -81,14 +81,14 @@ export const GoogleLogo = () => (
 );
 
 // Facebook Logo
-export const FacebookLogo = () => (
+export const FacebookLogo = ({ className }: { className?: string }) => (
   <svg
     width="20"
     height="20"
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
+    className={className}
     fill="none"
-    className="w-5 h-5"
   >
     <path
       fill="#0866FF"
@@ -102,14 +102,14 @@ export const FacebookLogo = () => (
 );
 
 // Line Logo
-export const LineLogo = () => (
+export const LineLogo = ({ className }: { className?: string }) => (
   <svg
     width="20"
     height="20"
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
+    className={className}
     fill="none"
-    className="w-5 h-5"
   >
     <path
       fill="#06C755"
@@ -127,14 +127,14 @@ export const LineLogo = () => (
 );
 
 // Twitch Logo
-export const TwitchLogo = () => (
+export const TwitchLogo = ({ className }: { className?: string }) => (
   <svg
     width="20"
     height="20"
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
+    className={className}
     fill="none"
-    className="w-5 h-5"
   >
     <path
       fill="#fff"
@@ -264,12 +264,13 @@ export const CalendarIcon = ({ className }: { className?: string }) => (
 );
 
 // Passkey Icon SVG Component
-export const PasskeyIcon = () => (
+export const PasskeyIcon = ({ className }: { className?: string }) => (
   <svg
     data-ds-icon="Passkey"
     width="20"
     height="20"
     viewBox="0 0 24 24"
+    className={className}
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     className="shrink-0"
@@ -624,11 +625,7 @@ export const NotificationIcon = ({ className }: { className?: string }) => (
 );
 
 // SidebarToggle Icon Component
-export const SidebarToggleIcon = ({
-  className,
-}: {
-  className?: string;
-}) => (
+export const SidebarToggleIcon = ({ className }: { className?: string }) => (
   <svg
     data-ds-icon="SidebarToggle"
     width="20"
@@ -772,10 +769,7 @@ export const SettingsIcon = ({ className }: { className?: string }) => (
     fill="none"
     className={className}
   >
-    <path
-      fill="currentColor"
-      d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
-    />
+    <path fill="currentColor" d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
     <path
       fill="currentColor"
       d="m20.26 11.08 1.84-1.69L19 4.25l-2.22.8a.994.994 0 0 1-1.32-.74L15 2H9l-.52 2.59c-.12.58-.71.94-1.28.76l-2.52-.79-2.9 5.26 1.91 1.61c.46.39.48 1.09.03 1.5l-1.84 1.69 3.1 5.14 2.22-.8c.58-.21 1.2.14 1.32.74l.46 2.31h6l.52-2.59c.12-.58.71-.94 1.28-.76l2.52.79 2.9-5.26-1.91-1.61a.995.995 0 0 1-.03-1.5M12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5"

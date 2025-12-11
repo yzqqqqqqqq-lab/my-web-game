@@ -1,6 +1,7 @@
 "use client";
 
 import { Link, usePathname } from "@/i18n/navigation";
+import { useSearchParams } from "next/navigation";
 import {
   BrowseIcon,
   CasinoIcon,
@@ -21,7 +22,11 @@ interface NavItem {
 
 export default function MobileFooter() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const { toggle } = useMobileSidebarStore();
+
+  // 检查是否打开了认证模态框
+  const isAuthModalOpen = searchParams.get("modal") === "auth";
 
   const navItems: NavItem[] = [
     {
@@ -67,6 +72,11 @@ export default function MobileFooter() {
     if (!item.href) return false;
     return pathname === item.href || pathname.startsWith(item.href + "/");
   };
+
+  // 如果认证模态框打开，则隐藏底部导航
+  if (isAuthModalOpen) {
+    return null;
+  }
 
   return (
     <div

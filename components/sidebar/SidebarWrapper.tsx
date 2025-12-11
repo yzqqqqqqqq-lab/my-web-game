@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { SidebarSkeleton } from "@/components/LayoutSkeletons";
 
-const Sidebar = dynamic(() => import("@/components/Sidebar"), {
+const Sidebar = dynamic(() => import("@/components/sidebar/Sidebar"), {
   ssr: false,
   loading: () => <SidebarSkeleton />,
 });

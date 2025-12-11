@@ -32,7 +32,7 @@ export default function Header() {
   const balance = "0.00000000";
 
   return (
-    <header className="sticky top-0 z-50 md:sticky md:top-0 bg-grey-600" id="header">
+    <header className="sticky top-0 z-50 md:sticky md:top-0 bg-grey-600 shadow-lg shadow-[0_4px_6px_-1px_#0003,0_2px_4px_-1px_#0000001f]" id="header">
       <div className="w-full">
         <div className="container mx-auto">
           <div className="flex items-center justify-between h-15">

@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { HeaderSkeleton } from "@/components/LayoutSkeletons";
 
-const Header = dynamic(() => import("@/components/Header"), {
+const Header = dynamic(() => import("@/components/header/Header"), {
   ssr: false,
   loading: () => <HeaderSkeleton />,
 });

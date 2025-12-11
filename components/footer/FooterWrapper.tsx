@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { FooterSkeleton } from "@/components/LayoutSkeletons";
 
-const Footer = dynamic(() => import("@/components/Footer"), {
+const Footer = dynamic(() => import("@/components/footer/Footer"), {
   ssr: false,
   loading: () => <FooterSkeleton />,
 });

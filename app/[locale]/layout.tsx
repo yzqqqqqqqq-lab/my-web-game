@@ -3,17 +3,17 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import "./globals.css";
-import SidebarLayout from "@/components/SidebarLayout";
+import SidebarLayout from "@/components/sidebar/SidebarLayout";
 import { locales } from "@/i18n/routing";
 import { routing } from "@/i18n/routing";
 // import { Providers } from "./providers";
 import AuthModalWrapper from "@/components/AuthModalWrapper";
-import SidebarWrapper from "@/components/SidebarWrapper";
-import HeaderWrapper from "@/components/HeaderWrapper";
-import FooterWrapper from "@/components/FooterWrapper";
+import SidebarWrapper from "@/components/sidebar/SidebarWrapper";
+import HeaderWrapper from "@/components/header/HeaderWrapper";
+import FooterWrapper from "@/components/footer/FooterWrapper";
 import SiteLoader from "@/components/SiteLoader";
 import MobileFooterWrapper from "@/components/MobileFooterWrapper";
-import MobileSidebarWrapper from "@/components/MobileSidebarWrapper";
+import MobileSidebarWrapper from "@/components/sidebar/MobileSidebarWrapper";
 
 export const runtime = "edge";
 

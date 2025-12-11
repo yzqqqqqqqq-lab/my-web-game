@@ -226,6 +226,25 @@ input[type="date"]::-webkit-datetime-edit-year-field:focus {
   animation: modal-slide-up-exit 0.2s ease-in;
 }
 
+/* 移动端模态框全屏优化 */
+@media (max-width: 767px) {
+  /* 确保模态框在移动端全屏显示 */
+  .modal-slide-up {
+    max-width: 100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  /* 移动端模态框内容区域优化 */
+  .modal-slide-up > div {
+    border-radius: 0 !important;
+    max-height: 100% !important;
+  }
+}
+
 /* 游戏容器移动端样式 */
 .game-wrapper.mobile-view {
   background: var(--color-grey-700);
