@@ -232,37 +232,37 @@ export default function Sidebar({ className, forceExpanded = false }: SidebarPro
           id: "drake",
           label: "Drake",
           icon: SparklesIcon,
-          href: "/zh/drake",
+          href: "#",
         },
         {
           id: "trinbago",
           label: "Trinbago Knight Riders",
           icon: SparklesIcon,
-          href: "/zh/sponsorships/trinbago-knight-riders",
+          href: "#",
         },
         {
           id: "davido",
           label: "Davido",
           icon: SparklesIcon,
-          href: "/zh/sponsorships/davido",
+          href: "#",
         },
         {
           id: "stake-f1",
           label: "Stake F1 车队",
           icon: SparklesIcon,
-          href: "/zh/sponsorships/stake-f1-team",
+          href: "#",
         },
         {
           id: "ufc",
           label: "UFC",
           icon: SparklesIcon,
-          href: "/zh/sponsorships/ufc",
+          href: "#",
         },
         {
           id: "everton",
           label: "埃弗顿足球俱乐部",
           icon: SparklesIcon,
-          href: "/zh/sponsorships/everton",
+          href: "#",
         },
       ],
     },
@@ -537,7 +537,7 @@ export default function Sidebar({ className, forceExpanded = false }: SidebarPro
           overflow-hidden
           
           /* 移动端和平板端 (< 1200px): fixed 定位，浮动效果 */
-          fixed top-0 left-0 h-full z-50 
+          fixed top-0 left-0  z-50 
           ${
             isOpen
               ? "translate-x-0 w-[260px] md:z-1599"

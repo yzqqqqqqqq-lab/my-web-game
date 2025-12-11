@@ -9,7 +9,7 @@ export const mockCompetitions: Game[] = [
     rating: 4.9,
     playCount: 245000,
     description: '观看欧洲顶级足球联赛，支持你喜欢的球队',
-    demoUrl: '/play/comp-1',
+    demoUrl: '#',
     detailedDescription: '欧洲足球联赛汇集了欧洲最顶级的足球俱乐部，包括英超、西甲、德甲、意甲和法甲等各大联赛。观看精彩比赛，支持你喜欢的球队，体验足球的魅力。',
   },
   {
@@ -20,7 +20,7 @@ export const mockCompetitions: Game[] = [
     rating: 4.8,
     playCount: 198000,
     description: 'NBA 精彩赛事，见证篮球巨星的风采',
-    demoUrl: '/play/comp-2',
+    demoUrl: '#',
     detailedDescription: 'NBA 篮球锦标赛是世界上最顶级的篮球联赛，汇聚了全球最优秀的篮球运动员。观看精彩比赛，见证篮球巨星的风采，感受篮球运动的激情。',
   },
   {
@@ -31,7 +31,7 @@ export const mockCompetitions: Game[] = [
     rating: 4.7,
     playCount: 156000,
     description: 'CS:GO 职业战队对决，精彩战术博弈',
-    demoUrl: '/play/comp-3',
+    demoUrl: '#',
     detailedDescription: 'CS:GO 职业联赛汇聚了全球最顶尖的职业战队，观看精彩的战术博弈和精准的枪法对决，体验电子竞技的魅力。',
   },
   {
@@ -42,7 +42,7 @@ export const mockCompetitions: Game[] = [
     rating: 4.9,
     playCount: 312000,
     description: 'Dota 2 最高级别赛事，见证冠军诞生',
-    demoUrl: '/play/comp-4',
+    demoUrl: '#',
     detailedDescription: 'Dota 2 国际邀请赛是 Dota 2 最高级别的赛事，汇聚了全球最顶尖的职业战队。观看精彩比赛，见证冠军的诞生，感受电子竞技的激情。',
   },
   {
@@ -53,7 +53,7 @@ export const mockCompetitions: Game[] = [
     rating: 4.8,
     playCount: 289000,
     description: '英雄联盟全球总决赛，最强战队对决',
-    demoUrl: '/play/comp-5',
+    demoUrl: '#',
     detailedDescription: '英雄联盟世界赛是英雄联盟最高级别的赛事，汇聚了全球各大赛区的顶尖战队。观看精彩比赛，见证最强战队的诞生。',
   },
   {
@@ -64,7 +64,7 @@ export const mockCompetitions: Game[] = [
     rating: 4.6,
     playCount: 124000,
     description: '综合格斗精彩对决，见证格斗高手的实力',
-    demoUrl: '/play/comp-6',
+    demoUrl: '#',
     detailedDescription: '综合格斗 MMA 赛事汇聚了全球最顶尖的格斗选手，观看精彩的对决，见证格斗高手的实力和技巧。',
   },
   {
@@ -75,7 +75,7 @@ export const mockCompetitions: Game[] = [
     rating: 4.7,
     playCount: 167000,
     description: '网球大师级赛事，欣赏顶级选手的精彩对决',
-    demoUrl: '/play/comp-7',
+    demoUrl: '#',
     detailedDescription: '网球大师赛汇聚了全球最顶尖的网球选手，观看精彩的对决，欣赏顶级选手的精湛技艺和激烈竞争。',
   },
   {
@@ -86,7 +86,7 @@ export const mockCompetitions: Game[] = [
     rating: 4.5,
     playCount: 98000,
     description: '乒乓球精彩赛事，感受国球的魅力',
-    demoUrl: '/play/comp-8',
+    demoUrl: '#',
     detailedDescription: '乒乓球锦标赛汇聚了全球最顶尖的乒乓球选手，观看精彩的对决，感受国球的魅力和选手的精湛技艺。',
   },
   {
@@ -97,7 +97,7 @@ export const mockCompetitions: Game[] = [
     rating: 4.4,
     playCount: 87000,
     description: '排球精彩赛事，欣赏团队配合的精彩瞬间',
-    demoUrl: '/play/comp-9',
+    demoUrl: '#',
     detailedDescription: '排球联赛汇聚了全球最顶尖的排球队伍，观看精彩的对决，欣赏团队配合的精彩瞬间和激烈的竞争。',
   },
   {
@@ -108,7 +108,7 @@ export const mockCompetitions: Game[] = [
     rating: 4.6,
     playCount: 112000,
     description: '棒球职业联赛，体验棒球的魅力',
-    demoUrl: '/play/comp-10',
+    demoUrl: '#',
     detailedDescription: '棒球职业联赛汇聚了全球最顶尖的棒球队伍，观看精彩的对决，体验棒球运动的魅力和团队配合的重要性。',
   },
 ];

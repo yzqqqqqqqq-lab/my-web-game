@@ -31,6 +31,11 @@ export default function Footer() {
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
   const languageMenuRef = useRef<HTMLDivElement>(null);
 
+  const handleLinkClick = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    console.log("拦截底部导航跳转:", href);
+  };
+
   const footerColumns: FooterColumn[] = [
     {
       title: "娱乐城",
@@ -329,6 +334,7 @@ export default function Footer() {
                       ) : link.external ? (
                         <a
                           href={link.href}
+                          onClick={(e) => handleLinkClick(e, link.href)}
                           target="_blank"
                           rel="external noreferrer noopener"
                           className="text-sm font-semibold text-grey-200 hover:text-white active:text-white transition-colors inline-flex items-center gap-1.5 w-full py-0.5"
@@ -339,6 +345,7 @@ export default function Footer() {
                       ) : (
                         <Link
                           href={link.href}
+                          onClick={(e) => handleLinkClick(e, link.href)}
                           className="text-sm font-semibold text-grey-200 hover:text-white active:text-white transition-colors block w-full py-0.5"
                         >
                           {link.label}
@@ -373,6 +380,7 @@ export default function Footer() {
                       ) : link.external ? (
                         <a
                           href={link.href}
+                          onClick={(e) => handleLinkClick(e, link.href)}
                           target="_blank"
                           rel="external noreferrer noopener"
                           className="text-sm font-semibold text-grey-200 hover:text-white hover:underline transition-colors inline-flex items-center gap-1"
@@ -383,6 +391,7 @@ export default function Footer() {
                       ) : (
                         <Link
                           href={link.href}
+                          onClick={(e) => handleLinkClick(e, link.href)}
                           className="text-sm font-semibold text-grey-200 hover:text-white hover:underline transition-colors"
                         >
                           {link.label}
@@ -406,6 +415,7 @@ export default function Footer() {
                   {typeof IconComponent === "string" ? (
                     <a
                       href={social.href}
+                      onClick={(e) => handleLinkClick(e, social.href)}
                       target={social.external ? "_blank" : undefined}
                       rel={
                         social.external
@@ -420,6 +430,7 @@ export default function Footer() {
                   ) : (
                     <Link
                       href={social.href}
+                      onClick={(e) => handleLinkClick(e, social.href)}
                       className="inline-flex items-center text-grey-200 hover:text-white transition-colors"
                       aria-label={social.name}
                     >
@@ -454,6 +465,7 @@ export default function Footer() {
             Stake 致力于负责任的赌博，欲了解更多信息，请访问{" "}
             <a
               href="https://www.gamblingtherapy.org/"
+              onClick={(e) => handleLinkClick(e, "https://www.gamblingtherapy.org/")}
               target="_blank"
               rel="external noreferrer noopener"
               className="underline hover:text-white transition-colors"
@@ -539,6 +551,7 @@ export default function Footer() {
           <div className="flex flex-row justify-center order-4">
             <a
               href="https://cert.gcb.cw/certificate?id=ZXlKcGRpSTZJbkJtT0dKb04zWTRhbmc1VERsd1RXTTRRMjVHZDNjOVBTSXNJblpoYkhWbElqb2lSVEJwU2t0emJYSm9LMUkzYm04NVVqSkZRMnRxZHowOUlpd2liV0ZqSWpvaVpEWm1NV0kwT1dNeE9XVmpaVFkyTnpFd01HVmpPV1V4WmpWaU5qRm1NVEprWXpjd05tTTJaamczWkdNM1pHSXdaVEl6T1RFeVlUSXlOell6TnpJNVpTSXNJblJoWnlJNklpSjk="
+              onClick={(e) => handleLinkClick(e, "https://cert.gcb.cw/certificate?id=ZXlKcGRpSTZJbkJtT0dKb04zWTRhbmc1VERsd1RXTTRRMjVHZDNjOVBTSXNJblpoYkhWbElqb2lSVEJwU2t0emJYSm9LMUkzYm04NVVqSkZRMnRxZHowOUlpd2liV0ZqSWpvaVpEWm1NV0kwT1dNeE9XVmpaVFkyTnpFd01HVmpPV1V4WmpWaU5qRm1NVEprWXpjd05tTTJaamczWkdNM1pHSXdaVEl6T1RFeVlUSXlOell6TnpJNVpTSXNJblJoWnlJNklpSjk=")}
               target="_blank"
               rel="nonoopener"
               className="hover:opacity-80 transition-opacity"

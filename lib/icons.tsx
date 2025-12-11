@@ -273,7 +273,6 @@ export const PasskeyIcon = ({ className }: { className?: string }) => (
     className={className}
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
-    className="shrink-0"
   >
     <path
       fill="currentColor"
