@@ -58,6 +58,7 @@ export default function Sidebar({ className, forceExpanded = false }: SidebarPro
   const [pendingExpandItem, setPendingExpandItem] = useState<string | null>(
     null
   );
+  const [pendingLanguageMenuOpen, setPendingLanguageMenuOpen] = useState(false);
   const [hoveredTab, setHoveredTab] = useState<"casino" | "sports" | null>(
     null
   );
@@ -106,13 +107,6 @@ export default function Sidebar({ className, forceExpanded = false }: SidebarPro
         if (isOpen) {
           setContentVisible(true);
           setNavVisible(true);
-          // 如果有待展开的菜单项，在内容可见后打开它
-          if (pendingExpandItem) {
-            setTimeout(() => {
-              toggleExpanded(pendingExpandItem);
-              setPendingExpandItem(null);
-            }, 100); // 等待内容淡入
-          }
         } else {
           setContentVisible(false);
           // 折叠时，nav 也应该淡入显示
@@ -128,13 +122,6 @@ export default function Sidebar({ className, forceExpanded = false }: SidebarPro
       setContentVisible(isOpen);
       // nav 在展开和折叠时都应该可见
       setNavVisible(true);
-      // 如果有待展开的菜单项，在内容可见后打开它
-      if (isOpen && pendingExpandItem) {
-        setTimeout(() => {
-          toggleExpanded(pendingExpandItem);
-          setPendingExpandItem(null);
-        }, 100); // 等待内容淡入
-      }
     }, 350); // 稍微长于动画时间（300ms）
 
     return () => {
@@ -144,7 +131,38 @@ export default function Sidebar({ className, forceExpanded = false }: SidebarPro
       }
       sidebar.removeEventListener("transitionend", handleTransitionEnd);
     };
-  }, [isOpen, mounted, pendingExpandItem, toggleExpanded]);
+  }, [isOpen, mounted]);
+
+  // 专门处理待展开的菜单项：当侧边栏打开且内容已显示后，展开对应的二级导航
+  useEffect(() => {
+    // 只有当侧边栏打开、有待展开项、且内容已显示时才执行
+    if (!isOpen || !pendingExpandItem || !contentVisible) {
+      return;
+    }
+
+    // 确保内容已显示后再展开，使用足够的延迟让动画完成
+    const expandTimer = setTimeout(() => {
+      // 再次检查，确保状态仍然有效
+      if (pendingExpandItem) {
+        toggleExpanded(pendingExpandItem);
+        setPendingExpandItem(null);
+      }
+    }, 150); // 给足够的时间让内容完全显示
+
+    return () => clearTimeout(expandTimer);
+  }, [isOpen, pendingExpandItem, contentVisible, toggleExpanded]);
+
+  // 处理待打开的语言菜单：当侧边栏打开且内容已显示后，打开语言菜单
+  useEffect(() => {
+    if (isOpen && pendingLanguageMenuOpen && contentVisible) {
+      const languageMenuTimer = setTimeout(() => {
+        setLanguageMenuOpen(true);
+        setPendingLanguageMenuOpen(false);
+      }, 150); // 给足够的时间让内容完全显示
+
+      return () => clearTimeout(languageMenuTimer);
+    }
+  }, [isOpen, pendingLanguageMenuOpen, contentVisible]);
 
   const navItems: NavItem[] = [
     {
@@ -330,8 +348,9 @@ export default function Sidebar({ className, forceExpanded = false }: SidebarPro
           <button
             onClick={() => {
               if (!isOpen) {
-                open();
+                // 先设置待展开项，再打开侧边栏
                 setPendingExpandItem(item.id);
+                open();
               } else {
                 toggleExpanded(item.id);
               }
@@ -372,7 +391,7 @@ export default function Sidebar({ className, forceExpanded = false }: SidebarPro
           </button>
           {isOpen && expanded && hasChildren && (
             <div
-              className={`transition-opacity duration-300 ${
+              className={`ml-6 transition-opacity duration-300 ${
                 contentVisible ? "opacity-100" : "opacity-0"
               }`}
             >
@@ -391,7 +410,7 @@ export default function Sidebar({ className, forceExpanded = false }: SidebarPro
           <Link
             href={item.href}
             className={`group ${baseLinkClasses} ${
-              level > 0 && isOpen ? "pl-6 ml-4 rounded-none" : ""
+              level > 0 && isOpen ? "pl-6 rounded-none border-l-2 border-grey-400" : ""
             } ${
               active
                 ? "bg-grey-400 text-white"
@@ -518,7 +537,7 @@ export default function Sidebar({ className, forceExpanded = false }: SidebarPro
           overflow-hidden
           
           /* 移动端和平板端 (< 1200px): fixed 定位，浮动效果 */
-          fixed top-0 left-0 h-full z-50
+          fixed top-0 left-0 h-full z-50 
           ${
             isOpen
               ? "translate-x-0 w-[260px] md:z-1599"
@@ -534,7 +553,7 @@ export default function Sidebar({ className, forceExpanded = false }: SidebarPro
           ${className || ""}
         `}
       >
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full md:h-screen">
           {/* Header with Tabs */}
           <div className="shrink-0">
             {/* Header with Menu Button and Tabs */}
@@ -853,7 +872,7 @@ export default function Sidebar({ className, forceExpanded = false }: SidebarPro
                     contentVisible ? "opacity-100" : "opacity-0"
                   }`}
                 >
-                  <hr className="border-grey-500/40" />
+                  <hr className="border-grey-400" />
                 </div>
               )}
 
@@ -866,7 +885,16 @@ export default function Sidebar({ className, forceExpanded = false }: SidebarPro
               <div className="mt-2">
                 <div ref={languageMenuRef} className="relative">
                   <button
-                    onClick={() => setLanguageMenuOpen(!languageMenuOpen)}
+                    onClick={() => {
+                      if (!isOpen) {
+                        // 如果侧边栏折叠，先展开侧边栏，并标记需要在展开后打开语言菜单
+                        setPendingLanguageMenuOpen(true);
+                        open();
+                      } else {
+                        // 如果侧边栏已展开，直接切换语言菜单
+                        setLanguageMenuOpen(!languageMenuOpen);
+                      }
+                    }}
                     className={`group
                     ${
                       isOpen
