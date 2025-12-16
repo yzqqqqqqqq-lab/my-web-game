@@ -20,7 +20,10 @@
     "gamesCount": "games",
     "totalPlayCount": "Total Plays",
     "averageRating": "Average Rating",
-    "playCount": "plays"
+    "playCount": "plays",
+    "chinese": "中文",
+    "english": "English",
+    "vipPlayer": "VIP Player"
   },
   "home": {
     "title": "Game Station",
@@ -31,7 +34,15 @@
     "promotions": "Promotions",
     "gameCategories": "Game Categories",
     "foundGames": "Found {count} games",
-    "totalGames": "Total {count} games"
+    "totalGames": "Total {count} games",
+    "heroTitle": "The World's Largest Online Casino and Sportsbook",
+    "register": "Register",
+    "registerWithOther": "Register with other methods",
+    "vipProgress": "Your VIP Progress",
+    "vipLevels": {
+      "none": "No Level",
+      "bronze": "Bronze"
+    }
   },
   "games": {
     "title": "Games",
@@ -108,6 +119,11 @@
       "step": "Step",
       "previousPage": "Previous Page"
     },
+    "passwordVisibility": {
+      "hide": "Hide password",
+      "reveal": "Reveal password"
+    },
+    "openDatePicker": "Open date picker",
     "errors": {
       "emptyFields": "Please enter account and password",
       "usernameMinLength": "Your username must contain at least 3 characters",
@@ -124,15 +140,6 @@
       "operationFailed": "Operation failed, please try again",
       "unknownError": "An error occurred, please try again"
     }
-  },
-  "footer": {
-    "about": "About Us",
-    "aboutDescription": "Game Station is a professional online gaming platform that provides you with rich gaming experiences.",
-    "quickLinks": "Quick Links",
-    "legal": "Legal",
-    "privacyPolicy": "Privacy Policy",
-    "termsOfService": "Terms of Service",
-    "copyright": "© 2025 Game Station Demo. All rights reserved."
   },
   "sidebar": {
     "casino": "Casino",
@@ -160,6 +167,119 @@
     "description": "Sorry, the page you are looking for does not exist",
     "backHome": "Back to Home",
     "browseGames": "Browse Games"
+  },
+  "productCards": {
+    "casino": "Casino",
+    "sports": "Sports",
+    "startPlaying": "Start Playing"
+  },
+  "gameCarousel": {
+    "readMore": "Read More",
+    "playing": "Playing"
+  },
+  "mobileFooter": {
+    "browse": "Browse",
+    "casino": "Casino",
+    "bets": "Bets",
+    "sports": "Sports",
+    "chat": "Chat"
+  },
+  "userDropdown": {
+    "wallet": "Wallet",
+    "vault": "Vault",
+    "vip": "VIP",
+    "affiliate": "Affiliate",
+    "statistics": "Statistics",
+    "transactions": "Transactions",
+    "myBets": "My Bets",
+    "settings": "Settings",
+    "stakeSmart": "Stake Smart",
+    "support": "Support",
+    "logout": "Logout",
+    "logoutConfirm": "Are you sure you want to end your session and logout?",
+    "logoutButton": "Logout"
+  },
+  "footer": {
+    "about": "About Us",
+    "aboutDescription": "Game Station is a professional online gaming platform that provides you with rich gaming experiences.",
+    "quickLinks": "Quick Links",
+    "legal": "Legal",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "copyright": "© 2025 Stake.com | All rights reserved.",
+    "casino": {
+      "title": "Casino",
+      "casinoGames": "Casino Games",
+      "slots": "Slots",
+      "liveCasino": "Live Casino",
+      "roulette": "Roulette",
+      "blackjack": "Blackjack",
+      "poker": "Poker",
+      "providers": "Providers",
+      "promotions": "Promotions & Competitions",
+      "stakeEngine": "Stake Engine",
+      "stakeVendors": "Stake Vendors"
+    },
+    "sports": {
+      "title": "Sports",
+      "sportsBetting": "Sports Betting",
+      "liveEvents": "Live Sports Events",
+      "soccer": "Soccer",
+      "basketball": "Basketball",
+      "tennis": "Tennis",
+      "esports": "Esports",
+      "bettingBonuses": "Betting Bonuses",
+      "sportsbookRules": "Sportsbook Rules",
+      "racingRules": "Racing Rules"
+    },
+    "support": {
+      "title": "Support",
+      "helpCenter": "Help Center",
+      "provablyFair": "Provably Fair",
+      "responsibleGambling": "Responsible Gambling",
+      "gamblingHelpLine": "Gambling Help Line",
+      "onlineSupport": "Online Support",
+      "selfExclusion": "Self Exclusion",
+      "lawEnforcement": "Law Enforcement"
+    },
+    "about": {
+      "title": "About Us",
+      "vipClub": "VIP Club",
+      "affiliate": "Affiliate",
+      "privacyPolicy": "Privacy Policy",
+      "antiMoneyLaundering": "Anti-Money Laundering",
+      "termsOfService": "Terms of Service"
+    },
+    "payment": {
+      "title": "Payment Information",
+      "depositWithdrawal": "Deposit & Withdrawal",
+      "currencyGuide": "Currency Guide",
+      "cryptoGuide": "Cryptocurrency Guide",
+      "supportedCrypto": "Supported Cryptocurrencies",
+      "howToUseVault": "How to Use Vault",
+      "howMuchToBet": "How Much to Bet"
+    },
+    "faq": {
+      "title": "FAQ",
+      "howToGuides": "How-to Guides",
+      "onlineCasinoGuide": "Online Casino Guide",
+      "sportsBettingGuide": "Sports Betting Guide",
+      "howToWatchLive": "How to Watch Live Sports",
+      "vipGuide": "Stake VIP Guide",
+      "houseEdgeGuide": "House Edge Guide"
+    },
+    "social": {
+      "blog": "Blog",
+      "forum": "Forum",
+      "facebook": "Facebook",
+      "twitter": "X/Twitter",
+      "instagram": "Instagram",
+      "youtube": "YouTube",
+      "shop": "Shop"
+    },
+    "companyInfo": "Stake is owned and operated by Medium Rare N.V., registration number: 145353, registered address: Seru Loraweg 17 B, Curaçao.",
+    "paymentAgents": "Payment agent companies are Medium Rare Limited and MRS Tech Limited. Contact us at support@stake.com.",
+    "responsibleGamblingNote": "Stake is committed to responsible gambling. For more information, please visit"
   }
 }
 

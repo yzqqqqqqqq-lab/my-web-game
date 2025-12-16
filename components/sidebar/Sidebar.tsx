@@ -585,8 +585,8 @@ export default function Sidebar({ className, forceExpanded = false }: SidebarPro
 
                 {/* Tabs */}
                 <div className="flex items-center gap-1.5 flex-1">
-                  <Link
-                    href="/casino/home"
+                  <button
+                    type="button"
                     className={`
                       relative ${
                         isOpen
@@ -642,9 +642,9 @@ export default function Sidebar({ className, forceExpanded = false }: SidebarPro
                     ) : (
                       <span className="sr-only">{t("sidebar.casino")}</span>
                     )}
-                  </Link>
-                  <Link
-                    href="/sports/home"
+                  </button>
+                  <button
+                    type="button"
                     className={`
                       relative ${
                         isOpen
@@ -701,7 +701,7 @@ export default function Sidebar({ className, forceExpanded = false }: SidebarPro
                     ) : (
                       <span className="sr-only">{t("sidebar.sports")}</span>
                     )}
-                  </Link>
+                  </button>
                 </div>
               </div>
             ) : (
@@ -730,8 +730,8 @@ export default function Sidebar({ className, forceExpanded = false }: SidebarPro
 
                 {/* Tabs - 折叠状态下垂直排列，使用 mini 版本图片 */}
                 <div className={`flex flex-col items-center gap-2 w-full mt-2 text-grey-200 hover:text-white ${activeTab === "casino" ? "text-white" : ""}`}>
-                  <Link
-                    href="/casino/home"
+                  <button
+                    type="button"
                     className={`
                       relative w-11 h-11 flex items-center justify-center rounded-md
                       transition-all overflow-hidden
@@ -783,9 +783,9 @@ export default function Sidebar({ className, forceExpanded = false }: SidebarPro
                         ></path>
                       </svg>
                     </div>
-                  </Link>
-                  <Link
-                    href="/sports/home"
+                  </button>
+                  <button
+                    type="button"
                     className={`
                       relative w-11 h-11 flex items-center justify-center rounded-md text-grey-200 hover:text-white
                       transition-all overflow-hidden
@@ -842,7 +842,7 @@ export default function Sidebar({ className, forceExpanded = false }: SidebarPro
                         ></path>
                       </svg>
                     </div>
-                  </Link>
+                  </button>
                 </div>
               </div>
             )}

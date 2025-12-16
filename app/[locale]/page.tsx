@@ -73,7 +73,7 @@ export default function Home() {
                   <div>
                     <div className="sm:px-24 md:px-0 lg:pr-20">
                       <h1 className="text-[32px] text-white font-bold text-center md:text-left leading-[40px]">
-                        世界上最大的在线赌场和体育博彩
+                        {t("home.heroTitle")}
                       </h1>
                     </div>
                     <div className="flex justify-center md:justify-start mt-4">
@@ -81,7 +81,7 @@ export default function Home() {
                         href="?modal=auth&tab=register"
                         className="w-auto shadow-md inline-flex items-center justify-center gap-2 rounded-md font-semibold transition-all focus-visible:outline-2 focus-visible:outline-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98] bg-blue-500 text-white hover:bg-blue-600 focus-visible:outline-blue-500 text-md py-2.5 px-5"
                       >
-                        注册
+                        {t("home.register")}
                       </Link>
                     </div>
                   </div>
@@ -90,7 +90,7 @@ export default function Home() {
                   <div className="h-full w-full flex flex-col justify-end items-center md:items-start">
                     <div className="mb-2">
                       <p className="text-sm text-white font-bold text-left">
-                        通过其他方式注册
+                        {t("home.registerWithOther")}
                       </p>
                     </div>
                     <div className="flex flex-wrap gap-2">
@@ -213,7 +213,7 @@ export default function Home() {
                       {/* 顶部：标题和VIP图标 */}
                       <div className="flex justify-between mb-6">
                         <span className="text-neutral-default text-xl font-medium text-white">
-                          {userInfo?.username || "VIP 玩家"}
+                          {userInfo?.username || t("common.vipPlayer")}
                         </span>
                         <VIPNoneIcon />
                       </div>
@@ -225,7 +225,7 @@ export default function Home() {
                             type="button"
                             className="inline-flex items-center gap-2 text-white hover:text-white/80 transition-colors text-sm font-semibold"
                           >
-                            您的 VIP 进度
+                            {t("home.vipProgress")}
                             <ChevronRightIcon className="w-5 h-5" />
                           </button>
                           <span className="flex gap-1 items-center text-sm text-white">
@@ -259,11 +259,11 @@ export default function Home() {
                         <div className="flex justify-between w-full mt-2">
                           <div className="flex items-center gap-1">
                             <VIPNoneIcon className="w-4 h-4" />
-                            <span className="text-sm text-white">暂无级别</span>
+                            <span className="text-sm text-white">{t("home.vipLevels.none")}</span>
                           </div>
                           <div className="flex items-center gap-1">
                             <VIPBronzeIcon className="w-4 h-4" />
-                            <span className="text-sm text-white">青铜</span>
+                            <span className="text-sm text-white">{t("home.vipLevels.bronze")}</span>
                           </div>
                         </div>
                       </div>

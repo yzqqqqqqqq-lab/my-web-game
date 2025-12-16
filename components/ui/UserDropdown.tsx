@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Link, useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { Modal, ModalContent, ModalHeader, ModalBody } from "@heroui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -43,73 +44,74 @@ export default function UserDropdown({
 }: UserDropdownProps) {
   const router = useRouter();
   const { logout } = useAuthStore();
+  const t = useTranslations();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   const menuItems: MenuItem[] = [
     {
       id: "wallet",
-      label: "钱包",
+      label: t("userDropdown.wallet"),
       icon: WalletIcon,
       analytics: "global-userMenu-wallet-item",
     },
     {
       id: "vault",
-      label: "保险库",
+      label: t("userDropdown.vault"),
       icon: VaultIcon,
       testId: "user-dropdown-vault",
       analytics: "global-userMenu-vault-item",
     },
     {
       id: "vip",
-      label: "VIP",
+      label: t("userDropdown.vip"),
       icon: TrophyIcon,
       analytics: "global-userMenu-vip-item",
     },
     {
       id: "affiliate",
-      label: "联盟计划",
+      label: t("userDropdown.affiliate"),
       icon: UserGroupIcon,
-      href: "/affiliate",
+      href: "#", // 未实现，改为占位符
       analytics: "global-userMenu-affiliate-item",
     },
     {
       id: "statistics",
-      label: "统计数据",
+      label: t("userDropdown.statistics"),
       icon: StatsIcon,
       analytics: "global-userMenu-statistics-item",
     },
     {
       id: "transactions",
-      label: "交易记录",
+      label: t("userDropdown.transactions"),
       icon: ListIcon,
-      href: "/transactions",
+      href: "#", // 未实现，改为占位符
       analytics: "global-userMenu-transactions-item",
     },
     {
       id: "my-bets",
-      label: "我的投注",
+      label: t("userDropdown.myBets"),
       icon: MyBetsIcon,
-      href: "/my-bets",
+      href: "#", // 未实现，改为占位符
       analytics: "global-userMenu-mybets-item",
     },
     {
       id: "settings",
-      label: "设置",
+      label: t("userDropdown.settings"),
       icon: SettingsIcon,
-      href: "/settings",
+      href: "#", // 未实现，改为占位符
       analytics: "global-userMenu-settings-item",
     },
     {
       id: "responsible-gambling",
-      label: "Stake Smart",
+      label: t("userDropdown.stakeSmart"),
       icon: ShieldCheckIcon,
-      href: "/responsible-gambling",
+      href: "#", // 未实现，改为占位符
       analytics: "global-userMenu-responsibleGambling-item",
     },
     {
       id: "support",
-      label: "在线支持",
+      label: t("userDropdown.support"),
       icon: QuestionMarkCircleIcon,
       analytics: "global-userMenu-support-item",
       onClick: () => {
@@ -119,7 +121,7 @@ export default function UserDropdown({
     },
     {
       id: "logout",
-      label: "登出",
+      label: t("userDropdown.logout"),
       icon: LogoutIcon,
       analytics: "global-userMenu-logout-item",
       onClick: () => {
@@ -204,6 +206,23 @@ export default function UserDropdown({
                 "inline-flex items-center gap-2 w-full px-3 py-3 text-sm font-semibold text-grey-400 hover:bg-grey-200 hover:text-neutral-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-grey-300 transition-colors rounded-none justify-start active:scale-[0.98]";
 
               if (item.href) {
+                // 如果是 #，使用按钮而不是链接
+                if (item.href === "#") {
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      className={baseClasses}
+                      onClick={onClose}
+                      data-analytics={item.analytics}
+                    >
+                      <Icon className="w-5 h-5 shrink-0 text-grey-400 [&:hover]:text-grey-400" />
+                      <span className="font-semibold">{item.label}</span>
+                    </button>
+                  );
+                }
+                
+                // 正常路径使用Link
                 return (
                   <Link
                     key={item.id}
@@ -265,12 +284,12 @@ export default function UserDropdown({
               <ModalHeader className="p-4 flex items-center justify-between bg-grey-600 border-none">
                 <div className="flex items-center gap-2">
                   <LogoutIcon className="w-5 h-5 text-grey-200" />
-                  <h3 className="text-grey-200 font-semibold text-base">登出</h3>
+                  <h3 className="text-grey-200 font-semibold text-base">{t("userDropdown.logout")}</h3>
                 </div>
                 <button
                   onClick={onClose}
                   className="inline-flex relative items-center gap-2 justify-center rounded-sm bg-transparent text-grey-200 hover:text-white transition-colors p-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                  aria-label="关闭"
+                  aria-label={t("common.close")}
                   data-testid="modal-close"
                 >
                   <XMarkIcon className="w-5 h-5" />
@@ -281,14 +300,14 @@ export default function UserDropdown({
               <ModalBody className="bg-grey-600 p-6 pt-0 flex-1 overflow-y-auto">
                 <div className="flex flex-col gap-6">
                   <p className="text-grey-200 text-base">
-                    您确定要结束会话，然后登出吗？
+                    {t("userDropdown.logoutConfirm")}
                   </p>
                   <button
                     onClick={handleConfirmLogout}
                     className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-[0.75rem] px-5 rounded-md transition-colors active:scale-[0.98] shadow-md"
                     data-testid="logout-link"
                   >
-                    <span className="font-semibold">登出</span>
+                    <span className="font-semibold">{t("userDropdown.logoutButton")}</span>
                   </button>
                 </div>
               </ModalBody>

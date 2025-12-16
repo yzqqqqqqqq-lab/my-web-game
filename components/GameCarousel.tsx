@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Game } from "@/types/game";
 import { Promotion } from "@/types/promotion";
 import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -37,6 +38,7 @@ export default function GameCarousel({
   icon,
   type = "game",
 }: GameCarouselProps) {
+  const t = useTranslations();
   const swiperRef = useRef<SwiperType | null>(null);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
@@ -212,51 +214,65 @@ export default function GameCarousel({
             observeParents={false}
           >
             {type === "promotion"
-              ? promotions?.map((promotion) => (
-                  <SwiperSlide key={promotion.id} className="h-auto pt-4">
-                    <div className="group relative w-full px-1 h-[170px]">
-                      <Link href={promotion.href} className="block h-full">
-                        <div className="flex bg-grey-500 rounded-xl overflow-hidden h-full group-hover:opacity-90 transition-opacity duration-300">
-                          {/* 左侧内容区域 */}
-                          <div className="flex-1 p-4 flex flex-col gap-0.5">
-                            <div>
-                              {/* 徽章 */}
-                              {promotion.badge && (
-                                <div className="mb-3">
-                                  <span className="inline-block px-3 py-1 rounded-full bg-white/20 text-white text-xs font-semibold">
-                                    {promotion.badge}
-                                  </span>
-                                </div>
-                              )}
-                              {/* 标题 */}
-                              <h3 className="text-xl font-bold text-white  line-clamp-2">
-                                {promotion.title}
-                              </h3>
-                              {/* 描述 */}
-                              <p className="text-sm  text-white/80 line-clamp-2 ">
-                                {promotion.description}
-                              </p>
+              ? promotions?.map((promotion) => {
+                  const isPromoImplemented = promotion.href !== "#";
+                  
+                  const promotionContent = (
+                    <div className="flex bg-grey-500 rounded-xl overflow-hidden h-full group-hover:opacity-90 transition-opacity duration-300">
+                      {/* 左侧内容区域 */}
+                      <div className="flex-1 p-4 flex flex-col gap-0.5">
+                        <div>
+                          {/* 徽章 */}
+                          {promotion.badge && (
+                            <div className="mb-3">
+                              <span className="inline-block px-3 py-1 rounded-full bg-white/20 text-white text-xs font-semibold">
+                                {promotion.badge}
+                              </span>
                             </div>
+                          )}
+                          {/* 标题 */}
+                          <h3 className="text-xl font-bold text-white  line-clamp-2">
+                            {promotion.title}
+                          </h3>
+                          {/* 描述 */}
+                          <p className="text-sm  text-white/80 line-clamp-2 ">
+                            {promotion.description}
+                          </p>
+                        </div>
                             {/* 阅读更多 */}
                             <span className="text-sm font-semibold text-white">
-                              阅读更多
+                              {t("gameCarousel.readMore")}
                             </span>
-                          </div>
-                          {/* 右侧图片区域 */}
-                          <div className="relative w-48 md:h-auto shrink-0">
-                            <Image
-                              src={promotion.cover}
-                              alt={promotion.title}
-                              fill
-                              className="object-contain"
-                              sizes="(max-width: 768px) 100vw, 192px"
-                            />
-                          </div>
-                        </div>
-                      </Link>
+                      </div>
+                      {/* 右侧图片区域 */}
+                      <div className="relative w-48 md:h-auto shrink-0">
+                        <Image
+                          src={promotion.cover}
+                          alt={promotion.title}
+                          fill
+                          className="object-contain"
+                          sizes="(max-width: 768px) 100vw, 192px"
+                        />
+                      </div>
                     </div>
-                  </SwiperSlide>
-                ))
+                  );
+                  
+                  return (
+                    <SwiperSlide key={promotion.id} className="h-auto pt-4">
+                      <div className="group relative w-full px-1 h-[170px]">
+                        {isPromoImplemented ? (
+                          <Link href={promotion.href} className="block h-full">
+                            {promotionContent}
+                          </Link>
+                        ) : (
+                          <div className="block h-full cursor-pointer">
+                            {promotionContent}
+                          </div>
+                        )}
+                      </div>
+                    </SwiperSlide>
+                  );
+                })
               : games?.map((game) => (
                   <SwiperSlide key={game.id} className="h-auto pt-4">
                     <div className="group relative w-full px-1">
@@ -335,7 +351,7 @@ export default function GameCarousel({
                                 style={{ width: "6px", height: "6px" }}
                               />
                               <span className="text-xs text-white/70">
-                                {game.playCount.toLocaleString()} 在玩
+                                {game.playCount.toLocaleString()} {t("gameCarousel.playing")}
                               </span>
                             </div>
                           )}

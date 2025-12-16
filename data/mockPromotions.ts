@@ -8,7 +8,7 @@ export const mockPromotions: Promotion[] = [
     cover:
       "/hot_active/592265f316cfa0c04544dc6f28b8ef7902b43478-1080x1080.avif",
     badge: "促销活动",
-    href: "/promotions/promotion/nba",
+    href: "#",
   },
   {
     id: "promo-3",
@@ -17,7 +17,7 @@ export const mockPromotions: Promotion[] = [
     cover:
       "/hot_active/28e83807e07f9d3418f05d535fced5fc2452f792-1080x1080.avif",
     badge: "Stake 独家",
-    href: "/promotions/promotion/all-in-or-fold",
+    href: "#",
   },
   {
     id: "promo-4",
@@ -26,7 +26,7 @@ export const mockPromotions: Promotion[] = [
     cover:
       "/hot_active/75fdc6d4fb99fe9f6d59a6bb82a031139b95ea9c-1080x1080.avif",
     badge: "促销活动",
-    href: "/promotions/promotion/premier-league",
+    href: "#",
   },
   {
     id: "promo-1",
@@ -35,7 +35,7 @@ export const mockPromotions: Promotion[] = [
     cover:
       "/hot_active/ebb1dbb8ca3fd266792ee2f73d9be863236b18e3-1080x1080.avif",
     badge: "独家活动",
-    href: "/promotions/promotion/12-days-of-wins",
+    href: "#",
   },
 
   {
@@ -45,7 +45,7 @@ export const mockPromotions: Promotion[] = [
     cover:
       "/hot_active/f46ff3edab0c5fcedc51e1120903cecd4ad1a2e5-1080x1080.avif",
     badge: "Stake 独家",
-    href: "/promotions/promotion/stake-vs-gates",
+    href: "#",
   },
   {
     id: "promo-6",
@@ -53,6 +53,6 @@ export const mockPromotions: Promotion[] = [
     description: "超级碗特别活动",
     cover: "/hot_active/8263b670816606200cbdef88911bfb26e248f36f-540x540.avif",
     badge: "促销活动",
-    href: "/promotions/promotion/nfl",
+    href: "#",
   },
 ];

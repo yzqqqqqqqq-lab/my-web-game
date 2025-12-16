@@ -2,6 +2,7 @@
 
 import { Link, usePathname } from "@/i18n/navigation";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import {
   BrowseIcon,
   CasinoIcon,
@@ -24,6 +25,7 @@ export default function MobileFooter() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { toggle } = useMobileSidebarStore();
+  const t = useTranslations();
 
   // 检查是否打开了认证模态框
   const isAuthModalOpen = searchParams.get("modal") === "auth";
@@ -31,35 +33,35 @@ export default function MobileFooter() {
   const navItems: NavItem[] = [
     {
       id: "browse",
-      label: "浏览",
+      label: t("mobileFooter.browse"),
       icon: BrowseIcon,
       onClick: toggle,
       analytics: "mobile-navbar-browser",
     },
     {
       id: "casino",
-      label: "娱乐城",
+      label: t("mobileFooter.casino"),
       icon: CasinoIcon,
-      href: "/casino/home",
+      href: "#", // 未实现，改为占位符
       analytics: "mobile-navbar-casino-link",
     },
     {
       id: "bets",
-      label: "投注",
+      label: t("mobileFooter.bets"),
       icon: ListIcon,
-      href: "/my-bets",
+      href: "#", // 未实现，改为占位符
       analytics: "mobile-navbar-betlist-board",
     },
     {
       id: "sports",
-      label: "体育",
+      label: t("mobileFooter.sports"),
       icon: BasketballIcon,
-      href: "/sports/home",
+      href: "#", // 未实现，改为占位符
       analytics: "mobile-navbar-sports-link",
     },
     {
       id: "chat",
-      label: "聊天室",
+      label: t("mobileFooter.chat"),
       icon: ChatIcon,
       onClick: () => {
         console.log("Open chat");
@@ -102,6 +104,27 @@ export default function MobileFooter() {
           `;
 
           if (item.href) {
+            // 如果是 #，使用按钮而不是链接
+            if (item.href === "#") {
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={buttonClasses}
+                  data-analytics={item.analytics}
+                  aria-label={item.label}
+                >
+                  <div className="flex items-center justify-center">
+                    <Icon className="inline-block shrink-0" />
+                  </div>
+                  <span className="text-xs font-semibold truncate max-w-full">
+                    {item.label}
+                  </span>
+                </button>
+              );
+            }
+            
+            // 正常路径使用Link
             return (
               <Link
                 key={item.id}

@@ -20,7 +20,10 @@
     "gamesCount": "款游戏",
     "totalPlayCount": "总游玩次数",
     "averageRating": "平均评分",
-    "playCount": "次游玩"
+    "playCount": "次游玩",
+    "chinese": "中文",
+    "english": "English",
+    "vipPlayer": "VIP 玩家"
   },
   "home": {
     "title": "游戏站",
@@ -31,7 +34,15 @@
     "promotions": "促销活动",
     "gameCategories": "游戏分类",
     "foundGames": "共找到 {count} 款游戏",
-    "totalGames": "共 {count} 款"
+    "totalGames": "共 {count} 款",
+    "heroTitle": "世界上最大的在线赌场和体育博彩",
+    "register": "注册",
+    "registerWithOther": "通过其他方式注册",
+    "vipProgress": "您的 VIP 进度",
+    "vipLevels": {
+      "none": "暂无级别",
+      "bronze": "青铜"
+    }
   },
   "games": {
     "title": "游戏列表",
@@ -84,7 +95,7 @@
     "register": {
       "step1": {
         "title": "选择您的首选语言",
-        "description": "Stake is available in several languages. Feel free to personalise your language across our site from the options below.",
+        "description": "Stake 提供多种语言版本。您可以从下面的选项中自由选择您在我们网站上的首选语言。",
         "confirm": "确认"
       },
       "step2": {
@@ -102,12 +113,17 @@
       },
       "step3": {
         "title": "创建账户",
-        "acceptTerms": "I have read and agree to the Terms and Conditions",
+        "acceptTerms": "我已阅读并同意条款与条件",
         "createAccount": "创建账户"
       },
       "step": "步骤",
       "previousPage": "上一页"
     },
+    "passwordVisibility": {
+      "hide": "隐藏密码",
+      "reveal": "显示密码"
+    },
+    "openDatePicker": "打开日期选择器",
     "errors": {
       "emptyFields": "请输入账号和密码",
       "usernameMinLength": "您的 username 必须含有至少 3 个字符",
@@ -124,15 +140,6 @@
       "operationFailed": "操作失败，请重试",
       "unknownError": "发生错误，请重试"
     }
-  },
-  "footer": {
-    "about": "关于我们",
-    "aboutDescription": "游戏站是一个专业的在线游戏平台，为您提供丰富的游戏体验。",
-    "quickLinks": "快速链接",
-    "legal": "法律信息",
-    "privacyPolicy": "隐私政策",
-    "termsOfService": "服务条款",
-    "copyright": "© 2025 游戏站 Demo. All rights reserved."
   },
   "sidebar": {
     "casino": "娱乐城",
@@ -160,6 +167,119 @@
     "description": "抱歉，您访问的页面不存在",
     "backHome": "返回首页",
     "browseGames": "浏览游戏"
+  },
+  "productCards": {
+    "casino": "娱乐城",
+    "sports": "体育",
+    "startPlaying": "开始玩"
+  },
+  "gameCarousel": {
+    "readMore": "阅读更多",
+    "playing": "在玩"
+  },
+  "mobileFooter": {
+    "browse": "浏览",
+    "casino": "娱乐城",
+    "bets": "投注",
+    "sports": "体育",
+    "chat": "聊天室"
+  },
+  "userDropdown": {
+    "wallet": "钱包",
+    "vault": "保险库",
+    "vip": "VIP",
+    "affiliate": "联盟计划",
+    "statistics": "统计数据",
+    "transactions": "交易记录",
+    "myBets": "我的投注",
+    "settings": "设置",
+    "stakeSmart": "Stake Smart",
+    "support": "在线支持",
+    "logout": "登出",
+    "logoutConfirm": "您确定要结束会话，然后登出吗？",
+    "logoutButton": "登出"
+  },
+  "footer": {
+    "about": "关于我们",
+    "aboutDescription": "游戏站是一个专业的在线游戏平台，为您提供丰富的游戏体验。",
+    "quickLinks": "快速链接",
+    "legal": "法律信息",
+    "privacyPolicy": "隐私政策",
+    "termsOfService": "服务条款",
+    "copyright": "© 2025 Stake.com | 版权所有",
+    "casino": {
+      "title": "娱乐城",
+      "casinoGames": "赌场游戏",
+      "slots": "老虎机",
+      "liveCasino": "真人赌场",
+      "roulette": "俄罗斯转盘",
+      "blackjack": "21点",
+      "poker": "扑克",
+      "providers": "出版商",
+      "promotions": "促销和比赛",
+      "stakeEngine": "Stake引擎",
+      "stakeVendors": "stake供應商"
+    },
+    "sports": {
+      "title": "体育",
+      "sportsBetting": "体育博彩",
+      "liveEvents": "体育滚球赛事",
+      "soccer": "足球",
+      "basketball": "篮球",
+      "tennis": "网球",
+      "esports": "电子竞技",
+      "bettingBonuses": "投注奖金",
+      "sportsbookRules": "体育博彩规则",
+      "racingRules": "赛事规则"
+    },
+    "support": {
+      "title": "支持",
+      "helpCenter": "帮助中心",
+      "provablyFair": "公平性",
+      "responsibleGambling": "负责任博彩",
+      "gamblingHelpLine": "賭博幫助專線",
+      "onlineSupport": "在线支持",
+      "selfExclusion": "自我排除",
+      "lawEnforcement": "执法请求"
+    },
+    "about": {
+      "title": "关于我们",
+      "vipClub": "VIP 俱乐部",
+      "affiliate": "联盟计划",
+      "privacyPolicy": "隐私政策",
+      "antiMoneyLaundering": "反洗钱政策",
+      "termsOfService": "服务条款"
+    },
+    "payment": {
+      "title": "付款信息",
+      "depositWithdrawal": "存款和取款",
+      "currencyGuide": "货币指南",
+      "cryptoGuide": "加密货币指南",
+      "supportedCrypto": "支持的加密货币",
+      "howToUseVault": "如何使用保险库",
+      "howMuchToBet": "下注多少"
+    },
+    "faq": {
+      "title": "常问问题",
+      "howToGuides": "操作指南",
+      "onlineCasinoGuide": "在线赌场指南",
+      "sportsBettingGuide": "体育博彩指南",
+      "howToWatchLive": "如何直播体育赛事",
+      "vipGuide": "Stake VIP 指南",
+      "houseEdgeGuide": "庄家优势指南"
+    },
+    "social": {
+      "blog": "博客",
+      "forum": "论坛",
+      "facebook": "Facebook",
+      "twitter": "X/Twitter",
+      "instagram": "Instagram",
+      "youtube": "YouTube",
+      "shop": "购物"
+    },
+    "companyInfo": "Stake 由 Medium Rare N.V. 拥有和运营，注册号：145353，注册地址：Seru Loraweg 17 B, Curaçao。",
+    "paymentAgents": "支付代理公司有Medium Rare Limited和MRS Tech Limited。通过support@stake.com与我们联系。",
+    "responsibleGamblingNote": "Stake 致力于负责任的赌博，欲了解更多信息，请访问"
   }
 }
 

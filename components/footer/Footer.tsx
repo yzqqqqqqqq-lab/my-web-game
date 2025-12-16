@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
@@ -28,151 +28,155 @@ export default function Footer() {
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
+  const t = useTranslations();
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
   const languageMenuRef = useRef<HTMLDivElement>(null);
 
   const handleLinkClick = (e: React.MouseEvent, href: string) => {
-    e.preventDefault();
-    console.log("拦截底部导航跳转:", href);
+    // 如果是 # 或空，阻止跳转
+    if (href === "#" || !href) {
+      e.preventDefault();
+    }
+    // 外部链接和正常路径允许跳转
   };
 
   const footerColumns: FooterColumn[] = [
     {
-      title: "娱乐城",
+      title: t("footer.casino.title"),
       links: [
-        { label: "赌场游戏", href: "/casino/home" },
-        { label: "老虎机", href: "/casino/group/slots" },
-        { label: "真人赌场", href: "/casino/group/live-casino" },
-        { label: "俄罗斯转盘", href: "/casino/group/roulette" },
-        { label: "21点", href: "/casino/group/blackjack" },
-        { label: "扑克", href: "/casino/games/poker" },
-        { label: "出版商", href: "/casino/collection/provider" },
-        { label: "促销和比赛", href: "/promotions" },
+        { label: t("footer.casino.casinoGames"), href: "#" },
+        { label: t("footer.casino.slots"), href: "#" },
+        { label: t("footer.casino.liveCasino"), href: "#" },
+        { label: t("footer.casino.roulette"), href: "#" },
+        { label: t("footer.casino.blackjack"), href: "#" },
+        { label: t("footer.casino.poker"), href: "#" },
+        { label: t("footer.casino.providers"), href: "#" },
+        { label: t("footer.casino.promotions"), href: "#" },
         {
-          label: "Stake引擎",
+          label: t("footer.casino.stakeEngine"),
           href: "https://engine.stake.com/",
           external: true,
         },
         {
-          label: "stake供應商",
+          label: t("footer.casino.stakeVendors"),
           href: "https://vendors.stake.com/",
           external: true,
         },
       ],
     },
     {
-      title: "体育",
+      title: t("footer.sports.title"),
       links: [
-        { label: "体育博彩", href: "/sports/home" },
-        { label: "体育滚球赛事", href: "/sports/live" },
-        { label: "足球", href: "/sports/soccer" },
-        { label: "篮球", href: "/sports/basketball" },
-        { label: "网球", href: "/sports/tennis" },
-        { label: "电子竞技", href: "/sports/esports" },
-        { label: "投注奖金", href: "/promotions/category/sports" },
-        { label: "体育博彩规则", href: "/policies/sportsbook" },
-        { label: "赛事规则", href: "/policies/racing-rules" },
+        { label: t("footer.sports.sportsBetting"), href: "#" },
+        { label: t("footer.sports.liveEvents"), href: "#" },
+        { label: t("footer.sports.soccer"), href: "#" },
+        { label: t("footer.sports.basketball"), href: "#" },
+        { label: t("footer.sports.tennis"), href: "#" },
+        { label: t("footer.sports.esports"), href: "#" },
+        { label: t("footer.sports.bettingBonuses"), href: "#" },
+        { label: t("footer.sports.sportsbookRules"), href: "#" },
+        { label: t("footer.sports.racingRules"), href: "#" },
       ],
     },
     {
-      title: "支持",
+      title: t("footer.support.title"),
       links: [
-        { label: "帮助中心", href: "https://help.stake.com", external: true },
-        { label: "公平性", href: "/provably-fair" },
-        { label: "负责任博彩", href: "/responsible-gambling" },
+        { label: t("footer.support.helpCenter"), href: "https://help.stake.com", external: true },
+        { label: t("footer.support.provablyFair"), href: "#" },
+        { label: t("footer.support.responsibleGambling"), href: "#" },
         {
-          label: "賭博幫助專線",
+          label: t("footer.support.gamblingHelpLine"),
           href: "https://www.gamblingtherapy.org",
           external: true,
         },
-        { label: "在线支持", href: "#", external: false, isButton: true },
-        { label: "自我排除", href: "/policies/self-exclusion" },
-        { label: "执法请求", href: "/law-enforcement/overview" },
+        { label: t("footer.support.onlineSupport"), href: "#", external: false, isButton: true },
+        { label: t("footer.support.selfExclusion"), href: "#" },
+        { label: t("footer.support.lawEnforcement"), href: "#" },
       ],
     },
     {
-      title: "关于我们",
+      title: t("footer.about.title"),
       links: [
-        { label: "VIP 俱乐部", href: "/vip-club" },
-        { label: "联盟计划", href: "/affiliate" },
-        { label: "隐私政策", href: "/policies/privacy" },
-        { label: "反洗钱政策", href: "/policies/anti-money-laundering" },
-        { label: "服务条款", href: "/policies/terms" },
+        { label: t("footer.about.vipClub"), href: "#" },
+        { label: t("footer.about.affiliate"), href: "#" },
+        { label: t("footer.about.privacyPolicy"), href: "#" },
+        { label: t("footer.about.antiMoneyLaundering"), href: "#" },
+        { label: t("footer.about.termsOfService"), href: "#" },
       ],
     },
     {
-      title: "付款信息",
+      title: t("footer.payment.title"),
       links: [
         {
-          label: "存款和取款",
-          href: "/blog/deposit-withdrawal-methods-online-betting",
+          label: t("footer.payment.depositWithdrawal"),
+          href: "#",
         },
         {
-          label: "货币指南",
-          href: "/blog/local-currency-deposit-withdraw-guide",
+          label: t("footer.payment.currencyGuide"),
+          href: "#",
         },
-        { label: "加密货币指南", href: "/blog/what-is-crypto-gambling-guide" },
-        { label: "支持的加密货币", href: "/blog/what-crypto-does-stake-offer" },
-        { label: "如何使用保险库", href: "/blog/how-to-use-our-vault" },
+        { label: t("footer.payment.cryptoGuide"), href: "#" },
+        { label: t("footer.payment.supportedCrypto"), href: "#" },
+        { label: t("footer.payment.howToUseVault"), href: "#" },
         {
-          label: "下注多少",
-          href: "/blog/how-much-to-gamble-budget-calculator",
+          label: t("footer.payment.howMuchToBet"),
+          href: "#",
         },
       ],
     },
     {
-      title: "常问问题",
+      title: t("footer.faq.title"),
       links: [
-        { label: "操作指南", href: "/blog/category/how-to-guides" },
-        { label: "在线赌场指南", href: "/blog/online-casino-guide" },
-        { label: "体育博彩指南", href: "/blog/sports-betting-guide" },
+        { label: t("footer.faq.howToGuides"), href: "#" },
+        { label: t("footer.faq.onlineCasinoGuide"), href: "#" },
+        { label: t("footer.faq.sportsBettingGuide"), href: "#" },
         {
-          label: "如何直播体育赛事",
-          href: "/blog/how-to-watch-live-stream-sports-free",
+          label: t("footer.faq.howToWatchLive"),
+          href: "#",
         },
         {
-          label: "Stake VIP 指南",
-          href: "/blog/vip-program-levels-benefits-rewards",
+          label: t("footer.faq.vipGuide"),
+          href: "#",
         },
-        { label: "庄家优势指南", href: "/blog/casino-house-edge-guide" },
+        { label: t("footer.faq.houseEdgeGuide"), href: "#" },
       ],
     },
   ];
 
   const socialLinks = [
-    { name: "博客", href: "/blog", icon: BookOpenIcon },
+    { name: t("footer.social.blog"), href: "#", icon: BookOpenIcon },
     {
-      name: "论坛",
+      name: t("footer.social.forum"),
       href: "https://stakecommunity.com",
       icon: ChatBubbleLeftRightIcon,
       external: true,
     },
     {
-      name: "Facebook",
+      name: t("footer.social.facebook"),
       href: "https://facebook.com/StakeCasino",
       icon: "Facebook",
       external: true,
     },
     {
-      name: "X/Twitter",
+      name: t("footer.social.twitter"),
       href: "https://x.com/stake",
       icon: "Twitter",
       external: true,
     },
     {
-      name: "Instagram",
+      name: t("footer.social.instagram"),
       href: "https://instagram.com/stake",
       icon: "Instagram",
       external: true,
     },
     {
-      name: "YouTube",
+      name: t("footer.social.youtube"),
       href: "https://youtube.com/c/StakeCasinoTV",
       icon: "YouTube",
       external: true,
     },
     {
-      name: "购物",
+      name: t("footer.social.shop"),
       href: "https://shop.stake.com",
       icon: "Shopping",
       external: true,
@@ -180,8 +184,8 @@ export default function Footer() {
   ];
 
   const languages = [
-    { code: "zh", label: "中文" },
-    { code: "en", label: "English" },
+    { code: "zh", label: t("common.chinese") },
+    { code: "en", label: t("common.english") },
   ];
 
   const handleSelectLocale = (newLocale: string) => {
@@ -342,6 +346,13 @@ export default function Footer() {
                           <span>{link.label}</span>
                           <ArrowTopRightOnSquareIcon className="w-3.5 h-3.5 shrink-0 text-grey-200" />
                         </a>
+                      ) : link.href === "#" ? (
+                        <button
+                          type="button"
+                          className="text-sm font-semibold text-grey-200 hover:text-white active:text-white transition-colors text-left w-full py-0.5"
+                        >
+                          {link.label}
+                        </button>
                       ) : (
                         <Link
                           href={link.href}
@@ -388,6 +399,13 @@ export default function Footer() {
                           {link.label}
                           <ArrowTopRightOnSquareIcon className="w-3 h-3" />
                         </a>
+                      ) : link.href === "#" ? (
+                        <button
+                          type="button"
+                          className="text-sm font-semibold text-grey-200 hover:text-white transition-colors text-left"
+                        >
+                          {link.label}
+                        </button>
                       ) : (
                         <Link
                           href={link.href}
@@ -449,20 +467,18 @@ export default function Footer() {
         {/* Copyright and Legal Info */}
         <div className="flex flex-col gap-4 mb-4">
           <span className="text-sm text-grey-200 ">
-            © 2025 Stake.com | 版权所有
+            {t("footer.copyright")}
           </span>
           <div className="text-left text-sm text-grey-200">
             <p>
-              Stake 由 Medium Rare N.V.
-              拥有和运营，注册号：145353，注册地址：Seru Loraweg 17 B, Curaçao。
+              {t("footer.companyInfo")}
             </p>
             <p className="mt-1">
-              支付代理公司有Medium Rare Limited和MRS Tech Limited。
-              通过support@stake.com与我们联系。
+              {t("footer.paymentAgents")}
             </p>
           </div>
           <p className="text-sm text-grey-200 text-left">
-            Stake 致力于负责任的赌博，欲了解更多信息，请访问{" "}
+            {t("footer.responsibleGamblingNote")}{" "}
             <a
               href="https://www.gamblingtherapy.org/"
               onClick={(e) => handleLinkClick(e, "https://www.gamblingtherapy.org/")}
@@ -490,7 +506,7 @@ export default function Footer() {
                 onClick={() => setLanguageMenuOpen(!languageMenuOpen)}
                 className="inline-flex items-center gap-2 rounded-md bg-grey-500 text-white shadow-md py-2.5 px-5 text-sm font-semibold hover:bg-grey-300 transition-colors w-full justify-between min-w-[120px]"
               >
-                <span>{locale === "zh" ? "中文" : "English"}</span>
+                <span>{locale === "zh" ? t("common.chinese") : t("common.english")}</span>
                 <ChevronDownIcon
                   className={`w-5 h-5 transition-transform ${
                     languageMenuOpen ? "rotate-180" : ""
@@ -572,7 +588,7 @@ export default function Footer() {
       <button
         type="button"
         className="fixed bottom-4 right-4 w-12 h-12 rounded-full bg-grey-500 text-white flex items-center justify-center shadow-lg hover:bg-grey-400 transition-colors z-50"
-        aria-label="在线支持"
+        aria-label={t("footer.support.onlineSupport")}
       >
         <svg
           className="w-6 h-6"

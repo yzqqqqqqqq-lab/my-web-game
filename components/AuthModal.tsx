@@ -629,7 +629,9 @@ export default function AuthModal() {
                             onClick={togglePasswordVisibility}
                             className="text-grey-200 hover:text-white transition-colors p-1"
                             aria-label={
-                              showPassword ? "Hide password" : "Reveal password"
+                              showPassword
+                                ? t("auth.passwordVisibility.hide")
+                                : t("auth.passwordVisibility.reveal")
                             }
                           >
                             {showPassword ? (
@@ -1040,14 +1042,14 @@ export default function AuthModal() {
                               className="text-grey-200 hover:text-white transition-colors p-1"
                               aria-label={
                                 showPassword
-                                  ? "Hide password"
-                                  : "Reveal password"
+                                  ? t("auth.passwordVisibility.hide")
+                                  : t("auth.passwordVisibility.reveal")
                               }
                             >
                               {showPassword ? (
-                                <EyeSlashIcon className="w-5 h-5 shrink-0 max-md:w-6 max-md:h-6" />
-                              ) : (
                                 <EyeIcon className="w-5 h-5 shrink-0 max-md:w-6 max-md:h-6" />
+                              ) : (
+                                <EyeSlashIcon className="w-5 h-5 shrink-0 max-md:w-6 max-md:h-6" />
                               )}
                             </button>
                           }
@@ -1117,7 +1119,7 @@ export default function AuthModal() {
                                 }
                               }}
                               className="text-grey-200 hover:text-white transition-colors p-1"
-                              aria-label="Open date picker"
+                              aria-label={t("auth.openDatePicker")}
                             >
                               <CalendarIcon className="w-5 h-5 shrink-0 max-md:w-6 max-md:h-6" />
                             </button>
@@ -1345,7 +1347,7 @@ export default function AuthModal() {
                             className="w-13 aspect-square bg-grey-400 hover:bg-grey-300 data-[hover=true]:bg-grey-300 text-white font-semibold shadow-md p-0 min-w-0 max-md:w-14 max-md:h-14"
                             data-analytics="provider-login-google"
                           >
-                            <GoogleLogo className="max-md:w-6 max-md:h-6" />
+                            <GoogleLogo className="w-6 h-6" />
                           </Button>
                           <Button
                             type="button"
