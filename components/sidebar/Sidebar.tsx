@@ -655,6 +655,7 @@ export default function Sidebar({ className, forceExpanded = false }: SidebarPro
                       transition-all overflow-hidden
                       text-white
                     `}
+                    onClick={() => router.push("/sports")}
                     onMouseEnter={() => setHoveredTab("sports")}
                     onMouseLeave={() => setHoveredTab(null)}
                   >
@@ -791,6 +792,7 @@ export default function Sidebar({ className, forceExpanded = false }: SidebarPro
                       transition-all overflow-hidden
                       ${activeTab === "sports" ? "text-white" : ""}
                     `}
+                    onClick={() => router.push("/sports")}
                     onMouseEnter={() => setHoveredTab("sports")}
                     onMouseLeave={() => setHoveredTab(null)}
                   >

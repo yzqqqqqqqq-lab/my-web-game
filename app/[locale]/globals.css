@@ -1,5 +1,6 @@
 @config "../../tailwind.config.mjs";
 @import "tailwindcss";
+@import "betby-sdk/css";
 
 /* Proxima Nova 字体引入 */
 @font-face {
@@ -97,6 +98,31 @@ body {
 /* 隐藏 WebKit 浏览器的滚动条 */
 body::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
+}
+
+.betby-content-shell {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Constrain Betby's full-screen overlay/header behavior to the content panel. */
+.betby-content-shell :is(.fixed.inset-0, .fixed.top-0.left-0.right-0) {
+  position: absolute !important;
+}
+
+.betby-content-shell .fixed.inset-0 {
+  inset: 0 !important;
+}
+
+.betby-content-shell .fixed.top-0.left-0.right-0 {
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+}
+
+.betby-content-shell #betby {
+  min-height: calc(100vh - 152px);
+  background: #0f212e;
 }
 
 /* 隐藏所有元素的滚动条 */

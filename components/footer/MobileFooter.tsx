@@ -56,7 +56,7 @@ export default function MobileFooter() {
       id: "sports",
       label: t("mobileFooter.sports"),
       icon: BasketballIcon,
-      href: "#", // 未实现，改为占位符
+      href: "/sports",
       analytics: "mobile-navbar-sports-link",
     },
     {
@@ -164,4 +164,3 @@ export default function MobileFooter() {
     </div>
   );
 }
-

@@ -11,11 +11,12 @@ export const config = {
     /*
      * 匹配所有路径除了:
      * - api (API routes)
+     * - bus-api (mock business API routes)
      * - _next/static (static files)˝
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      * - 静态资源文件
      */
-    "/((?!api|_next/static|_next/image|favicon.ico|.*\\..*|.*\\.svg).*)",
+    "/((?!api|bus-api|_next/static|_next/image|favicon.ico|.*\\..*|.*\\.svg).*)",
   ],
 };

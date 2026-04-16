@@ -141,7 +141,7 @@ export default function ProductCards({ classNames }: { classNames: string }) {
         />
         <ProductCard
           type="sports"
-          href="#"
+          href="/sports"
           title={t("productCards.sports")}
           count="15,162"
           imageUrl="https://mediumrare.imgix.net/stake-sports-home-18-jul-25-en.png?w=350&h=230&fit=min&auto=format"
@@ -181,7 +181,7 @@ export default function ProductCards({ classNames }: { classNames: string }) {
           />
           <ProductCard
             type="sports"
-            href="#"
+            href="/sports"
             title={t("productCards.sports")}
             count="15,162"
             imageUrl="https://mediumrare.imgix.net/stake-sports-home-18-jul-25-en.png?w=350&h=230&fit=min&auto=format"
@@ -193,4 +193,3 @@ export default function ProductCards({ classNames }: { classNames: string }) {
     </div>
   );
 }
-
