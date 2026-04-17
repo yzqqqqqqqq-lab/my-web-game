@@ -5,6 +5,9 @@ import type { BetbyConfig, BetbyWidgetProps } from "betby-sdk";
 type CurrencyMode = NonNullable<BetbyWidgetProps["currencyMode"]>;
 type ThemeName = BetbyWidgetProps["theme"];
 
+export const runtime = "edge";
+export const dynamic = "force-dynamic";
+
 function resolveCurrencyMode(value?: string): CurrencyMode {
   return value?.toLowerCase() === "gc" ? "gc" : "sc";
 }
