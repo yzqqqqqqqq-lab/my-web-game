@@ -10,7 +10,7 @@ const upstreamUrl =
   process.env.BETBY_SESSION_TICKET_API_URL ??
   "https://spm-test.kingsna.com/bus-api/business/oauth/create/sessionTicket";
 
-export const runtime = "nodejs";
+export const runtime = "edge";
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
