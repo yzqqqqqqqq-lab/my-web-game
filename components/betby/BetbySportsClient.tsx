@@ -3,23 +3,16 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import BetbySportShell from "@/components/betby/BetbySportShell";
-import {
-  defaultMockSessionTicketRequest,
-  extractSessionTicketFromResponse,
-  mockSessionTicketRequestHeaders,
-  type MockSessionTicketResponse,
-} from "@/lib/mockBetbySession";
 import type { BetbyConfig, BetbyWidgetProps } from "betby-sdk";
+import { clearBetbyPersistedBootstrapState } from "@/lib/betbyAuthSync";
+import {
+  clearBetbySessionTicketState,
+  fetchBetbySessionTicketOnClient,
+  readBetbySessionTicketState,
+} from "@/lib/betbySessionTicketClient";
 
 type CurrencyMode = NonNullable<BetbyWidgetProps["currencyMode"]>;
 type ThemeName = BetbyWidgetProps["theme"];
-
-interface SessionTicketProxyError {
-  code?: number;
-  message?: string;
-  error?: string;
-  upstreamUrl?: string;
-}
 
 interface BetbySportsClientProps {
   locale: string;
@@ -30,61 +23,29 @@ interface BetbySportsClientProps {
   theme?: ThemeName;
 }
 
-let inflightSessionTicketPromise: Promise<string> | null = null;
-
 function normalizePathname(pathname: string) {
   return pathname.replace(/\/+$/, "") || "/";
 }
 
-async function requestSessionTicket() {
-  if (inflightSessionTicketPromise) {
-    return inflightSessionTicketPromise;
+function isReloadNavigation() {
+  if (typeof window === "undefined") {
+    return false;
   }
 
-  inflightSessionTicketPromise = fetch(
-    "/bus-api/business/oauth/create/sessionTicket",
-    {
-      method: "POST",
-      headers: mockSessionTicketRequestHeaders,
-      body: JSON.stringify(defaultMockSessionTicketRequest),
-      cache: "no-store",
-    },
-  )
-    .then(async (response) => {
-      if (!response.ok) {
-        let details = `Failed to fetch sessionTicket: ${response.status}`;
+  const navigationEntries = window.performance.getEntriesByType("navigation");
+  const navigationEntry = navigationEntries[0] as
+    | PerformanceNavigationTiming
+    | undefined;
 
-        try {
-          const errorPayload = (await response.json()) as SessionTicketProxyError;
-          const parts = [
-            errorPayload.message,
-            errorPayload.error,
-            errorPayload.upstreamUrl
-              ? `upstream=${errorPayload.upstreamUrl}`
-              : "",
-          ].filter(Boolean);
+  if (navigationEntry?.type) {
+    return navigationEntry.type === "reload";
+  }
 
-          if (parts.length > 0) {
-            details = parts.join(" | ");
-          }
-        } catch {
-          const fallbackText = await response.text();
-          if (fallbackText) {
-            details = `${details} | ${fallbackText}`;
-          }
-        }
+  const legacyPerformance = window.performance as Performance & {
+    navigation?: { type?: number };
+  };
 
-        throw new Error(details);
-      }
-
-      const data = (await response.json()) as MockSessionTicketResponse;
-      return extractSessionTicketFromResponse(data);
-    })
-    .finally(() => {
-      inflightSessionTicketPromise = null;
-    });
-
-  return inflightSessionTicketPromise;
+  return legacyPerformance.navigation?.type === 1;
 }
 
 export default function BetbySportsClient({
@@ -97,63 +58,91 @@ export default function BetbySportsClient({
 }: BetbySportsClientProps) {
   const pathname = usePathname();
   const normalizedPathname = normalizePathname(pathname);
-  const normalizedBasename = normalizePathname(basename);
-  const [sessionTicket, setSessionTicket] = useState("");
-  const [sessionTicketError, setSessionTicketError] = useState("");
-  const entryOnlyError =
-    !sessionTicket && normalizedPathname !== normalizedBasename
-      ? `当前路径 ${normalizedPathname} 没有可复用的 sessionTicket，请先从 ${normalizedBasename} 入口进入。`
-      : "";
+  const [ticketState, setTicketState] = useState({
+    isReady: false,
+    sessionTicket: "",
+    sessionTicketError: "",
+  });
 
   useEffect(() => {
     let cancelled = false;
 
-    if (normalizedPathname !== normalizedBasename) {
-      return () => {
-        cancelled = true;
-      };
-    }
+    const frameId = window.requestAnimationFrame(() => {
+      void (async () => {
+        try {
+          clearBetbyPersistedBootstrapState(config.storageKeyPrefix);
 
-    void requestSessionTicket()
-      .then((ticket) => {
-        if (!cancelled) {
-          setSessionTicket(ticket);
-        }
-      })
-      .catch((error) => {
-        if (!cancelled) {
-          setSessionTicketError(
+          const cachedState = readBetbySessionTicketState();
+          const storedState = cachedState?.sessionTicket
+            ? cachedState
+            : isReloadNavigation()
+              ? {
+                  error: "",
+                  sessionTicket: await fetchBetbySessionTicketOnClient(),
+                  updatedAt: Date.now(),
+                }
+              : cachedState;
+
+          if (cancelled) {
+            return;
+          }
+
+          setTicketState({
+            isReady: true,
+            sessionTicket: storedState?.sessionTicket ?? "",
+            sessionTicketError: storedState?.error ?? "",
+          });
+
+          if (storedState?.sessionTicket) {
+            clearBetbySessionTicketState({ preserveInMemory: true });
+          }
+        } catch (error) {
+          if (cancelled) {
+            return;
+          }
+
+          const message =
             error instanceof Error
               ? error.message
-              : "Unknown sessionTicket error",
-          );
+              : "Unknown sessionTicket error";
+
+          setTicketState({
+            isReady: true,
+            sessionTicket: "",
+            sessionTicketError: message,
+          });
+
+          clearBetbySessionTicketState();
         }
-      });
+      })();
+    });
 
     return () => {
       cancelled = true;
+      window.cancelAnimationFrame(frameId);
     };
-  }, [normalizedBasename, normalizedPathname]);
+  }, [config.storageKeyPrefix]);
 
-  if (!sessionTicket && !sessionTicketError) {
+  if (!ticketState.isReady) {
     return (
       <section className="mx-auto w-full max-w-[1280px] rounded-[20px] border border-grey-500/45 bg-grey-700 p-6 text-sm text-grey-200 shadow-[0_10px_30px_rgba(0,0,0,0.28)]">
-        正在获取 sessionTicket...
+        正在准备体育入口凭证...
       </section>
     );
   }
 
-  if (!sessionTicket) {
+  if (!ticketState.sessionTicket) {
     return (
       <section className="mx-auto w-full max-w-[1280px] rounded-[20px] border border-red-300/30 bg-grey-700 p-6 text-sm text-grey-200">
         <div className="mb-2 text-base font-semibold text-white">
-          sessionTicket 获取失败
+          sessionTicket 不可用
         </div>
         <div className="break-words text-grey-200">
-          {sessionTicketError || entryOnlyError || "未拿到 sessionTicket"}
+          {ticketState.sessionTicketError ||
+            `当前路径 ${normalizedPathname} 未检测到客户端预取的 sessionTicket，请点击体育入口按钮进入。`}
         </div>
         <div className="mt-4 text-grey-300">
-          当前页面已改为客户端首次挂载后请求：
+          当前页面不会再在挂载时自动申请：
           <code className="ml-1 rounded bg-grey-800 px-2 py-1 text-xs">
             /bus-api/business/oauth/create/sessionTicket
           </code>
@@ -162,10 +151,12 @@ export default function BetbySportsClient({
     );
   }
 
+  console.log("sessionTicket", ticketState.sessionTicket);
+
   return (
     <BetbySportShell
       locale={locale}
-      sessionTicket={sessionTicket}
+      sessionTicket={ticketState.sessionTicket}
       basename={basename}
       config={config}
       currencyMode={currencyMode}

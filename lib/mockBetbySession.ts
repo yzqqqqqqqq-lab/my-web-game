@@ -31,14 +31,14 @@ export interface MockSessionTicketResponse {
 }
 
 export const defaultMockSessionTicketRequest: MockSessionTicketRequest = {
-  business_user_id: "10189",
+  business_user_id: "10187",
   business_user_token: "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyX2lkIjo0NTkxLCJ",
   currency_type: "USD",
   exchange_rate: 100,
   biz_business_info: {},
   account_info: {
     create_time: "",
-    role: "GUEST",
+    role: "PRIVATE",
     birthday: "1990-01-01",
     email: "example@email.com",
     phone: "15601691300",
@@ -86,7 +86,7 @@ export const defaultMockSessionTicketRequest: MockSessionTicketRequest = {
 export function extractSessionTicketFromResponse(
   response: MockSessionTicketResponse,
 ) {
-  return response.data.sessionTicket || response.data.session_ticket;
+  return response?.data?.sessionTicket || response?.data?.session_ticket || "";
 }
 
 function buildSessionTicketSeed(payload: MockSessionTicketRequest) {

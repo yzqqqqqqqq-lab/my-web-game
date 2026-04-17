@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
+import { useBetbySportsEntry } from "@/lib/useBetbySportsEntry";
 
 interface ProductCardProps {
   type: "casino" | "sports";
@@ -12,6 +13,7 @@ interface ProductCardProps {
   imageUrl: string;
   gradient: string;
   hoverBorder: string;
+  onClick?: () => void;
 }
 
 // 将图标组件移到外部，避免在渲染时创建
@@ -71,6 +73,7 @@ const ProductCard = ({
   imageUrl,
   gradient,
   hoverBorder,
+  onClick,
 }: ProductCardProps) => {
   const baseClassName = `group p-0.5 relative flex-1 rounded-[6px] overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 ${hoverBorder} transform hover:-translate-y-[10px]`;
   
@@ -100,15 +103,17 @@ const ProductCard = ({
     </div>
   );
 
-  // 如果是 # 或空，使用 div 而不是 Link
-  if (href === "#" || !href) {
+  // 需要客户端预处理的卡片改为 button，避免直接触发路由跳转。
+  if (onClick || href === "#" || !href) {
     return (
-      <div
+      <button
+        type="button"
         className={`${baseClassName} cursor-pointer`}
         style={{ background: gradient }}
+        onClick={onClick}
       >
         {content}
-      </div>
+      </button>
     );
   }
 
@@ -125,6 +130,7 @@ const ProductCard = ({
 
 export default function ProductCards({ classNames }: { classNames: string }) {
   const t = useTranslations();
+  const { navigateToSports } = useBetbySportsEntry();
   
   return (
     <div className={classNames}>
@@ -147,6 +153,9 @@ export default function ProductCards({ classNames }: { classNames: string }) {
           imageUrl="https://mediumrare.imgix.net/stake-sports-home-18-jul-25-en.png?w=350&h=230&fit=min&auto=format"
           gradient="linear-gradient(0deg, transparent 30%, #16a34a 100%)"
           hoverBorder="hover:border-emerald-300"
+          onClick={() => {
+            void navigateToSports();
+          }}
         />
       </div>
 
@@ -187,6 +196,9 @@ export default function ProductCards({ classNames }: { classNames: string }) {
             imageUrl="https://mediumrare.imgix.net/stake-sports-home-18-jul-25-en.png?w=350&h=230&fit=min&auto=format"
             gradient="linear-gradient(0deg, transparent 30%, #16a34a 100%)"
             hoverBorder="hover:border-emerald-300"
+            onClick={() => {
+              void navigateToSports();
+            }}
           />
         </div>
       </div>

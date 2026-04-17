@@ -1,9 +1,13 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { BetbyProvider, BetbyWidget, type BetbyConfig, type BetbyWidgetProps } from "betby-sdk";
-import { getBetbyBasePath } from "@/lib/betby";
+import {
+  BetbyProvider,
+  BetbyWidget,
+  type BetbyConfig,
+  type BetbyWidgetProps,
+} from "betby-sdk";
 
 type CurrencyMode = NonNullable<BetbyWidgetProps["currencyMode"]>;
 type ThemeName = BetbyWidgetProps["theme"];
@@ -18,48 +22,6 @@ interface BetbySportShellProps {
   theme?: ThemeName;
 }
 
-function normalizeInternalPath(pathname: string, locale: string) {
-  const localePrefix = `/${locale}`;
-  const canonicalBasePath = getBetbyBasePath(locale);
-
-  if (pathname === "/sport" || pathname.startsWith("/sport/")) {
-    return pathname.replace("/sport", canonicalBasePath);
-  }
-
-  if (pathname === "/sports" || pathname.startsWith("/sports/")) {
-    return pathname.replace("/sports", canonicalBasePath);
-  }
-
-  if (pathname === "/") {
-    return localePrefix;
-  }
-
-  if (pathname === localePrefix || pathname.startsWith(`${localePrefix}/`)) {
-    return pathname;
-  }
-
-  return `${localePrefix}${pathname.startsWith("/") ? pathname : `/${pathname}`}`;
-}
-
-function resolveNavigationUrl(rawUrl: string, locale: string) {
-  if (typeof window === "undefined" || !rawUrl) {
-    return null;
-  }
-
-  try {
-    const url = new URL(rawUrl, window.location.origin);
-
-    if (url.origin !== window.location.origin) {
-      return url.toString();
-    }
-
-    const pathname = normalizeInternalPath(url.pathname, locale);
-    return `${pathname}${url.search}${url.hash}`;
-  } catch {
-    return normalizeInternalPath(rawUrl, locale);
-  }
-}
-
 export default function BetbySportShell({
   locale,
   sessionTicket,
@@ -71,48 +33,69 @@ export default function BetbySportShell({
 }: BetbySportShellProps) {
   const router = useRouter();
 
-  const callbacks = useMemo(() => ({
-    onBack: () => {
-      if (window.history.length > 1) {
-        router.back();
+  useEffect(() => {
+    return () => {
+      if (typeof window === "undefined" || window.parent === window) {
         return;
       }
 
-      router.push(`/${locale}`);
-    },
-    onRecharge: () => {
-      console.info("[betby-sdk] recharge requested");
-    },
-    onLogin: () => {
-      console.info("[betby-sdk] login requested");
-    },
-    onTokenExpired: (message?: string, title?: string) => {
-      console.info("[betby-sdk] token expired", { title, message });
-    },
-    onCurrencyChange: (nextCurrency: "sc" | "gc") => {
-      console.info("[betby-sdk] currency changed", nextCurrency);
-    },
-    onGetWallet: () => {
-      console.info("[betby-sdk] wallet refresh requested");
-    },
-    onUrlChange: (url: string) => {
-      console.info("[betby-sdk] url changed", url);
-    },
-    onNavigate: (url: string) => {
-      const nextUrl = resolveNavigationUrl(url, locale);
+      window.parent.postMessage(
+        {
+          type: "LoggedOut",
+          data: {
+            action: "back",
+          },
+        },
+        "*",
+      );
+    };
+  }, []);
 
-      if (!nextUrl) {
-        return;
-      }
+  const callbacks = useMemo(
+    () => ({
+      onBack: () => {
+        if (window.history.length > 1) {
+          router.back();
+          return;
+        }
 
-      if (/^https?:\/\//i.test(nextUrl)) {
-        window.location.assign(nextUrl);
-        return;
-      }
+        router.push(`/${locale}`);
+      },
+      onRecharge: () => {
+        console.info("[betby-sdk] recharge requested");
+      },
+      onLogin: () => {
+        console.info("[betby-sdk] login requested");
+      },
+      onTokenExpired: (message?: string, title?: string) => {
+        console.info("[betby-sdk] token expired", { title, message });
+      },
+      onCurrencyChange: (nextCurrency: "sc" | "gc") => {
+        console.info("[betby-sdk] currency changed", nextCurrency);
+      },
+      onGetWallet: () => {
+        console.info("[betby-sdk] wallet refresh requested");
+      },
+      onUrlChange: (url: string) => {
+        console.info("[betby-sdk] url changed", url);
+      },
+      // onNavigate: (url: string) => {
+      //   const nextUrl = resolveNavigationUrl(url, locale);
 
-      router.push(nextUrl);
-    },
-  }), [locale, router]);
+      //   if (!nextUrl) {
+      //     return;
+      //   }
+
+      //   if (/^https?:\/\//i.test(nextUrl)) {
+      //     window.location.assign(nextUrl);
+      //     return;
+      //   }
+
+      //   router.push(nextUrl);
+      // },
+    }),
+    [locale, router],
+  );
 
   return (
     <section className="betby-content-shell mx-auto w-full max-w-[1280px]">

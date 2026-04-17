@@ -1073,23 +1073,49 @@ packages:
     resolution: {integrity: sha512-3lRJP97BobbSWoyoaTO5wA3QOcvOCbs66Bi/GVO7TPSX5wmZlcd+NFO4BfRxvx+5U853A31roD+Ex/pv2RA1eA==}
     hasBin: true
 
+  '@iap/builder@file:packages/iap-builder-1.0.0.tgz':
+    resolution: {integrity: sha512-3lRJP97BobbSWoyoaTO5wA3QOcvOCbs66Bi/GVO7TPSX5wmZlcd+NFO4BfRxvx+5U853A31roD+Ex/pv2RA1eA==, tarball: file:packages/iap-builder-1.0.0.tgz}
+    version: 1.0.0
+    hasBin: true
+
   '@iap/kit-cookie@1.0.0':
     resolution: {integrity: sha512-mJmdKwxNr5t28MThBSbCwfJhgfxq0hxZtaXP7M/LozAWS+uu11miVFcBi17FTiQA5Sb3LOyNpcUNcMD3GX5C3Q==}
+
+  '@iap/kit-cookie@file:packages/iap-kit-cookie-1.0.0.tgz':
+    resolution: {integrity: sha512-mJmdKwxNr5t28MThBSbCwfJhgfxq0hxZtaXP7M/LozAWS+uu11miVFcBi17FTiQA5Sb3LOyNpcUNcMD3GX5C3Q==, tarball: file:packages/iap-kit-cookie-1.0.0.tgz}
+    version: 1.0.0
 
   '@iap/kit-encryptor@1.0.0':
     resolution: {integrity: sha512-VIiZyeGwWP3T27ry5XkJkugdrOKHIxEhRtAj9p5k1DT3p5kiNbvL98OTjadEEmrnb/JOnl1NtxLhsS0mquuabw==}
 
-  '@iap/kit-http@1.0.0':
-    resolution: {integrity: sha512-T2bgNJyLZu8UaNgUhK+dSzabB4kA+DJp3um0zLSkWKKZDOLa8qj9agH5cF80cD0uKqAEJr6fj/b2DkUyzU2O7w==}
+  '@iap/kit-encryptor@file:packages/iap-kit-encryptor-1.0.0.tgz':
+    resolution: {integrity: sha512-VIiZyeGwWP3T27ry5XkJkugdrOKHIxEhRtAj9p5k1DT3p5kiNbvL98OTjadEEmrnb/JOnl1NtxLhsS0mquuabw==, tarball: file:packages/iap-kit-encryptor-1.0.0.tgz}
+    version: 1.0.0
+
+  '@iap/kit-http@file:packages/iap-kit-http-1.0.0.tgz':
+    resolution: {integrity: sha512-T2bgNJyLZu8UaNgUhK+dSzabB4kA+DJp3um0zLSkWKKZDOLa8qj9agH5cF80cD0uKqAEJr6fj/b2DkUyzU2O7w==, tarball: file:packages/iap-kit-http-1.0.0.tgz}
+    version: 1.0.0
 
   '@iap/kit-logger@1.0.0':
     resolution: {integrity: sha512-pkmXg6t/Jo4klhj3HxYaJC/e/K8eRyGOe1iNZ+VwUGRfSDi1BBXgi3kqMQKNB+Cu+hNxmP+Jvg4sDVqp8+LxWQ==}
 
+  '@iap/kit-logger@file:packages/iap-kit-logger-1.0.0.tgz':
+    resolution: {integrity: sha512-pkmXg6t/Jo4klhj3HxYaJC/e/K8eRyGOe1iNZ+VwUGRfSDi1BBXgi3kqMQKNB+Cu+hNxmP+Jvg4sDVqp8+LxWQ==, tarball: file:packages/iap-kit-logger-1.0.0.tgz}
+    version: 1.0.0
+
   '@iap/kit-storage@1.0.0':
     resolution: {integrity: sha512-ZabyqwcqxuuyIwpCNEnxfDcXGi+jC7DhXqhNNGiSIDCDkAsB4ebIw/GzW7eNXhVak7qzsRQpU0Vep+IvA2zqMw==}
 
+  '@iap/kit-storage@file:packages/iap-kit-storage-1.0.0.tgz':
+    resolution: {integrity: sha512-ZabyqwcqxuuyIwpCNEnxfDcXGi+jC7DhXqhNNGiSIDCDkAsB4ebIw/GzW7eNXhVak7qzsRQpU0Vep+IvA2zqMw==, tarball: file:packages/iap-kit-storage-1.0.0.tgz}
+    version: 1.0.0
+
   '@iap/kit-util@1.0.0':
     resolution: {integrity: sha512-ap3Y/W/JirD4lk5EqiFZVTsZatr4Qubgmt+IQV5pbPN7dl7CzexWke2vCCnX1SXeemnov2jmAU8DXggK+Fwfvw==}
+
+  '@iap/kit-util@file:packages/iap-kit-util-1.0.0.tgz':
+    resolution: {integrity: sha512-ap3Y/W/JirD4lk5EqiFZVTsZatr4Qubgmt+IQV5pbPN7dl7CzexWke2vCCnX1SXeemnov2jmAU8DXggK+Fwfvw==, tarball: file:packages/iap-kit-util-1.0.0.tgz}
+    version: 1.0.0
 
   '@img/colour@1.0.0':
     resolution: {integrity: sha512-A5P/LfWGFSl6nsckYtjw9da+19jB8hkJ6ACTGcDfEJ0aE+l2n2El7dsVM7UVHZQ9s2lmYMWlrS21YLy2IR1LUw==}
@@ -2900,7 +2926,7 @@ packages:
     hasBin: true
 
   betby-sdk@file:betby-sdk-2.2.0.tgz:
-    resolution: {integrity: sha512-bqhT++tyT0RkTPBq6tMZm78KBcaLYLNNR18xMf1jAjvbn/Nvz5rMzaofkXLuz6V231EjnmJnuCu1yalU0R3BZQ==, tarball: file:betby-sdk-2.2.0.tgz}
+    resolution: {integrity: sha512-GVq0E/uPNR7wWoMcdDpWyzTReroP4gdVj2A+VMWARltvsSjAH1doYQ7jG3yz//eYqcW/UZ+v4+gAKSkcqzaqFQ==, tarball: file:betby-sdk-2.2.0.tgz}
     version: 2.2.0
     peerDependencies:
       next: '>=15'
@@ -4784,8 +4810,8 @@ packages:
     resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
     engines: {node: '>=0.10.0'}
 
-  spark-analytics-sdk@http://nexus.winjoy99.com:8081/repository/sc-npm/spark-analytics-sdk/-/spark-analytics-sdk-1.0.0.tgz:
-    resolution: {tarball: http://nexus.winjoy99.com:8081/repository/sc-npm/spark-analytics-sdk/-/spark-analytics-sdk-1.0.0.tgz}
+  spark-analytics-sdk@file:packages/spark-analytics-sdk-1.0.0.tgz:
+    resolution: {integrity: sha512-CoYaZ74uLuE35cYpGbuKFxVAEcqDs9WsjBJMnpqMtD5RV9Ei1KBTIrMhmwe1qmbdRFGsctDWP3Ey2Koh5bTuYQ==, tarball: file:packages/spark-analytics-sdk-1.0.0.tgz}
     version: 1.0.0
 
   stable-hash@0.0.5:
@@ -6612,7 +6638,39 @@ snapshots:
       - tslib
       - typescript
 
+  '@iap/builder@file:packages/iap-builder-1.0.0.tgz(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)':
+    dependencies:
+      '@rollup/plugin-alias': 6.0.0(rollup@4.52.5)
+      '@rollup/plugin-commonjs': 29.0.0(rollup@4.52.5)
+      '@rollup/plugin-json': 6.1.0(rollup@4.52.5)
+      '@rollup/plugin-node-resolve': 16.0.3(rollup@4.52.5)
+      '@rollup/plugin-replace': 6.0.3(rollup@4.52.5)
+      '@rollup/plugin-terser': 0.4.4(rollup@4.52.5)
+      '@rollup/plugin-typescript': 12.3.0(rollup@4.52.5)(tslib@2.8.1)(typescript@5.9.3)
+      '@types/node': 24.9.1
+      rollup: 4.52.5
+      rollup-plugin-dts: 6.2.3(rollup@4.52.5)(typescript@5.9.3)
+      rollup-plugin-node-externals: 8.1.2(rollup@4.52.5)
+      rollup-plugin-polyfill-node: 0.13.0(rollup@4.52.5)
+      rollup-plugin-postcss: 4.0.2(postcss@8.5.6)
+    transitivePeerDependencies:
+      - postcss
+      - ts-node
+      - tslib
+      - typescript
+
   '@iap/kit-cookie@1.0.0(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)':
+    dependencies:
+      '@iap/builder': 1.0.0(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)
+      '@iap/kit-encryptor': 1.0.0(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)
+      '@iap/kit-logger': 1.0.0
+    transitivePeerDependencies:
+      - postcss
+      - ts-node
+      - tslib
+      - typescript
+
+  '@iap/kit-cookie@file:packages/iap-kit-cookie-1.0.0.tgz(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)':
     dependencies:
       '@iap/builder': 1.0.0(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)
       '@iap/kit-encryptor': 1.0.0(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)
@@ -6635,7 +6693,19 @@ snapshots:
       - tslib
       - typescript
 
-  '@iap/kit-http@1.0.0(postcss@8.5.6)(react@19.2.0)(tslib@2.8.1)(typescript@5.9.3)':
+  '@iap/kit-encryptor@file:packages/iap-kit-encryptor-1.0.0.tgz(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)':
+    dependencies:
+      '@iap/builder': 1.0.0(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)
+      '@iap/kit-logger': 1.0.0
+      crypto-js: 4.2.0
+      jsencrypt: 3.5.4
+    transitivePeerDependencies:
+      - postcss
+      - ts-node
+      - tslib
+      - typescript
+
+  '@iap/kit-http@file:packages/iap-kit-http-1.0.0.tgz(postcss@8.5.6)(react@19.2.0)(tslib@2.8.1)(typescript@5.9.3)':
     dependencies:
       '@iap/builder': 1.0.0(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)
       '@iap/kit-encryptor': 1.0.0(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)
@@ -6657,6 +6727,8 @@ snapshots:
 
   '@iap/kit-logger@1.0.0': {}
 
+  '@iap/kit-logger@file:packages/iap-kit-logger-1.0.0.tgz': {}
+
   '@iap/kit-storage@1.0.0(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)':
     dependencies:
       '@iap/builder': 1.0.0(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)
@@ -6668,7 +6740,31 @@ snapshots:
       - tslib
       - typescript
 
+  '@iap/kit-storage@file:packages/iap-kit-storage-1.0.0.tgz(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)':
+    dependencies:
+      '@iap/builder': 1.0.0(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)
+      '@iap/kit-encryptor': 1.0.0(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)
+      '@iap/kit-logger': 1.0.0
+    transitivePeerDependencies:
+      - postcss
+      - ts-node
+      - tslib
+      - typescript
+
   '@iap/kit-util@1.0.0(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)':
+    dependencies:
+      '@iap/builder': 1.0.0(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)
+      '@iap/kit-cookie': 1.0.0(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)
+      '@iap/kit-logger': 1.0.0
+      '@iap/kit-storage': 1.0.0(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)
+      ua-parser-js: 2.0.9
+    transitivePeerDependencies:
+      - postcss
+      - ts-node
+      - tslib
+      - typescript
+
+  '@iap/kit-util@file:packages/iap-kit-util-1.0.0.tgz(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)':
     dependencies:
       '@iap/builder': 1.0.0(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)
       '@iap/kit-cookie': 1.0.0(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)
@@ -8571,13 +8667,13 @@ snapshots:
 
   betby-sdk@file:betby-sdk-2.2.0.tgz(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(next@16.0.6(@babel/core@7.28.5)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(postcss@8.5.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(tailwindcss@4.1.17)(tslib@2.8.1)(typescript@5.9.3)(zustand@5.0.9(@types/react@19.2.7)(react@19.2.0)(use-sync-external-store@1.6.0(react@19.2.0))):
     dependencies:
-      '@iap/builder': 1.0.0(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)
-      '@iap/kit-cookie': 1.0.0(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)
-      '@iap/kit-encryptor': 1.0.0(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)
-      '@iap/kit-http': 1.0.0(postcss@8.5.6)(react@19.2.0)(tslib@2.8.1)(typescript@5.9.3)
-      '@iap/kit-logger': 1.0.0
-      '@iap/kit-storage': 1.0.0(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)
-      '@iap/kit-util': 1.0.0(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)
+      '@iap/builder': file:packages/iap-builder-1.0.0.tgz(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)
+      '@iap/kit-cookie': file:packages/iap-kit-cookie-1.0.0.tgz(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)
+      '@iap/kit-encryptor': file:packages/iap-kit-encryptor-1.0.0.tgz(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)
+      '@iap/kit-http': file:packages/iap-kit-http-1.0.0.tgz(postcss@8.5.6)(react@19.2.0)(tslib@2.8.1)(typescript@5.9.3)
+      '@iap/kit-logger': file:packages/iap-kit-logger-1.0.0.tgz
+      '@iap/kit-storage': file:packages/iap-kit-storage-1.0.0.tgz(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)
+      '@iap/kit-util': file:packages/iap-kit-util-1.0.0.tgz(postcss@8.5.6)(tslib@2.8.1)(typescript@5.9.3)
       '@radix-ui/react-dialog': 1.1.15(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@radix-ui/react-popover': 1.1.15(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@radix-ui/react-slot': 1.2.4(@types/react@19.2.7)(react@19.2.0)
@@ -8595,7 +8691,7 @@ snapshots:
       pako: 2.1.0
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
-      spark-analytics-sdk: http://nexus.winjoy99.com:8081/repository/sc-npm/spark-analytics-sdk/-/spark-analytics-sdk-1.0.0.tgz
+      spark-analytics-sdk: file:packages/spark-analytics-sdk-1.0.0.tgz
       swr: 2.4.1(react@19.2.0)
       tailwind-merge: 3.4.0
       tailwindcss: 4.1.17
@@ -10672,7 +10768,7 @@ snapshots:
 
   source-map@0.6.1: {}
 
-  spark-analytics-sdk@http://nexus.winjoy99.com:8081/repository/sc-npm/spark-analytics-sdk/-/spark-analytics-sdk-1.0.0.tgz:
+  spark-analytics-sdk@file:packages/spark-analytics-sdk-1.0.0.tgz:
     dependencies:
       crypto-js: 4.2.0
       fflate: 0.8.2

@@ -23,6 +23,7 @@ import {
   EllipsisHorizontalIcon,
 } from "@heroicons/react/24/outline";
 import { useSidebarStore } from "@/stores/useSidebarStore";
+import { useBetbySportsEntry } from "@/lib/useBetbySportsEntry";
 
 interface NavItem {
   id: string;
@@ -50,6 +51,7 @@ export default function Sidebar({ className, forceExpanded = false }: SidebarPro
   const pathname = usePathname();
   const router = useRouter();
   const locale = useLocale();
+  const { navigateToSports } = useBetbySportsEntry();
   const t = useTranslations();
   const [mounted, setMounted] = useState(false);
   const [contentVisible, setContentVisible] = useState(isOpen);
@@ -655,7 +657,9 @@ export default function Sidebar({ className, forceExpanded = false }: SidebarPro
                       transition-all overflow-hidden
                       text-white
                     `}
-                    onClick={() => router.push("/sports")}
+                    onClick={() => {
+                      void navigateToSports();
+                    }}
                     onMouseEnter={() => setHoveredTab("sports")}
                     onMouseLeave={() => setHoveredTab(null)}
                   >
@@ -792,7 +796,9 @@ export default function Sidebar({ className, forceExpanded = false }: SidebarPro
                       transition-all overflow-hidden
                       ${activeTab === "sports" ? "text-white" : ""}
                     `}
-                    onClick={() => router.push("/sports")}
+                    onClick={() => {
+                      void navigateToSports();
+                    }}
                     onMouseEnter={() => setHoveredTab("sports")}
                     onMouseLeave={() => setHoveredTab(null)}
                   >

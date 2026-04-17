@@ -11,6 +11,7 @@ import {
   ChatIcon,
 } from "@/lib/icons";
 import { useMobileSidebarStore } from "@/stores/useMobileSidebarStore";
+import { useBetbySportsEntry } from "@/lib/useBetbySportsEntry";
 
 interface NavItem {
   id: string;
@@ -25,6 +26,7 @@ export default function MobileFooter() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { toggle } = useMobileSidebarStore();
+  const { navigateToSports, sportsPath } = useBetbySportsEntry();
   const t = useTranslations();
 
   // 检查是否打开了认证模态框
@@ -56,7 +58,10 @@ export default function MobileFooter() {
       id: "sports",
       label: t("mobileFooter.sports"),
       icon: BasketballIcon,
-      href: "/sports",
+      href: sportsPath,
+      onClick: () => {
+        void navigateToSports();
+      },
       analytics: "mobile-navbar-sports-link",
     },
     {
@@ -103,8 +108,27 @@ export default function MobileFooter() {
             ${active ? "text-white" : ""}
           `;
 
+          if (item.onClick) {
+            return (
+              <button
+                key={item.id}
+                type="button"
+                className={buttonClasses}
+                onClick={item.onClick}
+                data-analytics={item.analytics}
+                aria-label={item.label}
+              >
+                <div className="flex items-center justify-center">
+                  <Icon className="inline-block shrink-0" />
+                </div>
+                <span className="text-xs font-semibold truncate max-w-full">
+                  {item.label}
+                </span>
+              </button>
+            );
+          }
+
           if (item.href) {
-            // 如果是 #，使用按钮而不是链接
             if (item.href === "#") {
               return (
                 <button
@@ -123,8 +147,7 @@ export default function MobileFooter() {
                 </button>
               );
             }
-            
-            // 正常路径使用Link
+
             return (
               <Link
                 key={item.id}
